@@ -1,9 +1,9 @@
-package com.users.api.repository;
+package com.auth.api.repository;
 
-import com.users.api.exceptions.UserNotFoundExceptionToDeleteException;
-import com.users.api.exceptions.UserNotFoundExceptionToUpdateException;
-import com.users.api.exceptions.DuplicateUserException;
-import com.users.api.model.User;
+import com.auth.api.exceptions.UserNotFoundExceptionToDeleteException;
+import com.auth.api.exceptions.UserNotFoundToUpdateException;
+import com.auth.api.exceptions.DuplicateUserException;
+import com.auth.api.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class UserRepository {
         return dummyUserData;
     }
 
-    public void updateUser(User updatedUser) throws UserNotFoundExceptionToUpdateException {
+    public void updateUser(User updatedUser) throws UserNotFoundToUpdateException {
         boolean found = false;
         for (int i = 0; i < dummyUserData.size(); i++) {
             User user = dummyUserData.get(i);
@@ -42,7 +42,7 @@ public class UserRepository {
             }
         }
         if (!found) {
-            throw new UserNotFoundExceptionToUpdateException(updatedUser.getId());
+            throw new UserNotFoundToUpdateException(updatedUser.getId());
         }
     }
 
@@ -69,6 +69,13 @@ public class UserRepository {
         return foundUser.orElse(null);
     }
 
+    public User findByEmail(String email) {
+        Optional<User> foundUser = dummyUserData.stream()
+                .filter(user -> user.getEmail().equalsIgnoreCase(email))
+                .findFirst();
+        return foundUser.orElse(null);
+    }
+
     public User addUser(User newUser) throws DuplicateUserException {
         // Check for duplicate emails
         boolean isDuplicate = dummyUserData.stream()
@@ -84,4 +91,5 @@ public class UserRepository {
         }
         return newUser;
     }
+
 }

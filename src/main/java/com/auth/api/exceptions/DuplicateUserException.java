@@ -1,4 +1,4 @@
-package com.users.api.exceptions;
+package com.auth.api.exceptions;
 
 public class DuplicateUserException extends Exception {
     public DuplicateUserException(String email) {
