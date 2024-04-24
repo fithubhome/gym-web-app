@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 
 @Controller
@@ -23,15 +24,15 @@ public class UserController {
 
     @PostMapping("/login")
     public String loginUser(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
-        // Implement your authentication logic here
         if (authenticateUser(email, password)) {
-            // Redirect to a success page or dashboard
-            return "redirect:/dashboard";
-        } else {
-            // If authentication fails, return to login page with error message
-            model.addAttribute("errorMessage", "Invalid email or password");
-            return "auth/login";
+            User authenticatedUser = userService.findByEmail(email);
+            if (authenticatedUser != null) {
+                return "redirect:/user/" + authenticatedUser.getId() + "/dashboard";
+            }
         }
+
+        model.addAttribute("errorMessage", "Invalid email or password");
+        return "auth/login";
     }
 
     @GetMapping("/register")
@@ -47,31 +48,28 @@ public class UserController {
         }
         try {
             User addedUser = userService.addUser(newUser);
-            // Optionally, you can redirect to the login page after successful registration
-            return "redirect:/users/login";
+            return "redirect:/user/login";
         } catch (DuplicateUserException e) {
             model.addAttribute("errorMessage", "User with email " + newUser.getEmail() + " already exists.");
             return "error";
         }
     }
 
-    @GetMapping("/dashboard")
-    public String getDashboard(Model model) {
-        // Retrieve user-specific data to display on the dashboard
-        // You can fetch user details from the session or database and pass them to the view
-        return "core/dashboard";
+    @GetMapping("{userId}/dashboard")
+    public String getDashboard(@PathVariable("userId") int userId, Model model) {
+        User user = userService.getUserById(userId);
+        if (user != null) {
+            model.addAttribute("user", user);
+            return "core/dashboard";
+        } else {
+            return "redirect:/user/login";
+        }
     }
 
     public boolean authenticateUser(String email, String password) {
-        // Retrieve user by email from your data source
         User user = userService.findByEmail(email);
 
-        // Check if the user exists and if the provided password matches
-        if (user != null && user.getPassword().equals(password)) {
-            return true; // Authentication successful
-        }
-
-        return false; // Authentication failed
+        return user != null && user.getPassword().equals(password);
     }
 
 }

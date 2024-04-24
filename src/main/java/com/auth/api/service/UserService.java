@@ -10,37 +10,25 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
-
+public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
     public List<User> getAllUsers() {
         return userRepository.getAllUsers();
     }
-
-    @Override
     public User getUserById(int id) {
         return userRepository.findUserByID(id);
     }
-
-    @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-
-    @Override
     public User addUser(User newUser) throws DuplicateUserException {
         return userRepository.addUser(newUser);
     }
-
-    @Override
     public void updateUser(User updatedUser) throws UserNotFoundToUpdateException {
         userRepository.updateUser(updatedUser);
     }
-
-    @Override
     public void deleteUser(int id) throws UserNotFoundExceptionToDeleteException {
         userRepository.deleteUserById(id);
     }

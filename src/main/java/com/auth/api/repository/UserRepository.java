@@ -77,14 +77,12 @@ public class UserRepository {
     }
 
     public User addUser(User newUser) throws DuplicateUserException {
-        // Check for duplicate emails
         boolean isDuplicate = dummyUserData.stream()
                 .anyMatch(user -> user.getEmail().equalsIgnoreCase(newUser.getEmail()));
 
         if (isDuplicate) {
             throw new DuplicateUserException(newUser.getEmail());
         } else {
-            // Assign a new ID to the new user
             int newId = dummyUserData.size() + 1;
             newUser.setId(newId);
             dummyUserData.add(newUser);

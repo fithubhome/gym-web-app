@@ -12,7 +12,7 @@ public class MainController {
     @GetMapping("")
     public String mainPage(Model model) {
         // Add any data you want to pass to the view
-        model.addAttribute("message", "Welcome to the application!");
+        model.addAttribute("message", "Welcome to App!");
 
         // Return the view name
         return "index";

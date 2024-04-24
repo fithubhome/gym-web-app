@@ -75,7 +75,7 @@ public class RolesRepository {
     }
 
     public boolean removeRoleFromUser(int userID, String roleType) {
-        for (Iterator<Roles> iterator = rolesData.iterator(); iterator.hasNext();) {
+        for (Iterator<Roles> iterator = rolesData.iterator(); iterator.hasNext(); ) {
             Roles roles = iterator.next();
             if (roles.getUserID() == userID && roles.getRoleType().equals(roleType)) {
                 iterator.remove();
