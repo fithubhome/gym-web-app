@@ -1,9 +1,8 @@
-package com.users.api.model;
+package com.auth.api.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
 
 @AllArgsConstructor
 @Getter
@@ -12,4 +11,8 @@ public class User {
     private int id;
     private String email;
     private String password;
+
+    public User() {
+
+    }
 }

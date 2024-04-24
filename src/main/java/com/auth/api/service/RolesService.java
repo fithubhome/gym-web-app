@@ -1,9 +1,9 @@
-package com.users.api.service;
+package com.auth.api.service;
 
-import com.users.api.exceptions.RoleAlreadyAssignedException;
-import com.users.api.exceptions.RoleNotFoundException;
-import com.users.api.model.Roles;
-import com.users.api.repository.RolesRepository;
+import com.auth.api.repository.RolesRepository;
+import com.auth.api.exceptions.RoleAlreadyAssignedException;
+import com.auth.api.exceptions.RoleNotFoundException;
+import com.auth.api.model.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

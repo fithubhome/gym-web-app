@@ -1,11 +1,11 @@
-package com.users.api.controller;
+package com.auth.api.controller;
 
-import com.users.api.exceptions.RoleAlreadyAssignedException;
-import com.users.api.exceptions.RoleNotFoundException;
-import com.users.api.model.Roles;
-import com.users.api.model.User;
-import com.users.api.service.RolesService;
-import com.users.api.service.UserService;
+import com.auth.api.exceptions.RoleNotFoundException;
+import com.auth.api.model.Roles;
+import com.auth.api.service.RolesService;
+import com.auth.api.exceptions.RoleAlreadyAssignedException;
+import com.auth.api.model.User;
+import com.auth.api.service.UserService;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ public class RolesController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("user/{userID}")
+    @GetMapping("templates/user/{userID}")
     public ResponseEntity<Object> getRolesByUserID(@PathVariable("userID") int userID) {
         try {
             List<String> roles = rolesService.getRolesByUserID(userID);

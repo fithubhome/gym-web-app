@@ -1,4 +1,4 @@
-package com.users.api;
+package com.auth.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

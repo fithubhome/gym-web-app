@@ -1,13 +1,12 @@
-package com.users.api.service;
+package com.auth.api.service;
 
-import com.users.api.exceptions.DuplicateUserException;
-import com.users.api.exceptions.UserNotFoundExceptionToDeleteException;
-import com.users.api.exceptions.UserNotFoundExceptionToUpdateException;
-import com.users.api.model.User;
-import com.users.api.repository.UserRepository;
+import com.auth.api.exceptions.DuplicateUserException;
+import com.auth.api.exceptions.UserNotFoundExceptionToDeleteException;
+import com.auth.api.exceptions.UserNotFoundToUpdateException;
+import com.auth.api.model.User;
+import com.auth.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -27,19 +26,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
     public User addUser(User newUser) throws DuplicateUserException {
         return userRepository.addUser(newUser);
     }
 
     @Override
-    public User updateUser(int id, User updatedUser) throws UserNotFoundExceptionToUpdateException {
-        updatedUser.setId(id); // Ensure ID from path variable is set
+    public void updateUser(User updatedUser) throws UserNotFoundToUpdateException {
         userRepository.updateUser(updatedUser);
-        return updatedUser;
     }
 
     @Override
     public void deleteUser(int id) throws UserNotFoundExceptionToDeleteException {
         userRepository.deleteUserById(id);
     }
+
 }

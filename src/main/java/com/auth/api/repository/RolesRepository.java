@@ -1,8 +1,6 @@
-package com.users.api.repository;
+package com.auth.api.repository;
 
-import com.users.api.exceptions.RoleAlreadyAssignedException;
-import com.users.api.exceptions.RoleNotFoundException;
-import com.users.api.model.Roles;
+import com.auth.api.model.Roles;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
