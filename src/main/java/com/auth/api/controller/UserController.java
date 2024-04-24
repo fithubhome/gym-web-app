@@ -1,5 +1,6 @@
 package com.auth.api.controller;
 
+import com.auth.api.ApplicationContext;
 import com.auth.api.exceptions.DuplicateUserException;
 import com.auth.api.model.User;
 import com.auth.api.service.UserService;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 
 @Controller
@@ -24,11 +24,10 @@ public class UserController {
 
     @PostMapping("/login")
     public String loginUser(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
-        if (authenticateUser(email, password)) {
-            User authenticatedUser = userService.findByEmail(email);
-            if (authenticatedUser != null) {
-                return "redirect:/user/" + authenticatedUser.getId() + "/dashboard";
-            }
+        User user = userService.findByEmail(email);
+        if (user != null && user.getPassword().equals(password)) {
+            ApplicationContext.setCurrentUser(user);
+            return "redirect:/user/dashboard";
         }
 
         model.addAttribute("errorMessage", "Invalid email or password");
@@ -55,11 +54,11 @@ public class UserController {
         }
     }
 
-    @GetMapping("{userId}/dashboard")
-    public String getDashboard(@PathVariable("userId") int userId, Model model) {
-        User user = userService.getUserById(userId);
-        if (user != null) {
-            model.addAttribute("user", user);
+    @GetMapping("/dashboard")
+    public String getDashboard(Model model) {
+        User currentUser = ApplicationContext.getCurrentUser();
+        model.addAttribute("user", currentUser);
+        if (currentUser != null) {
             return "core/dashboard";
         } else {
             return "redirect:/user/login";
@@ -69,7 +68,7 @@ public class UserController {
     public boolean authenticateUser(String email, String password) {
         User user = userService.findByEmail(email);
 
-        return user != null && user.getPassword().equals(password);
+        return user != null && user.getPassword().equals(password) && user.getEmail().equals(email);
     }
 
 }
