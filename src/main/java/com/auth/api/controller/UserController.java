@@ -1,15 +1,17 @@
 package com.auth.api.controller;
 
-import com.auth.api.ApplicationContext;
+import com.auth.api.UserContext;
 import com.auth.api.exceptions.DuplicateUserException;
 import com.auth.api.model.User;
 import com.auth.api.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
@@ -23,11 +25,17 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
+    public String loginUser(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session, Model model) {
         User user = userService.findByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
-            ApplicationContext.setCurrentUser(user);
-            return "redirect:/user/dashboard";
+            // Generate a unique session ID
+            String sessionId = UUID.randomUUID().toString();
+            // Set session ID as a session attribute
+            session.setAttribute("sessionId", sessionId);
+            // Log in the user
+            UserContext.loginUser(sessionId, user);
+            // Redirect to the dashboard with session ID parameter
+            return "redirect:/user/dashboard?sessionId=" + sessionId;
         }
 
         model.addAttribute("errorMessage", "Invalid email or password");
@@ -55,20 +63,14 @@ public class UserController {
     }
 
     @GetMapping("/dashboard")
-    public String getDashboard(Model model) {
-        User currentUser = ApplicationContext.getCurrentUser();
-        model.addAttribute("user", currentUser);
+    public String getDashboard(Model model, @RequestParam("sessionId") String sessionId) {
+        // Retrieve user from UserContext using session ID
+        User currentUser = UserContext.getCurrentUser(sessionId);
         if (currentUser != null) {
+            model.addAttribute("user", currentUser);
             return "core/dashboard";
-        } else {
-            return "redirect:/user/login";
         }
-    }
-
-    public boolean authenticateUser(String email, String password) {
-        User user = userService.findByEmail(email);
-
-        return user != null && user.getPassword().equals(password) && user.getEmail().equals(email);
+        return "redirect:/user/login";
     }
 
 }
