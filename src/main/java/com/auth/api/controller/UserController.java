@@ -73,4 +73,10 @@ public class UserController {
         return "redirect:/user/login";
     }
 
+    @GetMapping("/logout")
+    public String logoutUser(@RequestParam("sessionId") String sessionId) {
+        // Logout the user by removing session ID from the UserContext
+        UserContext.logoutUser(sessionId);
+        return "redirect:/index";
+    }
 }

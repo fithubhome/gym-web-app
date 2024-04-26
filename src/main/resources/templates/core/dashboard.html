@@ -2,10 +2,63 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        .dashboard-container {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .user-info {
+            font-weight: bold;
+            color: #555;
+        }
+        .logout-link {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            display: block;
+            padding: 15px 30px;
+            background-color: #007bff;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .logout-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-<h2>Welcome to Dashboard</h2>
-<p>Email: <span th:text="${user.email}"></span></p>
-<!-- Display other user-specific data here -->
+<div class="dashboard-container">
+    <h2>Welcome to Your Dashboard</h2>
+    <p>You are now logged in as:</p>
+    <p class="user-info">Email: <span th:text="${user.email}"></span></p>
+    <!-- Display other user-specific data here -->
+    <p>Enjoy your time exploring the dashboard!</p>
+    <a th:href="@{/}" class="logout-link">Logout</a>
+</div>
 </body>
 </html>
