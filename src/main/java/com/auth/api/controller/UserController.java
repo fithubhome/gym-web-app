@@ -28,14 +28,11 @@ public class UserController {
     public String loginUser(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session, Model model) {
         User user = userService.findByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
-            // Generate a unique session ID
             String sessionId = UUID.randomUUID().toString();
-            // Set session ID as a session attribute
             session.setAttribute("sessionId", sessionId);
-            // Log in the user
             UserContext.loginUser(sessionId, user);
             // Redirect to the dashboard with session ID parameter
-            return "redirect:/user/dashboard?sessionId=" + sessionId;
+            return "redirect:/user/dashboard";
         }
 
         model.addAttribute("errorMessage", "Invalid email or password");
@@ -63,20 +60,19 @@ public class UserController {
     }
 
     @GetMapping("/dashboard")
-    public String getDashboard(Model model, @RequestParam("sessionId") String sessionId) {
-        // Retrieve user from UserContext using session ID
+    public String getDashboard(Model model, HttpSession session) {
+        String sessionId = (String) session.getAttribute("sessionId");
         User currentUser = UserContext.getCurrentUser(sessionId);
-        if (currentUser != null) {
-            model.addAttribute("user", currentUser);
-            return "core/dashboard";
+        if (currentUser == null) {
+            return "redirect:/";
         }
-        return "redirect:/user/login";
+        model.addAttribute("user", currentUser);
+        return "core/dashboard";
     }
 
     @GetMapping("/logout")
     public String logoutUser(@RequestParam("sessionId") String sessionId) {
-        // Logout the user by removing session ID from the UserContext
         UserContext.logoutUser(sessionId);
-        return "redirect:/index";
+        return "redirect:/";
     }
 }

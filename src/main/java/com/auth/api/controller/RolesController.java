@@ -1,76 +1,84 @@
 package com.auth.api.controller;
 
+import com.auth.api.UserContext;
 import com.auth.api.exceptions.RoleNotFoundException;
 import com.auth.api.model.Roles;
-import com.auth.api.service.RolesService;
-import com.auth.api.exceptions.RoleAlreadyAssignedException;
 import com.auth.api.model.User;
+import com.auth.api.service.RolesService;
 import com.auth.api.service.UserService;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequestMapping("/roles")
-@Validated
 public class RolesController {
     @Autowired
     private RolesService rolesService;
     @Autowired
     private UserService userService;
 
-    @GetMapping("templates/user/{userID}")
-    public ResponseEntity<Object> getRolesByUserID(@PathVariable("userID") int userID) {
-        try {
-            List<String> roles = rolesService.getRolesByUserID(userID);
-            return ResponseEntity.ok().body(roles);
-        } catch (RoleNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    @GetMapping("")
+    public String getAllRoles(Model model, HttpSession session) {
+        String sessionId = (String) session.getAttribute("sessionId");
+        User currentUser = UserContext.getCurrentUser(sessionId);
+        if (currentUser == null) {
+            return "redirect:/user/login";
         }
-    }
-
-    @GetMapping("/{roleType}")
-    public ResponseEntity<Object> getUsersByRoleType(@PathVariable @NotBlank String roleType) {
-        List<Integer> users = rolesService.getUsersByRoleType(roleType);
-        if (!users.isEmpty()) {
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        } else {
-            String message = "No users found for role type: " + roleType;
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PostMapping("/")
-    public ResponseEntity<Object> assignRoleToUser(@RequestBody Roles request) {
-        int userID = request.getUserID();
-        String roleType = request.getRoleType();
-        try {
-            rolesService.assignRoleToUser(userID, roleType);
-            // Check if the user exists before accessing their email
-            User user = userService.getUserById(userID);
-            if (user != null) {
-                return ResponseEntity.ok().body("Role '" + roleType + "' assigned to user " + user.getEmail().split("@")[0].toUpperCase());
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with ID " + userID + " not found.");
+        List<Roles> allRoles = rolesService.getAllRoles();
+        List<User> users = userService.getAllUsers();
+        Map<Integer, String> userRolesMap = new HashMap<>();
+        for (User user : users) {
+            for (Roles role : allRoles) {
+                if (role.getUserId() == user.getId()) {
+                    String userEmail = user.getEmail().split("@")[0];
+                    String userRole = role.getRoleType();
+                    userRolesMap.put(user.getId(), userEmail + ": " + userRole);
+                    break; // Once a match is found, break out of the inner loop
+                }
             }
-        } catch (RoleAlreadyAssignedException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("User already has the role '" + roleType + "' assigned.");
         }
+        model.addAttribute("userRolesMap", userRolesMap);
+        return "role/allRoles";
     }
 
-    @DeleteMapping("/user/{userID}/{roleType}")
-    public ResponseEntity<Object> removeRoleFromUser(@PathVariable("userID") int userID, @PathVariable("roleType") String roleType) {
-        try {
-            rolesService.removeRoleFromUser(userID, roleType);
-            return ResponseEntity.ok().body("Role '" + roleType + "' removed from user " + userService.getUserById(userID).getEmail().split("@")[0].toUpperCase());
-        } catch (RoleNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+
+
+    @GetMapping("/{userId}")
+    public String modifyRoles(@PathVariable int userId, Model model, HttpSession session) throws RoleNotFoundException {
+        String sessionId = (String) session.getAttribute("sessionId");
+        User currentUser = UserContext.getCurrentUser(sessionId);
+        if (currentUser == null) {
+            return "redirect:/user/login";
         }
+        User selectedUser = userService.getUserById(userId);
+        List<String> userRoles = rolesService.getRoleByUserId(userId);
+        model.addAttribute("userId", userId);
+        model.addAttribute("user", selectedUser);
+        model.addAttribute("userRoles", userRoles);
+        List<String> allRoles = rolesService.getAllRoles()
+                .stream()
+                .map(Roles::getRoleType)
+                .distinct()
+                .collect(Collectors.toList());
+        model.addAttribute("allRoles", allRoles);
+        return "role/modifyRoles";
     }
 
+    @PostMapping("/{userId}/add-role")
+    public String addRoleToUser(@PathVariable int userId, @RequestParam String roleType) {
+        rolesService.assignRoleToUser(userId, roleType);
+        return "redirect:/roles/{userId}";
+    }
+
+    @PostMapping("/{userId}/remove-role")
+    public String removeRoleFromUser(@PathVariable int userId, @RequestParam String roleType) throws RoleNotFoundException {
+        rolesService.removeRoleFromUser(userId, roleType);
+        return "redirect:/roles/{userId}";
+    }
 }

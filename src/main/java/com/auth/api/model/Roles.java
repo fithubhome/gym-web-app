@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Roles {
-    private int userID;
+    private int userId;
     private String roleType;
 }

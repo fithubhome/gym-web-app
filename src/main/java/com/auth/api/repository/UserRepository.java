@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 public class UserRepository {
     private final List<User> dummyUserData = new ArrayList<>() {{
-        add(new User(1, "tim@eu.com", "timpassword"));
+        add(new User(1, "tim@eu.com", "passw"));
         add(new User(2, "mike@eu.com", "mikepassword"));
         add(new User(3, "paul@eu.com", "paulpassword"));
         add(new User(4, "cristina@eu.com", "cristinapassword"));

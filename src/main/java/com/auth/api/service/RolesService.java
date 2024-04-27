@@ -16,14 +16,18 @@ public class RolesService {
     @Autowired
     private UserService userService;
 
-    public List<String> getRolesByUserID(int userID) throws RoleNotFoundException {
+    public List<String> getRoleByUserId(int userID) throws RoleNotFoundException {
         return rolesRepository.getRolesByUserID(userID);
+    }
+
+    public List<Roles> getAllRoles() {
+        return rolesRepository.getAllRoles();
     }
 
     public void assignRoleToUser(int userID, String roleType) {
         // Check if the role is already assigned to the user
         for (Roles roles : rolesRepository.getAllRoles()) {
-            if (roles.getUserID() == userID && roles.getRoleType().equalsIgnoreCase(roleType)) {
+            if (roles.getUserId() == userID && roles.getRoleType().equalsIgnoreCase(roleType)) {
                 throw new RoleAlreadyAssignedException("Role '" + roleType + "' is already assigned to user " + userService.getUserById(userID).getEmail().split("@")[0].toUpperCase());
             }
         }
@@ -41,4 +45,5 @@ public class RolesService {
     public List<Integer> getUsersByRoleType(String roleType) {
         return rolesRepository.getUsersByRoleType(roleType);
     }
+
 }

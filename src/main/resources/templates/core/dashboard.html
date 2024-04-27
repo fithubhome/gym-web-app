@@ -35,18 +35,19 @@
             font-weight: bold;
             color: #555;
         }
-        .logout-link {
+        .logout-link, .roles-link {
             text-decoration: none;
             color: #fff;
             font-weight: bold;
-            display: block;
+            display: inline-block;
             padding: 15px 30px;
             background-color: #007bff;
             border-radius: 5px;
             margin-top: 20px;
             transition: background-color 0.3s;
+            margin-right: 10px;
         }
-        .logout-link:hover {
+        .logout-link:hover, .roles-link:hover {
             background-color: #0056b3;
         }
     </style>
@@ -59,6 +60,7 @@
     <!-- Display other user-specific data here -->
     <p>Enjoy your time exploring the dashboard!</p>
     <a th:href="@{/}" class="logout-link">Logout</a>
+    <a th:href="@{/roles}" class="roles-link">Roles</a>
 </div>
 </body>
 </html>
