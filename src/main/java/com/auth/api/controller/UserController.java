@@ -31,7 +31,6 @@ public class UserController {
             String sessionId = UUID.randomUUID().toString();
             session.setAttribute("sessionId", sessionId);
             UserContext.loginUser(sessionId, user);
-            // Redirect to the dashboard with session ID parameter
             return "redirect:/user/dashboard";
         }
 
@@ -71,8 +70,9 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    public String logoutUser(@RequestParam("sessionId") String sessionId) {
+    public String logoutUser(@RequestParam("sessionId") String sessionId, HttpSession session) {
         UserContext.logoutUser(sessionId);
+        session.invalidate();
         return "redirect:/";
     }
 }

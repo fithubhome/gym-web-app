@@ -12,7 +12,6 @@ public class MainController {
     @GetMapping("")
     public String mainPage(Model model) {
         model.addAttribute("message", "Welcome to App!");
-
         return "index";
     }
 }

@@ -34,19 +34,23 @@ public class RolesController {
         List<User> users = userService.getAllUsers();
         Map<Integer, String> userRolesMap = new HashMap<>();
         for (User user : users) {
+            StringBuilder userRolesBuilder = new StringBuilder();
             for (Roles role : allRoles) {
                 if (role.getUserId() == user.getId()) {
-                    String userEmail = user.getEmail().split("@")[0];
-                    String userRole = role.getRoleType();
-                    userRolesMap.put(user.getId(), userEmail + ": " + userRole);
-                    break; // Once a match is found, break out of the inner loop
+                    if (!userRolesBuilder.isEmpty()) {
+                        userRolesBuilder.append(", ");
+                    }
+                    userRolesBuilder.append(role.getRoleType());
                 }
+            }
+            if (!userRolesBuilder.isEmpty()) {
+                String userEmail = user.getEmail().split("@")[0];
+                userRolesMap.put(user.getId(), userEmail + ": " + userRolesBuilder);
             }
         }
         model.addAttribute("userRolesMap", userRolesMap);
         return "role/allRoles";
     }
-
 
 
     @GetMapping("/{userId}")
@@ -71,10 +75,18 @@ public class RolesController {
     }
 
     @PostMapping("/{userId}/add-role")
-    public String addRoleToUser(@PathVariable int userId, @RequestParam String roleType) {
+    public String addRoleToUser(@PathVariable int userId, @RequestParam String roleType) throws RoleNotFoundException {
+        // Check if the role already exists for the user
+        List<String> userRoles = rolesService.getRoleByUserId(userId);
+        if (userRoles.contains(roleType)) {
+            // Role already exists for the user, redirect to the same page
+            return "redirect:/roles/" + userId;
+        }
+        // Role doesn't exist, proceed to assign it
         rolesService.assignRoleToUser(userId, roleType);
-        return "redirect:/roles/{userId}";
+        return "redirect:/roles/" + userId;
     }
+
 
     @PostMapping("/{userId}/remove-role")
     public String removeRoleFromUser(@PathVariable int userId, @RequestParam String roleType) throws RoleNotFoundException {
