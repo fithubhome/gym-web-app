@@ -52,7 +52,6 @@ public class RolesController {
         return "role/allRoles";
     }
 
-
     @GetMapping("/{userId}")
     public String modifyRoles(@PathVariable int userId, Model model, HttpSession session) throws RoleNotFoundException {
         String sessionId = (String) session.getAttribute("sessionId");
@@ -86,7 +85,6 @@ public class RolesController {
         rolesService.assignRoleToUser(userId, roleType);
         return "redirect:/role/" + userId;
     }
-
 
     @PostMapping("/{userId}/remove-role")
     public String removeRoleFromUser(@PathVariable int userId, @RequestParam String roleType) throws RoleNotFoundException {

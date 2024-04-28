@@ -2,7 +2,11 @@ package com.auth.api.controller;
 
 import com.auth.api.UserContext;
 import com.auth.api.exceptions.DuplicateUserException;
+import com.auth.api.exceptions.RoleNotFoundException;
+import com.auth.api.model.Profile;
 import com.auth.api.model.User;
+import com.auth.api.service.ProfileService;
+import com.auth.api.service.RolesService;
 import com.auth.api.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.UUID;
 
 @Controller
@@ -18,6 +23,10 @@ import java.util.UUID;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProfileService profileService;
+    @Autowired
+    private RolesService rolesService;
     @Autowired
     private User user;
 
@@ -53,6 +62,13 @@ public class UserController {
         }
         try {
             User addedUser = userService.addUser(newUser);
+            // Extract username from email
+            String username = newUser.getEmail().substring(0, newUser.getEmail().indexOf('@'));
+            // Create a new profile for the added user
+            Profile newProfile = new Profile(addedUser.getId(), addedUser.getId(), username, "", 'U', new Date(), "Update Address", "0000000000", "/images/default.jpg");
+            profileService.createProfile(newProfile);
+            // Assign the default role of 'member' to the new user
+            rolesService.assignRoleToUser(addedUser.getId(), "Member");
             return "redirect:/user/login";
         } catch (DuplicateUserException e) {
             model.addAttribute("errorMessage", "User with email " + newUser.getEmail() + " already exists.");

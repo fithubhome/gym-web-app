@@ -2,7 +2,6 @@ package com.auth.api.repository;
 
 import com.auth.api.model.Profile;
 import org.springframework.stereotype.Repository;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +33,15 @@ public class ProfileRepository {
     }
 
     public void update(Profile profile) {
+        profiles.put(profile.getUserId(), profile);
+    }
+
+    public void create(Profile profile) {
+        if (profiles.containsKey(profile.getUserId())) {
+            // If profile already exists, return false
+            return;
+        }
+        // Add new profile to the map
         profiles.put(profile.getUserId(), profile);
     }
 }

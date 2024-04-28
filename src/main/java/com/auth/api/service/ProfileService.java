@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProfileService {
-
     @Autowired
     private ProfileRepository profileRepository;
 
@@ -17,5 +16,9 @@ public class ProfileService {
 
     public void updateProfile(Profile profile) {
         profileRepository.update(profile);
+    }
+
+    public void createProfile(Profile profile) {
+        profileRepository.create(profile);
     }
 }
