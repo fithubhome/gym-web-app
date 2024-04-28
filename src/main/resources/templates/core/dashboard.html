@@ -66,7 +66,7 @@
 </head>
 <body>
 <div class="top-right">
-    <a th:href="@{/logout}" class="logout-link">
+    <a th:href="@{/user/logout(sessionId=${session.sessionId})}" class="logout-link">
         <span class="logout-icon">🔑</span>
         Logout
     </a>
@@ -78,7 +78,7 @@
     <!-- Display other user-specific data here -->
     <p>Enjoy your time exploring the dashboard!</p>
     <a th:href="@{/profile}" class="profile-link">Profile</a>
-    <a th:href="@{/roles}" class="roles-link">Roles</a>
+    <a th:href="@{/role}" class="roles-link">Roles</a>
 </div>
 </body>
 </html>

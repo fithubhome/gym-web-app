@@ -64,7 +64,7 @@
     </h2>
     <ul>
         <li th:each="entry : ${userRolesMap}">
-            <a th:href="@{/roles/{userId}(userId=${entry.key})}">
+            <a th:href="@{/role/{userId}(userId=${entry.key})}">
                 <span th:text="${entry.value}"></span>
             </a>
         </li>

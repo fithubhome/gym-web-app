@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/roles")
+@RequestMapping("/role")
 public class RolesController {
     @Autowired
     private RolesService rolesService;
@@ -80,17 +80,17 @@ public class RolesController {
         List<String> userRoles = rolesService.getRoleByUserId(userId);
         if (userRoles.contains(roleType)) {
             // Role already exists for the user, redirect to the same page
-            return "redirect:/roles/" + userId;
+            return "redirect:/role/" + userId;
         }
         // Role doesn't exist, proceed to assign it
         rolesService.assignRoleToUser(userId, roleType);
-        return "redirect:/roles/" + userId;
+        return "redirect:/role/" + userId;
     }
 
 
     @PostMapping("/{userId}/remove-role")
     public String removeRoleFromUser(@PathVariable int userId, @RequestParam String roleType) throws RoleNotFoundException {
         rolesService.removeRoleFromUser(userId, roleType);
-        return "redirect:/roles/{userId}";
+        return "redirect:/role/{userId}";
     }
 }

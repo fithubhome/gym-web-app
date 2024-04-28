@@ -71,7 +71,7 @@
 <body>
 <div class="container">
     <h2>
-        <a class="back-link" th:href="@{/roles}">
+        <a class="back-link" th:href="@{/role}">
             <span>&#8592;</span> Back to Roles
         </a>
         <span>Modify Roles for User: <span style="text-transform: capitalize;" th:text="${#strings.substringBefore(user.email, '@')}"></span></span>
@@ -79,13 +79,13 @@
     <ul>
         <li th:each="role : ${userRoles}">
             <span th:text="${role}"></span>
-            <form th:action="@{/roles/{userId}/remove-role(userId=${userId})}" method="post">
+            <form th:action="@{/role/{userId}/remove-role(userId=${userId})}" method="post">
                 <input type="hidden" name="roleType" th:value="${role}" />
                 <input type="submit" value="Remove Role" />
             </form>
         </li>
     </ul>
-    <form th:action="@{/roles/{userId}/add-role(userId=${userId})}" method="post">
+    <form th:action="@{/role/{userId}/add-role(userId=${userId})}" method="post">
         <select name="roleType">
             <option th:each="role : ${allRoles}" th:value="${role}" th:text="${role}"></option>
         </select>
