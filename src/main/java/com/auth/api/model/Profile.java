@@ -1,15 +1,18 @@
 package com.auth.api.model;
 
+import com.auth.api.UserContext;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
+
 public class Profile {
     private int id;
     private int userId;
@@ -18,13 +21,14 @@ public class Profile {
     private char gender;
     private Date dob;
     private String address;
-    private Integer phone;
+    private String phone;
     private String imagePath;
 
-    User user;
-
-    @Autowired
-    public Integer setUserId(){
-        return this.userId = user.getId();
+    public Profile(HttpSession session){
+        String sessionId = (String) session.getAttribute("sessionId");
+        User currentUser = UserContext.getCurrentUser(sessionId);
+        this.userId = currentUser.getId();
+        this.firstName = currentUser.getEmail().split("@")[0];
     }
+
 }

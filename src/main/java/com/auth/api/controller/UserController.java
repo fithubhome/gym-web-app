@@ -18,6 +18,8 @@ import java.util.UUID;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private User user;
 
     @GetMapping("/login")
     public String getLoginPage() {
@@ -40,7 +42,7 @@ public class UserController {
 
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", user);
         return "auth/register";
     }
 
