@@ -8,6 +8,7 @@ import com.auth.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -17,7 +18,7 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.getAllUsers();
     }
-    public User getUserById(int id) {
+    public User getUserById(UUID id) {
         return userRepository.findUserByID(id);
     }
     public User findByEmail(String email) {
@@ -29,7 +30,7 @@ public class UserService {
     public void updateUser(User updatedUser) throws UserNotFoundToUpdateException {
         userRepository.updateUser(updatedUser);
     }
-    public void deleteUser(int id) throws UserNotFoundExceptionToDeleteException {
+    public void deleteUser(UUID id) throws UserNotFoundExceptionToDeleteException {
         userRepository.deleteUserById(id);
     }
 

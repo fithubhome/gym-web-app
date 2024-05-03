@@ -2,7 +2,7 @@ package com.auth.api.controller;
 
 import com.auth.api.UserContext;
 import com.auth.api.exceptions.RoleNotFoundException;
-import com.auth.api.model.Roles;
+import com.auth.api.model.Role;
 import com.auth.api.model.User;
 import com.auth.api.service.RolesService;
 import com.auth.api.service.UserService;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,17 +24,17 @@ public class RolesController {
 
     @GetMapping("")
     public String getAllRoles(Model model, HttpSession session) {
-        String sessionId = (String) session.getAttribute("sessionId");
+        UUID sessionId = (UUID) session.getAttribute("sessionId");
         User currentUser = UserContext.getCurrentUser(sessionId);
         if (currentUser == null) {
             return "redirect:/user/login";
         }
-        List<Roles> allRoles = rolesService.getAllRoles();
+        List<Role> allRoles = rolesService.getAllRoles();
         List<User> users = userService.getAllUsers();
-        Map<Integer, String> userRolesMap = new HashMap<>();
+        Map<UUID, String> userRolesMap = new HashMap<>();
         for (User user : users) {
             StringBuilder userRolesBuilder = new StringBuilder();
-            for (Roles role : allRoles) {
+            for (Role role : allRoles) {
                 if (role.getUserId() == user.getId()) {
                     if (!userRolesBuilder.isEmpty()) {
                         userRolesBuilder.append(", ");
@@ -53,8 +52,8 @@ public class RolesController {
     }
 
     @GetMapping("/{userId}")
-    public String modifyRoles(@PathVariable int userId, Model model, HttpSession session) throws RoleNotFoundException {
-        String sessionId = (String) session.getAttribute("sessionId");
+    public String modifyRoles(@PathVariable UUID userId, Model model, HttpSession session) throws RoleNotFoundException {
+        UUID sessionId = (UUID) session.getAttribute("sessionId");
         User currentUser = UserContext.getCurrentUser(sessionId);
         if (currentUser == null) {
             return "redirect:/user/login";
@@ -66,7 +65,7 @@ public class RolesController {
         model.addAttribute("userRoles", userRoles);
         List<String> allRoles = rolesService.getAllRoles()
                 .stream()
-                .map(Roles::getRoleType)
+                .map(Role::getRoleType)
                 .distinct()
                 .collect(Collectors.toList());
         model.addAttribute("allRoles", allRoles);
@@ -74,7 +73,7 @@ public class RolesController {
     }
 
     @PostMapping("/{userId}/add-role")
-    public String addRoleToUser(@PathVariable int userId, @RequestParam String roleType) throws RoleNotFoundException {
+    public String addRoleToUser(@PathVariable UUID userId, @RequestParam String roleType) throws RoleNotFoundException {
         // Check if the role already exists for the user
         List<String> userRoles = rolesService.getRoleByUserId(userId);
         if (userRoles.contains(roleType)) {
@@ -87,7 +86,7 @@ public class RolesController {
     }
 
     @PostMapping("/{userId}/remove-role")
-    public String removeRoleFromUser(@PathVariable int userId, @RequestParam String roleType) throws RoleNotFoundException {
+    public String removeRoleFromUser(@PathVariable UUID userId, @RequestParam String roleType) throws RoleNotFoundException {
         rolesService.removeRoleFromUser(userId, roleType);
         return "redirect:/role/{userId}";
     }

@@ -11,10 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.beans.PropertyEditorSupport;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/profile")
@@ -30,12 +29,11 @@ public class ProfileController {
 
     @GetMapping("")
     public ModelAndView getProfile(HttpSession session) {
-        String sessionId = (String) session.getAttribute("sessionId");
+        UUID sessionId = (UUID) session.getAttribute("sessionId");
         User currentUser = UserContext.getCurrentUser(sessionId);
         if (currentUser == null) {
             return new ModelAndView("redirect:/user/login");
         }
-
         Profile profile = profileService.getProfileByUserId(currentUser.getId());
         ModelAndView mav = new ModelAndView("profile/main");
         mav.addObject("profile", profile);
@@ -44,7 +42,7 @@ public class ProfileController {
 
     @GetMapping("/edit")
     public ModelAndView editProfile(HttpSession session) {
-        String sessionId = (String) session.getAttribute("sessionId");
+        UUID sessionId = (UUID) session.getAttribute("sessionId");
         User currentUser = UserContext.getCurrentUser(sessionId);
         if (currentUser == null) {
             return new ModelAndView("redirect:/user/login");
@@ -60,7 +58,7 @@ public class ProfileController {
     }
     @PostMapping("/update")
     public ModelAndView updateProfile(HttpSession session, @ModelAttribute Profile updatedProfile) {
-        String sessionId = (String) session.getAttribute("sessionId");
+        UUID sessionId = (UUID) session.getAttribute("sessionId");
         User currentUser = UserContext.getCurrentUser(sessionId);
         if (currentUser == null) {
             return new ModelAndView("redirect:/user/login");
@@ -69,5 +67,6 @@ public class ProfileController {
         profileService.updateProfile(updatedProfile);
         return new ModelAndView("redirect:/profile");
     }
+
 
 }

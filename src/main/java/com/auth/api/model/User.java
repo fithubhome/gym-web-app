@@ -5,12 +5,14 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class User {
-    private int id;
+    private UUID id;
     private String email;
     private String password;
 }

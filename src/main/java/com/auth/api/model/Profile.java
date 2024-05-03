@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.Date;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -14,21 +15,19 @@ import java.util.Date;
 @AllArgsConstructor
 
 public class Profile {
-    private int id;
-    private int userId;
+    private UUID id;
+    private UUID userId;
     private String firstName;
     private String lastName;
-    private char gender;
+    private String gender;
     private Date dob;
     private String address;
     private String phone;
     private String imagePath;
 
-    public Profile(HttpSession session){
-        String sessionId = (String) session.getAttribute("sessionId");
-        User currentUser = UserContext.getCurrentUser(sessionId);
-        this.userId = currentUser.getId();
-        this.firstName = currentUser.getEmail().split("@")[0];
+    public Profile(UUID id, UUID userId){
+        this.id=id;
+        this.userId=userId;
     }
 
 }

@@ -2,7 +2,6 @@ package com.auth.api.controller;
 
 import com.auth.api.UserContext;
 import com.auth.api.exceptions.DuplicateUserException;
-import com.auth.api.exceptions.RoleNotFoundException;
 import com.auth.api.model.Profile;
 import com.auth.api.model.User;
 import com.auth.api.service.ProfileService;
@@ -15,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.UUID;
 
 @Controller
@@ -39,7 +37,7 @@ public class UserController {
     public String loginUser(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session, Model model) {
         User user = userService.findByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
-            String sessionId = UUID.randomUUID().toString();
+            UUID sessionId = UUID.randomUUID();
             session.setAttribute("sessionId", sessionId);
             UserContext.loginUser(sessionId, user);
             return "redirect:/user/dashboard";
@@ -61,11 +59,9 @@ public class UserController {
             return "auth/register";
         }
         try {
+            newUser.setId(UUID.randomUUID());
             User addedUser = userService.addUser(newUser);
-            // Extract username from email
-            String username = newUser.getEmail().substring(0, newUser.getEmail().indexOf('@'));
-            // Create a new profile for the added user
-            Profile newProfile = new Profile(addedUser.getId(), addedUser.getId(), username, "", 'U', new Date(), "Update Address", "0000000000", "/images/default.jpg");
+            Profile newProfile = new Profile(UUID.randomUUID(), addedUser.getId());
             profileService.createProfile(newProfile);
             // Assign the default role of 'member' to the new user
             rolesService.assignRoleToUser(addedUser.getId(), "Member");
@@ -78,7 +74,7 @@ public class UserController {
 
     @GetMapping("/dashboard")
     public String getDashboard(Model model, HttpSession session) {
-        String sessionId = (String) session.getAttribute("sessionId");
+        UUID sessionId = (UUID) session.getAttribute("sessionId");
         User currentUser = UserContext.getCurrentUser(sessionId);
         if (currentUser == null) {
             return "redirect:/";
@@ -88,7 +84,7 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    public String logoutUser(@RequestParam("sessionId") String sessionId, HttpSession session) {
+    public String logoutUser(@RequestParam("sessionId") UUID sessionId, HttpSession session) {
         UserContext.logoutUser(sessionId);
         session.invalidate();
         return "redirect:/";

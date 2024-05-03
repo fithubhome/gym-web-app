@@ -35,7 +35,7 @@
             font-weight: bold;
             color: #555;
         }
-        .logout-link, .roles-link, .profile-link {
+        .logout-link, .role-link, .profile-link {
             text-decoration: none;
             color: #fff;
             font-weight: bold;
@@ -46,7 +46,7 @@
             margin-top: 20px;
             transition: background-color 0.3s;
         }
-        .logout-link:hover, .roles-link:hover, .profile-link:hover {
+        .logout-link:hover, .role-link:hover, .profile-link:hover {
             background-color: #0056b3;
         }
         .top-right {
@@ -78,7 +78,7 @@
     <!-- Display other user-specific data here -->
     <p>Enjoy your time exploring the dashboard!</p>
     <a th:href="@{/profile}" class="profile-link">Profile</a>
-    <a th:href="@{/role}" class="roles-link">Roles</a>
+    <a th:href="@{/role}" class="role-link">Roles</a>
 </div>
 </body>
 </html>

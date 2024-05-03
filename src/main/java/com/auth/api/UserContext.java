@@ -3,19 +3,21 @@ package com.auth.api;
 import com.auth.api.model.User;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
 public class UserContext {
-    private static final Map<String, User> loggedInUsers = new HashMap<>();
+    private static final Map<UUID, User> loggedInUsers = new HashMap<>();
 
-    public static void loginUser(String sessionId, User user) {
+    public static void loginUser(UUID sessionId, User user) {
         loggedInUsers.put(sessionId, user);
     }
 
-    public static void logoutUser(String sessionId) {
+    public static void logoutUser(UUID sessionId) {
         loggedInUsers.remove(sessionId);
     }
 
-    public static User getCurrentUser(String sessionId) {
+    public static User getCurrentUser(UUID sessionId) {
         return loggedInUsers.get(sessionId);
     }
 }

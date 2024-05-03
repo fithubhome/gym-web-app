@@ -47,12 +47,14 @@
             display: flex;
         }
         .profile-image {
-            width: 170px;
-            height: 210px;
+            width: 150px;
+            height: 170px;
             border-radius: 8px;
             align-self: flex-start;
             margin-left: auto;
             margin-top: 1.5em;
+            display: block;
+            margin-bottom: 10px;
         }
         p {
             font-size: 16px;
@@ -93,7 +95,10 @@
             <p>Address: <span th:text="${profile.address}"></span></p>
             <p>Phone: <span th:text="${profile.phone}"></span></p>
         </div>
-        <img th:src="${profile.imagePath}" alt="Profile Image" class="profile-image" />
+        <div style="margin: 0 auto; ">
+            <img th:src="${profile.imagePath}" alt="Profile Image" class="profile-image" />
+            <span style="display: block;"><em style="margin: 0 auto; display: table;">Member</em></span>
+        </div>
     </div>
     <a th:href="@{/profile/edit}" class="profile-link">Update Profile</a>
 </div>

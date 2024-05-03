@@ -6,25 +6,22 @@ import com.auth.api.exceptions.DuplicateUserException;
 import com.auth.api.model.User;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 public class UserRepository {
     private final List<User> dummyUserData = new ArrayList<>() {{
-        add(new User(1, "tim@eu.com", "passw"));
-        add(new User(2, "mike@eu.com", "mikepassword"));
-        add(new User(3, "paul@eu.com", "paulpassword"));
-        add(new User(4, "cristina@eu.com", "cristinapassword"));
-        add(new User(5, "simida@eu.com", "simidapassword"));
-        add(new User(6, "alin@eu.com", "alinpassword"));
-        add(new User(7, "flavi@eu.com", "flavipassword"));
-        add(new User(8, "andrei@eu.com", "andreipassword"));
-        add(new User(9, "mihai@eu.com", "mihaipassword"));
-        add(new User(10, "alina@eu.com", "alinapassword"));
-        add(new User(11, "darius@eu.com", "dariuspassword"));
+        add(new User(UUID.randomUUID(), "tim@eu.com", "passw"));
+        add(new User(UUID.randomUUID(), "mike@eu.com", "mikepassword"));
+        add(new User(UUID.randomUUID(), "paul@eu.com", "paulpassword"));
+        add(new User(UUID.randomUUID(), "cristina@eu.com", "cristinapassword"));
+        add(new User(UUID.randomUUID(), "simida@eu.com", "simidapassword"));
+        add(new User(UUID.randomUUID(), "alin@eu.com", "alinpassword"));
+        add(new User(UUID.randomUUID(), "flavi@eu.com", "flavipassword"));
+        add(new User(UUID.randomUUID(), "andrei@eu.com", "andreipassword"));
+        add(new User(UUID.randomUUID(), "mihai@eu.com", "mihaipassword"));
+        add(new User(UUID.randomUUID(), "alina@eu.com", "alinapassword"));
+        add(new User(UUID.randomUUID(), "darius@eu.com", "dariuspassword"));
     }};
 
     public List<User> getAllUsers() {
@@ -46,7 +43,7 @@ public class UserRepository {
         }
     }
 
-    public void deleteUserById(int id) throws UserNotFoundExceptionToDeleteException {
+    public void deleteUserById(UUID id) throws UserNotFoundExceptionToDeleteException {
         Iterator<User> iterator = dummyUserData.iterator();
         boolean found = false;
         while (iterator.hasNext()) {
@@ -62,7 +59,7 @@ public class UserRepository {
         }
     }
 
-    public User findUserByID(int id) {
+    public User findUserByID(UUID id) {
         Optional<User> foundUser = dummyUserData.stream()
                 .filter(user -> user.getId() == id)
                 .findFirst();
@@ -83,8 +80,6 @@ public class UserRepository {
         if (isDuplicate) {
             throw new DuplicateUserException(newUser.getEmail());
         } else {
-            int newId = dummyUserData.size() + 1;
-            newUser.setId(newId);
             dummyUserData.add(newUser);
         }
         return newUser;

@@ -1,45 +1,46 @@
 package com.auth.api.repository;
 
-import com.auth.api.model.Roles;
+import com.auth.api.model.Role;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Repository
 public class RolesRepository {
-    private final List<Roles> rolesData = new ArrayList<>() {{
-        add(new Roles(1, "Member"));     // Tim
-        add(new Roles(3, "Member"));     // Paul
-        add(new Roles(4, "Member"));     // Cristina
-        add(new Roles(5, "Member"));     // Simida
-        add(new Roles(6, "Member"));     // Alin
-        add(new Roles(7, "Member"));     // Flavi
-        add(new Roles(8, "Admin"));      // Andrei
-        add(new Roles(9, "Admin"));      // Mihai
-        add(new Roles(10, "Trainer"));   // Alina
-        add(new Roles(11, "Trainer"));   // Darius
-        add(new Roles(8, "Trainer"));     // Andrei
-        add(new Roles(9, "Trainer"));     // Mihai
-        add(new Roles(2, "Staff"));      // Mike
+    private final List<Role> roleData = new ArrayList<>() {{
+        add(new Role(UUID.randomUUID(), "Member"));     // Tim
+        add(new Role(UUID.randomUUID(), "Member"));     // Paul
+        add(new Role(UUID.randomUUID(), "Member"));     // Cristina
+        add(new Role(UUID.randomUUID(), "Member"));     // Simida
+        add(new Role(UUID.randomUUID(), "Member"));     // Alin
+        add(new Role(UUID.randomUUID(), "Member"));     // Flavi
+        add(new Role(UUID.randomUUID(), "Admin"));      // Andrei
+        add(new Role(UUID.randomUUID(), "Admin"));      // Mihai
+        add(new Role(UUID.randomUUID(), "Trainer"));   // Alina
+        add(new Role(UUID.randomUUID(), "Trainer"));   // Darius
+        add(new Role(UUID.randomUUID(), "Trainer"));     // Andrei
+        add(new Role(UUID.randomUUID(), "Trainer"));     // Mihai
+        add(new Role(UUID.randomUUID(), "Staff"));      // Mike
     }};
 
-    public List<Roles> getAllRoles() {
-        return rolesData;
+    public List<Role> getAllRoles() {
+        return roleData;
     }
 
-    public List<Integer> getUsersByRoleType(String roleType) {
-        return rolesData.stream()
-                .filter(roles -> roles.getRoleType().equalsIgnoreCase(roleType))
-                .map(Roles::getUserId)
+    public List<UUID> getUsersByRoleType(String roleType) {
+        return roleData.stream()
+                .filter(role -> role.getRoleType().equalsIgnoreCase(roleType))
+                .map(Role::getUserId)
                 .collect(Collectors.toList());
     }
 
-    public List<String> getRolesByUserID(int userID) {
+    public List<String> getRolesByUserID(UUID userID) {
         List<String> userRoles = new ArrayList<>();
-        for (Roles role : rolesData) {
+        for (Role role : roleData) {
             if (role.getUserId() == userID) {
                 userRoles.add(role.getRoleType());
             }
@@ -47,14 +48,14 @@ public class RolesRepository {
         return userRoles;
     }
 
-    public void assignRoleToUser(int userID, String roleType) {
+    public void assignRoleToUser(UUID userID, String roleType) {
         boolean userFound = false;
-        for (Roles roles : rolesData) {
-            if (roles.getUserId() == userID) {
+        for (Role role : roleData) {
+            if (role.getUserId() == userID) {
                 // User found
                 // Check if the role type already exists for the user
                 boolean roleExists = false;
-                for (Roles userRole : rolesData) {
+                for (Role userRole : roleData) {
                     if (userRole.getUserId() == userID && userRole.getRoleType().equalsIgnoreCase(roleType)) {
                         roleExists = true;
                         break;
@@ -62,7 +63,7 @@ public class RolesRepository {
                 }
                 if (!roleExists) {
                     // Role type does not exist, add it
-                    rolesData.add(new Roles(userID, roleType));
+                    roleData.add(new Role(userID, roleType));
                 }
                 userFound = true;
                 break;
@@ -70,14 +71,14 @@ public class RolesRepository {
         }
         if (!userFound) {
             // If the user ID is not found, add a new entry with the role type
-            rolesData.add(new Roles(userID, roleType));
+            roleData.add(new Role(userID, roleType));
         }
     }
 
-    public boolean removeRoleFromUser(int userID, String roleType) {
-        for (Iterator<Roles> iterator = rolesData.iterator(); iterator.hasNext(); ) {
-            Roles roles = iterator.next();
-            if (roles.getUserId() == userID && roles.getRoleType().equals(roleType)) {
+    public boolean removeRoleFromUser(UUID userID, String roleType) {
+        for (Iterator<Role> iterator = roleData.iterator(); iterator.hasNext(); ) {
+            Role role = iterator.next();
+            if (role.getUserId() == userID && role.getRoleType().equals(roleType)) {
                 iterator.remove();
                 return true; // Role successfully removed
             }
