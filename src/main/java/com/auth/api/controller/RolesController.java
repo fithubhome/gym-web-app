@@ -29,24 +29,20 @@ public class RolesController {
         if (currentUser == null) {
             return "redirect:/user/login";
         }
-        List<Role> allRoles = rolesService.getAllRoles();
         List<User> users = userService.getAllUsers();
         Map<UUID, String> userRolesMap = new HashMap<>();
-        for (User user : users) {
-            StringBuilder userRolesBuilder = new StringBuilder();
-            for (Role role : allRoles) {
-                if (role.getUserId() == user.getId()) {
-                    if (!userRolesBuilder.isEmpty()) {
-                        userRolesBuilder.append(", ");
-                    }
-                    userRolesBuilder.append(role.getRoleType());
+        for (User user:users) {
+            try {
+                List<String> userRoles = rolesService.getRoleByUserId(user.getId());
+                if (!userRoles.isEmpty()) {
+                    String userRolesString = String.join(", ", userRoles);
+                    userRolesMap.put(user.getId(), userRolesString);
                 }
-            }
-            if (!userRolesBuilder.isEmpty()) {
-                String userEmail = user.getEmail().split("@")[0];
-                userRolesMap.put(user.getId(), userEmail + ": " + userRolesBuilder);
+            } catch (RoleNotFoundException e) {
+                userRolesMap.put(user.getId(), "No roles assigned");
             }
         }
+        model.addAttribute("users", users);
         model.addAttribute("userRolesMap", userRolesMap);
         return "role/allRoles";
     }
@@ -60,15 +56,13 @@ public class RolesController {
         }
         User selectedUser = userService.getUserById(userId);
         List<String> userRoles = rolesService.getRoleByUserId(userId);
+        if (selectedUser == null || userRoles == null) {
+            return "redirect:/user/role";
+        }
         model.addAttribute("userId", userId);
         model.addAttribute("user", selectedUser);
         model.addAttribute("userRoles", userRoles);
-        List<String> allRoles = rolesService.getAllRoles()
-                .stream()
-                .map(Role::getRoleType)
-                .distinct()
-                .collect(Collectors.toList());
-        model.addAttribute("allRoles", allRoles);
+        model.addAttribute("allRoles", rolesService.getAllRoles());
         return "role/modifyRoles";
     }
 

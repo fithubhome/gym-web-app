@@ -61,7 +61,7 @@ public class UserRepository {
 
     public User findUserByID(UUID id) {
         Optional<User> foundUser = dummyUserData.stream()
-                .filter(user -> user.getId() == id)
+                .filter(user -> user.getId().equals(id))
                 .findFirst();
         return foundUser.orElse(null);
     }

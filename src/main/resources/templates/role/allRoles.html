@@ -63,9 +63,9 @@
         <span>All Roles</span>
     </h2>
     <ul>
-        <li th:each="entry : ${userRolesMap}">
-            <a th:href="@{/role/{userId}(userId=${entry.key})}">
-                <span th:text="${entry.value}"></span>
+        <li th:each="user : ${users}">
+            <a th:href="@{/role/{userId}(userId=${user.id})}">
+                <span th:text="${user.email.split('@')[0]} + ': ' + (${userRolesMap.get(user.id) != null ? userRolesMap.get(user.id) : 'No roles assigned'})"></span>
             </a>
         </li>
     </ul>
