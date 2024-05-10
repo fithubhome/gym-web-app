@@ -10,8 +10,12 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
 
@@ -20,6 +24,7 @@ import java.util.UUID;
 public class ProfileController {
     @Autowired
     private ProfileService profileService;
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -34,9 +39,20 @@ public class ProfileController {
         if (currentUser == null) {
             return new ModelAndView("redirect:/user/login");
         }
-        Profile profile = profileService.getProfileById(currentUser.getId());
+        Profile profile = profileService.getProfileByUserId(currentUser.getId());
+        if (profile == null) {
+            profile = new Profile();
+            profile.setId(UUID.randomUUID());
+            profile.setUserId(currentUser.getId());
+            profile.setDob(new Date()); // Initialize dob
+            profileService.createProfile(profile);
+        }
         ModelAndView mav = new ModelAndView("profile/main");
         mav.addObject("profile", profile);
+        if (profile.getImageData() != null) {
+            String base64Image = Base64.getEncoder().encodeToString(profile.getImageData());
+            mav.addObject("base64Image", base64Image);
+        }
         return mav;
     }
 
@@ -47,26 +63,32 @@ public class ProfileController {
         if (currentUser == null) {
             return new ModelAndView("redirect:/user/login");
         }
-        Profile profile = profileService.getProfileById(currentUser.getId());
+        Profile profile = profileService.getProfileByUserId(currentUser.getId());
         if (profile == null) {
-            profile = new Profile(); // or handle this case specifically
+            profile = new Profile();
+            profile.setId(UUID.randomUUID());
+            profile.setUserId(currentUser.getId());
+            profileService.createProfile(profile);
         }
-
         ModelAndView mav = new ModelAndView("profile/update");
         mav.addObject("profile", profile);
         return mav;
     }
+
     @PostMapping("/update")
-    public ModelAndView updateProfile(HttpSession session, @ModelAttribute Profile updatedProfile) {
+    public ModelAndView updateProfile(HttpSession session,
+                                      @ModelAttribute Profile updatedProfile,
+                                      @RequestParam("fileInput") MultipartFile fileInput) throws IOException {
         UUID sessionId = (UUID) session.getAttribute("sessionId");
         User currentUser = UserContext.getCurrentUser(sessionId);
         if (currentUser == null) {
             return new ModelAndView("redirect:/user/login");
         }
         updatedProfile.setUserId(currentUser.getId());
+        if (!fileInput.isEmpty()) {
+            updatedProfile.setImageData(fileInput.getBytes());
+        }
         profileService.updateProfile(updatedProfile);
         return new ModelAndView("redirect:/profile");
     }
-
-
 }

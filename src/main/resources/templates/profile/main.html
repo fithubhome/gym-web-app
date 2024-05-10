@@ -81,7 +81,7 @@
 <body>
 <div class="container">
     <div class="header">
-        <a class="back-link" th:href="@{user/dashboard}">
+        <a class="back-link" th:href="@{/user/dashboard}">
             <span>&#8592;</span> Back to Dashboard
         </a>
         <h2>My Profile</h2>
@@ -95,8 +95,8 @@
             <p>Address: <span th:text="${profile.address}"></span></p>
             <p>Phone: <span th:text="${profile.phone}"></span></p>
         </div>
-        <div style="margin: 0 auto; ">
-            <img th:src="${profile.imagePath}" alt="Profile Image" class="profile-image" />
+        <div style="margin: 0 auto;">
+            <img th:if="${base64Image != null}" th:src="'data:image/jpeg;base64,' + ${base64Image}" alt="Profile Image" class="profile-image" />
             <span style="display: block;"><em style="margin: 0 auto; display: table;">Member</em></span>
         </div>
     </div>

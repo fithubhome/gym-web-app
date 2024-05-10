@@ -46,41 +46,30 @@
             background-color: #0056b3;
         }
     </style>
-    <script>
-        function encodeImageFileAsURL(element) {
-            var file = element.files[0];
-            var reader = new FileReader();
-            reader.onloadend = function() {
-                document.getElementById('imagePath').value = reader.result;
-            }
-            reader.readAsDataURL(file);
-        }
-    </script>
 </head>
 <body>
 <div class="container">
     <h1>Update Profile</h1>
-    <form action="/profile/update" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="userId" th:value="${profile.userId}">
+    <form th:action="@{/profile/update}" th:object="${profile}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" th:value="*{id}">
+        <input type="hidden" name="userId" th:value="*{userId}">
         <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName" th:value="${profile.firstName}">
+        <input type="text" id="firstName" name="firstName" th:value="*{firstName}">
         <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="lastName" th:value="${profile.lastName}">
+        <input type="text" id="lastName" name="lastName" th:value="*{lastName}">
         <label for="gender">Gender:</label>
-        <select id="gender" name="gender" th:value="${profile.gender}">
-            <option value="M" th:selected="${profile.gender == 'M'}">Male</option>
-            <option value="F" th:selected="${profile.gender == 'F'}">Female</option>
-            <option value="O" th:selected="${profile.gender == 'O'}">Other</option>
+        <select id="gender" name="gender" th:value="*{gender}">
+            <option value="M" th:selected="*{gender == 'M'}">Male</option>
+            <option value="F" th:selected="*{gender == 'F'}">Female</option>
         </select>
         <label for="dob">Date of Birth:</label>
-        <input type="date" id="dob" name="dob" th:value="${#dates.format(profile.dob, 'yyyy-MM-dd')}">
+        <input type="date" id="dob" name="dob" th:value="*{dob != null} ? ${#dates.format(profile.dob, 'yyyy-MM-dd')} : ''">
         <label for="address">Address:</label>
-        <input type="text" id="address" name="address" th:value="${profile.address}">
+        <input type="text" id="address" name="address" th:value="*{address}">
         <label for="phone">Phone Number:</label>
-        <input type="text" id="phone" name="phone" th:value="${profile.phone}">
+        <input type="text" id="phone" name="phone" th:value="*{phone}">
         <label for="fileInput">Upload Image:</label>
-        <input type="file" id="fileInput" name="fileInput" accept="image/*" onchange="encodeImageFileAsURL(this)">
-        <input type="hidden" id="imagePath" name="imagePath">
+        <input type="file" id="fileInput" name="fileInput" accept="image/*">
         <input type="submit" value="Update">
     </form>
 </div>

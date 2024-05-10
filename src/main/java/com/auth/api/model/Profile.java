@@ -1,4 +1,3 @@
-// Profile.java
 package com.auth.api.model;
 
 import jakarta.persistence.*;
@@ -30,7 +29,9 @@ public class Profile {
     private Date dob;
     private String address;
     private String phone;
-    private String imagePath;
+
+    @Lob
+    private byte[] imageData;
 
     public Profile(UUID id, UUID userId) {
         this.id = id;

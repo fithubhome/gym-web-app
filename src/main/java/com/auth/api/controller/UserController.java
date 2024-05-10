@@ -61,7 +61,7 @@ public class UserController {
         }
         try {
             newUser.setId(UUID.randomUUID());
-            User addedUser = userService.addNewUser(newUser);
+            User addedUser = userService.addUser(newUser);
             Profile newProfile = new Profile(UUID.randomUUID(), addedUser.getId());
             profileService.createProfile(newProfile);
             // Assign the default role of 'member' to the new user

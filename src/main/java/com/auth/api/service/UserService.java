@@ -4,6 +4,7 @@ import com.auth.api.exceptions.DuplicateUserException;
 import com.auth.api.exceptions.UserNotFoundExceptionToDeleteException;
 import com.auth.api.exceptions.UserNotFoundToUpdateException;
 import com.auth.api.model.User;
+import com.auth.api.model.Profile;
 import com.auth.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ import java.util.UUID;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ProfileService profileService;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -28,11 +32,15 @@ public class UserService {
         return userRepository.findByEmail(email).orElse(null);
     }
 
-    public User addNewUser(User newUser) throws DuplicateUserException {
+    public User addUser(User newUser) throws DuplicateUserException {
         if (userRepository.findByEmail(newUser.getEmail()).isPresent()) {
             throw new DuplicateUserException(newUser.getEmail());
         }
-        return userRepository.save(newUser);
+        User savedUser = userRepository.save(newUser);
+        // Create a basic profile for the new user
+        Profile profile = new Profile(UUID.randomUUID(), savedUser.getId());
+        profileService.createProfile(profile);
+        return savedUser;
     }
 
     public void updateUser(User updatedUser) throws UserNotFoundToUpdateException {
