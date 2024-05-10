@@ -1,9 +1,12 @@
 package com.auth.api.controller;
 
 import com.auth.api.UserContext;
+import com.auth.api.exceptions.RoleNotFoundException;
 import com.auth.api.model.Profile;
+import com.auth.api.model.Role;
 import com.auth.api.model.User;
 import com.auth.api.service.ProfileService;
+import com.auth.api.service.RoleService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -17,6 +20,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -24,6 +28,8 @@ import java.util.UUID;
 public class ProfileController {
     @Autowired
     private ProfileService profileService;
+    @Autowired
+    private RoleService roleService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -33,22 +39,24 @@ public class ProfileController {
     }
 
     @GetMapping("")
-    public ModelAndView getProfile(HttpSession session) {
+    public ModelAndView getProfile(HttpSession session) throws RoleNotFoundException {
         UUID sessionId = (UUID) session.getAttribute("sessionId");
         User currentUser = UserContext.getCurrentUser(sessionId);
         if (currentUser == null) {
             return new ModelAndView("redirect:/user/login");
         }
         Profile profile = profileService.getProfileByUserId(currentUser.getId());
-        if (profile == null) {
+        List<String> currentRole = roleService.getRoleByUserId(currentUser.getId());
+;        if (profile == null) {
             profile = new Profile();
             profile.setId(UUID.randomUUID());
             profile.setUserId(currentUser.getId());
             profile.setDob(new Date()); // Initialize dob
             profileService.createProfile(profile);
         }
-        ModelAndView mav = new ModelAndView("profile/main");
+        ModelAndView mav = new ModelAndView("profile/profile");
         mav.addObject("profile", profile);
+        mav.addObject("role", currentRole);
         if (profile.getImageData() != null) {
             String base64Image = Base64.getEncoder().encodeToString(profile.getImageData());
             mav.addObject("base64Image", base64Image);

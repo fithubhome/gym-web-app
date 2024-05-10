@@ -97,7 +97,7 @@
         </div>
         <div style="margin: 0 auto;">
             <img th:if="${base64Image != null}" th:src="'data:image/jpeg;base64,' + ${base64Image}" alt="Profile Image" class="profile-image" />
-            <span style="display: block;"><em style="margin: 0 auto; display: table;">Member</em></span>
+            <span style="display: block;"><em style="margin: 0 auto; display: table;"><span th:text="${role}"></span></em></span>
         </div>
     </div>
     <a th:href="@{/profile/edit}" class="profile-link">Update Profile</a>

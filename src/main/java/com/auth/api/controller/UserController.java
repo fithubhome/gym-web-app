@@ -5,7 +5,7 @@ import com.auth.api.exceptions.DuplicateUserException;
 import com.auth.api.model.Profile;
 import com.auth.api.model.User;
 import com.auth.api.service.ProfileService;
-import com.auth.api.service.RolesService;
+import com.auth.api.service.RoleService;
 import com.auth.api.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class UserController {
     @Autowired
     private ProfileService profileService;
     @Autowired
-    private RolesService rolesService;
+    private RoleService roleService;
     @Autowired
     private User user;
 
@@ -65,7 +65,7 @@ public class UserController {
             Profile newProfile = new Profile(UUID.randomUUID(), addedUser.getId());
             profileService.createProfile(newProfile);
             // Assign the default role of 'member' to the new user
-            rolesService.assignRoleToUser(addedUser.getId(), "Member");
+            roleService.assignRoleToUser(addedUser.getId(), "Member");
             return "redirect:/user/login";
         } catch (DuplicateUserException e) {
             model.addAttribute("errorMessage", "User with email " + newUser.getEmail() + " already exists.");
