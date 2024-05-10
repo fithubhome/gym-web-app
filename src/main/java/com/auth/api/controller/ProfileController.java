@@ -34,7 +34,7 @@ public class ProfileController {
         if (currentUser == null) {
             return new ModelAndView("redirect:/user/login");
         }
-        Profile profile = profileService.getProfileByUserId(currentUser.getId());
+        Profile profile = profileService.getProfileById(currentUser.getId());
         ModelAndView mav = new ModelAndView("profile/main");
         mav.addObject("profile", profile);
         return mav;
@@ -47,7 +47,7 @@ public class ProfileController {
         if (currentUser == null) {
             return new ModelAndView("redirect:/user/login");
         }
-        Profile profile = profileService.getProfileByUserId(currentUser.getId());
+        Profile profile = profileService.getProfileById(currentUser.getId());
         if (profile == null) {
             profile = new Profile(); // or handle this case specifically
         }

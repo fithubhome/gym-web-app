@@ -12,15 +12,16 @@ public class ProfileService {
     @Autowired
     private ProfileRepository profileRepository;
 
-    public Profile getProfileByUserId(UUID userId) {
-        return profileRepository.findByUserId(userId);
+    public void createProfile(Profile profile) {
+        profileRepository.save(profile);
     }
 
     public void updateProfile(Profile profile) {
-        profileRepository.update(profile);
+        profileRepository.save(profile);
     }
 
-    public void createProfile(Profile profile) {
-        profileRepository.create(profile);
+    public Profile getProfileById(UUID id) {
+        return profileRepository.findById(id).orElse(null);
     }
+
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.UUID;
 
@@ -60,7 +61,7 @@ public class UserController {
         }
         try {
             newUser.setId(UUID.randomUUID());
-            User addedUser = userService.addUser(newUser);
+            User addedUser = userService.addNewUser(newUser);
             Profile newProfile = new Profile(UUID.randomUUID(), addedUser.getId());
             profileService.createProfile(newProfile);
             // Assign the default role of 'member' to the new user
