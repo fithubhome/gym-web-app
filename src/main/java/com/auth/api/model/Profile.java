@@ -31,6 +31,7 @@ public class Profile {
     private String phone;
 
     @Lob
+    @Column(name = "image_data", columnDefinition = "LONGBLOB")
     private byte[] imageData;
 
     public Profile(UUID id, UUID userId) {
@@ -38,3 +39,4 @@ public class Profile {
         this.userId = userId;
     }
 }
+
