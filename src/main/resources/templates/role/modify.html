@@ -81,7 +81,7 @@
             <span th:text="${role}"></span>
             <form th:action="@{/role/{userId}/remove-role(userId=${userId})}" method="post">
                 <input type="hidden" name="roleType" th:value="${role}" />
-                <input type="submit" value="Remove Role" />
+                <input type="submit" value="Remove Role" th:if="${role} != 'No roles assigned.'" />
             </form>
         </li>
     </ul>

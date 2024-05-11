@@ -3,7 +3,6 @@ package com.auth.api.controller;
 import com.auth.api.UserContext;
 import com.auth.api.exceptions.RoleNotFoundException;
 import com.auth.api.model.Profile;
-import com.auth.api.model.Role;
 import com.auth.api.model.User;
 import com.auth.api.service.ProfileService;
 import com.auth.api.service.RoleService;
@@ -45,7 +44,7 @@ public class ProfileController {
         if (currentUser == null) {
             return new ModelAndView("redirect:/user/login");
         }
-        Profile profile = profileService.getProfileByUserId(currentUser.getId());
+        Profile profile = profileService.findProfileByUserId(currentUser.getId());
         List<String> currentRole = roleService.getRoleByUserId(currentUser.getId());
 ;        if (profile == null) {
             profile = new Profile();
@@ -71,7 +70,7 @@ public class ProfileController {
         if (currentUser == null) {
             return new ModelAndView("redirect:/user/login");
         }
-        Profile profile = profileService.getProfileByUserId(currentUser.getId());
+        Profile profile = profileService.findProfileByUserId(currentUser.getId());
         if (profile == null) {
             profile = new Profile();
             profile.setId(UUID.randomUUID());

@@ -20,20 +20,43 @@
             width: 60%;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
         }
         h2 {
             font-size: 28px;
             margin-bottom: 20px;
             color: #007bff;
         }
-        p {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: #666;
+        .profile-section {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            position: absolute;
+            right: 20px;
+            top: 20px;
         }
-        .user-info {
+        .profile-section a {
+            text-decoration: none;
+            color: #007bff;
+            display: flex;
+            align-items: center;
+        }
+        .profile-section img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .profile-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .profile-section span {
+            font-size: 18px;
             font-weight: bold;
-            color: #555;
+            text-transform: capitalize;
         }
         .logout-link, .role-link, .profile-link {
             text-decoration: none;
@@ -45,6 +68,7 @@
             border-radius: 5px;
             margin-top: 20px;
             transition: background-color 0.3s;
+            margin-right: 10px;
         }
         .logout-link:hover, .role-link:hover, .profile-link:hover {
             background-color: #0056b3;
@@ -72,11 +96,14 @@
     </a>
 </div>
 <div class="dashboard-container">
-    <h2>Welcome to Your Dashboard</h2>
-    <p>You are now logged in as:</p>
-    <p class="user-info">Email: <span th:text="${user.email}"></span></p>
-    <!-- Display other user-specific data here -->
-    <p>Enjoy your time exploring the dashboard!</p>
+    <div class="profile-section">
+        <a th:href="@{/profile}">
+            <img th:if="${base64Image != null}" th:src="'data:image/jpeg;base64,' + ${base64Image}" alt="Profile Image" class="profile-image" />
+            <img th:src="@{/images/default-profile.png}" alt="Default Profile Image" th:if="${profile.imageData == null}" />
+            <span th:text="${#strings.capitalize(user.email.split('@')[0])}"></span>
+        </a>
+    </div>
+    <h2>Welcome to GymApp</h2>
     <a th:href="@{/profile}" class="profile-link">Profile</a>
     <a th:href="@{/role}" class="role-link">Roles</a>
 </div>

@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -40,15 +39,7 @@ public class ProfileService {
         }
     }
 
-    public Profile getProfileById(UUID id) {
-        return profileRepository.findById(id).orElse(null);
-    }
-
-    public Profile getProfileByUserId(UUID userId) {
-        List<Profile> profiles = profileRepository.findAllByUserId(userId);
-        if (profiles.size() > 1) {
-            logger.error("Multiple profiles found for user: {}", userId);
-        }
-        return profiles.isEmpty() ? null : profiles.get(0);
+    public Profile findProfileByUserId(UUID userId) {
+        return profileRepository.findProfileByUserId(userId);
     }
 }

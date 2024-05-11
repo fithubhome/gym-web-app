@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ public class RoleService {
     public List<String> getRoleByUserId(UUID userID) throws RoleNotFoundException {
         List<Role> roles = roleRepository.findByUserId(userID);
         if (roles.isEmpty()) {
-            throw new RoleNotFoundException("No roles found for user ID: " + userID);
+            return Collections.singletonList("No roles assigned.");
         }
         return roles.stream().map(Role::getRoleType).collect(Collectors.toList());
     }

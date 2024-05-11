@@ -53,7 +53,7 @@ public class RoleController {
         if (currentUser == null) {
             return "redirect:/user/login";
         }
-        User selectedUser = userService.getUserById(userId);
+        User selectedUser = userService.findUserById(userId);
         List<String> userRoles = roleService.getRoleByUserId(userId);
         if (selectedUser == null || userRoles == null) {
             return "redirect:/role";
