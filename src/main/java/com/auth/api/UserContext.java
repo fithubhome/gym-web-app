@@ -3,7 +3,6 @@ package com.auth.api;
 import com.auth.api.model.User;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 public class UserContext {

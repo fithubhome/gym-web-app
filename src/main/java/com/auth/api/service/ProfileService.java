@@ -12,7 +12,6 @@ import java.util.UUID;
 @Service
 public class ProfileService {
     private static final Logger logger = LoggerFactory.getLogger(ProfileService.class);
-
     @Autowired
     private ProfileRepository profileRepository;
 
@@ -23,7 +22,7 @@ public class ProfileService {
     public void updateProfile(Profile updatedProfile) {
         Profile existingProfile = profileRepository.findById(updatedProfile.getId()).orElse(null);
         if (existingProfile != null) {
-            logger.info("Updating profile for user: {}", updatedProfile.getUserId());
+            logger.info("Updating profile for user: {}", updatedProfile.getFirstName());
             existingProfile.setFirstName(updatedProfile.getFirstName());
             existingProfile.setLastName(updatedProfile.getLastName());
             existingProfile.setGender(updatedProfile.getGender());

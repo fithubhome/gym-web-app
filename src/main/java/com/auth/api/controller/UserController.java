@@ -2,8 +2,6 @@ package com.auth.api.controller;
 
 import com.auth.api.UserContext;
 import com.auth.api.exceptions.DuplicateUserException;
-import com.auth.api.exceptions.RoleNotFoundException;
-import com.auth.api.model.Profile;
 import com.auth.api.model.User;
 import com.auth.api.service.ProfileService;
 import com.auth.api.service.RoleService;
@@ -16,8 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Base64;
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -44,7 +40,7 @@ public class UserController {
             UUID sessionId = UUID.randomUUID();
             session.setAttribute("sessionId", sessionId);
             UserContext.loginUser(sessionId, user);
-            return "redirect:/user/dashboard";
+            return "redirect:/dashboard";
         }
 
         model.addAttribute("errorMessage", "Invalid email or password");
@@ -70,25 +66,6 @@ public class UserController {
             model.addAttribute("errorMessage", "User with email " + newUser.getEmail() + " already exists.");
             return "error";
         }
-    }
-
-    @GetMapping("/dashboard")
-    public String getDashboard(Model model, HttpSession session) throws RoleNotFoundException {
-        UUID sessionId = (UUID) session.getAttribute("sessionId");
-        User currentUser = UserContext.getCurrentUser(sessionId);
-        if (currentUser == null) {
-            return "redirect:/";
-        }
-        Profile currentUserProfile = profileService.findProfileByUserId(currentUser.getId());
-        List<String> currentUserRole = roleService.getRoleByUserId(currentUser.getId());
-        model.addAttribute("profile", currentUserProfile);
-        if (currentUserProfile.getImageData() != null) {
-            String base64Image = Base64.getEncoder().encodeToString(currentUserProfile.getImageData());
-            model.addAttribute("base64Image", base64Image);
-        }
-        model.addAttribute("role", currentUserRole);
-        model.addAttribute("user", currentUser);
-        return "core/dashboard";
     }
 
     @GetMapping("/logout")
