@@ -3,72 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>All Roles</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #007bff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .back-link {
-            color: #007bff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        li {
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-        }
-        a {
-            text-transform: capitalize;
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
-<div class="container">
-    <h2>
-        <a class="back-link" th:href="@{/dashboard}">
-            <span>&#8592;</span> Back to Dashboard
-        </a>
-        <span>All Roles</span>
-    </h2>
-    <ul>
-        <li th:each="user : ${users}">
-            <a th:href="@{/role/{userId}(userId=${user.id})}">
-                <span th:text="${user.email.split('@')[0]} + ': ' + (${userRolesMap.get(user.id) != null ? userRolesMap.get(user.id) : 'No roles assigned'})"></span>
+<header>
+    <h1>FitHubHome</h1>
+</header>
+<div class="main-content"> <!-- Added a wrapper for the main content -->
+    <div class="container role-container"> <!-- Added a custom class for role-specific styles -->
+        <h2>
+            <a class="back-link" th:href="@{/dashboard}">
+                <span>&#8592;</span> Back to Dashboard
             </a>
-        </li>
-    </ul>
+            <span>All Roles</span>
+        </h2>
+        <ul>
+            <li th:each="user : ${users}">
+                <a th:href="@{/role/{userId}(userId=${user.id})}">
+                    <span th:text="${user.email.split('@')[0]} + ': ' + (${userRolesMap.get(user.id) != null ? userRolesMap.get(user.id) : 'No roles assigned'})"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
+<footer>
+    <p>&copy; 2024 GymApp API</p>
+</footer>
 </body>
 </html>

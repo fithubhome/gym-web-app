@@ -2,110 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f2f2f2;
-            color: #333;
-        }
-        .dashboard-container {
-            margin-top: 50px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 60%;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-        }
-        h2 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: #007bff;
-        }
-        .profile-section {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            position: absolute;
-            right: 20px;
-            top: 20px;
-        }
-        .profile-section a {
-            text-decoration: none;
-            color: #007bff;
-            display: flex;
-            align-items: center;
-        }
-        .profile-section img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-        .profile-image {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-        .profile-section span {
-            font-size: 18px;
-            font-weight: bold;
-            text-transform: capitalize;
-        }
-        .logout-link, .role-link, .profile-link {
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
-            border-radius: 5px;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-            margin-right: 10px;
-        }
-        .logout-link:hover, .role-link:hover, .profile-link:hover {
-            background-color: #0056b3;
-        }
-        .top-right {
-            position: fixed;
-            right: 10px;
-            top: 10px;
-        }
-        .logout-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .logout-icon {
-            margin-right: 5px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
-<div class="top-right">
-    <a th:href="@{/user/logout(sessionId=${session.sessionId})}" class="logout-link">
-        <span class="logout-icon">🔑</span>
-        Logout
-    </a>
-</div>
-<div class="dashboard-container">
-    <div class="profile-section">
-        <a th:href="@{/profile}">
-            <img th:if="${base64Image != null}" th:src="'data:image/jpeg;base64,' + ${base64Image}" alt="Profile Image" class="profile-image" />
-            <img th:src="@{/images/default-profile.png}" alt="Default Profile Image" th:if="${profile.imageData == null}" />
-            <span th:text="${#strings.capitalize(user.email.split('@')[0])}"></span>
+<header>
+    <h1>FitHubHome</h1>
+</header>
+<div class="main-content">
+    <div class="top-right">
+        <a th:href="@{/user/logout(sessionId=${session.sessionId})}" class="logout-link">
+            <span class="logout-icon">🔑</span>
+            Logout
         </a>
     </div>
-    <h2>Welcome to GymApp</h2>
-    <a th:href="@{/profile}" class="profile-link">Profile</a>
-    <a th:href="@{/role}" class="role-link">Roles</a>
+    <div class="container">
+        <div class="profile-section top-right-corner">
+            <a th:href="@{/profile}">
+                <img th:if="${base64Image != null}" th:src="'data:image/jpeg;base64,' + ${base64Image}" alt="Profile Image" class="profile-image-dashboard" />
+                <img th:src="@{/images/default-profile.png}" alt="Default Profile Image" th:if="${profile.imageData == null}" class="profile-image-dashboard" />
+                <span th:text="${#strings.capitalize(user.email.split('@')[0])}"></span>
+            </a>
+        </div>
+        <h2>Welcome to GymApp</h2>
+        <a th:href="@{/profile}" class="profile-link">Profile</a>
+        <a th:href="@{/role}" class="role-link">Roles</a>
+    </div>
 </div>
+<footer>
+    <p>&copy; 2024 GymApp API</p>
+</footer>
 </body>
 </html>

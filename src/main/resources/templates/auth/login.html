@@ -2,66 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #222222;
-            color: #fff;
-            display: grid;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        form {
-            width: 300px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #333;
-        }
-        input[type="email"],
-        input[type="password"],
-        input[type="submit"] {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-        .error-message {
-            color: red;
-            margin-top: 10px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
-<h2>Login</h2>
-<form th:action="@{/user/login}" method="post">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email">
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password">
-    <input type="submit" value="Login">
-</form>
-<p th:text="${errorMessage}" class="error-message"></p>
+<header>
+    <h1>FitHubHome</h1>
+</header>
+<div class="welcome-page"> <!-- Changed the class to center the content -->
+    <div class="container">
+        <h2>Login</h2>
+        <form th:action="@{/user/login}" method="post">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <input type="submit" value="Login">
+        </form>
+        <p th:text="${errorMessage}" class="error-message"></p>
+    </div>
+</div>
+<footer>
+    <p>&copy; 2024 GymApp API</p>
+</footer>
 </body>
 </html>

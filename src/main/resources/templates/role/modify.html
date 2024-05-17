@@ -3,94 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Modify Roles</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #007bff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            text-transform: capitalize;
-        }
-        .back-link {
-            color: #007bff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        li {
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-        }
-        form {
-            display: inline-block;
-        }
-        select {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-right: 10px;
-        }
-        input[type="submit"] {
-            padding: 8px 12px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
-<div class="container">
-    <h2>
-        <a class="back-link" th:href="@{/role}">
-            <span>&#8592;</span> Back to Roles
-        </a>
-        <span>Modify Roles for User: <span style="text-transform: capitalize;" th:text="${user != null ? #strings.substringBefore(user.email, '@') : 'Unknown User'}"></span></span>
-    </h2>
-    <ul>
-        <li th:each="role : ${userRoles}">
-            <span th:text="${role}"></span>
-            <form th:action="@{/role/{userId}/remove-role(userId=${userId})}" method="post">
-                <input type="hidden" name="roleType" th:value="${role}" />
-                <input type="submit" value="Remove Role" th:if="${role} != 'No roles assigned.'" />
-            </form>
-        </li>
-    </ul>
-    <form th:action="@{/role/{userId}/add-role(userId=${userId})}" method="post">
-        <select name="roleType">
-            <option th:each="role : ${allRoles}" th:value="${role}" th:text="${role}"></option>
-        </select>
-        <input type="submit" value="Add Role" />
-    </form>
+<header>
+    <h1>FitHubHome</h1>
+</header>
+<div class="main-content"> <!-- Added a wrapper for the main content -->
+    <div class="container role-container"> <!-- Added a custom class for role-specific styles -->
+        <h2>
+            <a class="back-link" th:href="@{/role}">
+                <span>&#8592;</span> Back to Roles
+            </a>
+            <span>Modify Roles for User: <span style="text-transform: capitalize;" th:text="${user != null ? #strings.substringBefore(user.email, '@') : 'Unknown User'}"></span></span>
+        </h2>
+        <ul>
+            <li th:each="role : ${userRoles}">
+                <span th:text="${role}"></span>
+                <form th:action="@{/role/{userId}/remove-role(userId=${userId})}" method="post">
+                    <input type="hidden" name="roleType" th:value="${role}" />
+                    <input type="submit" value="Remove Role" th:if="${role} != 'No roles assigned.'" />
+                </form>
+            </li>
+        </ul>
+        <form th:action="@{/role/{userId}/add-role(userId=${userId})}" method="post">
+            <select name="roleType">
+                <option th:each="role : ${allRoles}" th:value="${role}" th:text="${role}"></option>
+            </select>
+            <input type="submit" value="Add Role" />
+        </form>
+    </div>
 </div>
+<footer>
+    <p>&copy; 2024 GymApp API</p>
+</footer>
 </body>
 </html>
