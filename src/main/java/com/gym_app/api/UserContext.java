@@ -1,6 +1,6 @@
-package com.auth.api;
+package com.gym_app.api;
 
-import com.auth.api.model.User;
+import com.gym_app.api.model.User;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;

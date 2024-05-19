@@ -1,15 +1,15 @@
-package com.auth.api.controller;
+package com.gym_app.api.controller;
 
-import com.auth.api.UserContext;
-import com.auth.api.exceptions.RoleNotFoundException;
-import com.auth.api.model.Profile;
-import com.auth.api.model.User;
-import com.auth.api.service.ProfileService;
-import com.auth.api.service.RoleService;
+import com.gym_app.api.UserContext;
+import com.gym_app.api.exceptions.RoleNotFoundException;
+import com.gym_app.api.model.Profile;
+import com.gym_app.api.model.User;
+import com.gym_app.api.service.ProfileService;
+import com.gym_app.api.service.RoleService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@Controller
+@RestController
 @RequestMapping("/profile")
 public class ProfileController {
     @Autowired
@@ -35,6 +35,17 @@ public class ProfileController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
+    @GetMapping("/{profileId}")
+    public Profile getProfileById(HttpSession session) {
+        UUID sessionId = (UUID) session.getAttribute("sessionId");
+        User currentUser = UserContext.getCurrentUser(sessionId);
+        if (currentUser == null) {
+            return new Profile();
+        }
+        Profile currentProfile = profileService.findProfileByUserId(currentUser.getId());
+        return ResponseEntity.ok(currentProfile).getBody();
     }
 
     @GetMapping("")
@@ -50,7 +61,7 @@ public class ProfileController {
             profile = new Profile();
             profile.setId(UUID.randomUUID());
             profile.setUserId(currentUser.getId());
-            profile.setDob(new Date()); // Initialize dob
+            profile.setDob(new Date());
             profileService.createProfile(profile);
         }
         ModelAndView mav = new ModelAndView("profile/profile");

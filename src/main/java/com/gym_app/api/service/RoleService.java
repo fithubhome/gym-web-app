@@ -1,9 +1,9 @@
-package com.auth.api.service;
+package com.gym_app.api.service;
 
-import com.auth.api.exceptions.RoleAlreadyAssignedException;
-import com.auth.api.exceptions.RoleNotFoundException;
-import com.auth.api.model.Role;
-import com.auth.api.repository.RoleRepository;
+import com.gym_app.api.exceptions.RoleAlreadyAssignedException;
+import com.gym_app.api.exceptions.RoleNotFoundException;
+import com.gym_app.api.model.Role;
+import com.gym_app.api.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,10 +1,10 @@
-package com.auth.api.controller;
+package com.gym_app.api.controller;
 
-import com.auth.api.UserContext;
-import com.auth.api.exceptions.RoleNotFoundException;
-import com.auth.api.model.User;
-import com.auth.api.service.RoleService;
-import com.auth.api.service.UserService;
+import com.gym_app.api.UserContext;
+import com.gym_app.api.exceptions.RoleNotFoundException;
+import com.gym_app.api.model.User;
+import com.gym_app.api.service.RoleService;
+import com.gym_app.api.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

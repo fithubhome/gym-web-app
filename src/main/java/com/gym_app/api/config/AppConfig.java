@@ -1,6 +1,6 @@
-package com.auth.api.config;
+package com.gym_app.api.config;
 
-import com.auth.api.model.User;
+import com.gym_app.api.model.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

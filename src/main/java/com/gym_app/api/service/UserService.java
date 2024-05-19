@@ -1,9 +1,9 @@
-package com.auth.api.service;
+package com.gym_app.api.service;
 
-import com.auth.api.exceptions.DuplicateUserException;
-import com.auth.api.model.User;
-import com.auth.api.model.Profile;
-import com.auth.api.repository.UserRepository;
+import com.gym_app.api.exceptions.DuplicateUserException;
+import com.gym_app.api.model.User;
+import com.gym_app.api.model.Profile;
+import com.gym_app.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

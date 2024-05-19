@@ -1,7 +1,8 @@
-package com.auth.api.service;
+package com.gym_app.api.service;
 
-import com.auth.api.model.Profile;
-import com.auth.api.repository.ProfileRepository;
+import com.gym_app.api.model.Profile;
+import com.gym_app.api.model.User;
+import com.gym_app.api.repository.ProfileRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ public class ProfileService {
     private static final Logger logger = LoggerFactory.getLogger(ProfileService.class);
     @Autowired
     private ProfileRepository profileRepository;
+    @Autowired
+    private User user;
 
     public void createProfile(Profile profile) {
         profileRepository.save(profile);

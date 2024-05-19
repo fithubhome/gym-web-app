@@ -26,6 +26,8 @@
         <h2>Welcome to GymApp</h2>
         <a th:href="@{/profile}" class="profile-link">Profile</a>
         <a th:href="@{/role}" class="role-link">Roles</a>
+        <a th:href="'http://localhost:8081/bodystats?profileId=' + ${profile.id}" class="role-link">Bodystats</a>
+        <a th:href="@{http://localhost:8082/membership}" class="role-link">Membership</a>
     </div>
 </div>
 <footer>

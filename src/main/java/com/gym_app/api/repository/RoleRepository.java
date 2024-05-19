@@ -1,6 +1,6 @@
-package com.auth.api.repository;
+package com.gym_app.api.repository;
 
-import com.auth.api.model.Role;
+import com.gym_app.api.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
