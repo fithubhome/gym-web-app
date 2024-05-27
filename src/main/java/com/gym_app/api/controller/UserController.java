@@ -2,9 +2,8 @@ package com.gym_app.api.controller;
 
 import com.gym_app.api.UserContext;
 import com.gym_app.api.exceptions.DuplicateUserException;
-import com.gym_app.api.model.User;
-import com.gym_app.api.service.ProfileService;
-import com.gym_app.api.service.RoleService;
+import com.gym_app.api.exceptions.RoleNotFoundException;
+import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +16,12 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/userEntity")
 public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private ProfileService profileService;
-    @Autowired
-    private RoleService roleService;
-    @Autowired
-    private User user;
+    private UserEntity userEntity;
 
     @GetMapping("/login")
     public String getLoginPage() {
@@ -35,11 +30,11 @@ public class UserController {
 
     @PostMapping("/login")
     public String loginUser(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session, Model model) {
-        User user = userService.findByEmail(email);
-        if (user != null && user.getPassword().equals(password)) {
+        UserEntity userEntity = userService.findByEmail(email);
+        if (userEntity != null && userEntity.getPassword().equals(password)) {
             UUID sessionId = UUID.randomUUID();
             session.setAttribute("sessionId", sessionId);
-            UserContext.loginUser(sessionId, user);
+            UserContext.loginUser(sessionId, userEntity);
             return "redirect:/dashboard";
         }
 
@@ -49,22 +44,24 @@ public class UserController {
 
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
-        model.addAttribute("user", user);
+        model.addAttribute("userEntity", userEntity);
         return "auth/register";
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") @Valid User newUser, BindingResult bindingResult, Model model) {
+    public String registerUser(@ModelAttribute("userEntity") @Valid UserEntity newUserEntity, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "auth/register";
         }
         try {
-            newUser.setId(UUID.randomUUID());
-            User addedUser = userService.addUser(newUser);
-            return "redirect:/user/login";
+            newUserEntity.setId(UUID.randomUUID());
+            UserEntity addedUserEntity = userService.addUser(newUserEntity);
+            return "redirect:/userEntity/login";
         } catch (DuplicateUserException e) {
-            model.addAttribute("errorMessage", "User with email " + newUser.getEmail() + " already exists.");
+            model.addAttribute("errorMessage", "UserEntity with email " + newUserEntity.getEmail() + " already exists.");
             return "error";
+        } catch (RoleNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -1,22 +1,22 @@
 package com.gym_app.api;
 
-import com.gym_app.api.model.User;
+import com.gym_app.api.model.UserEntity;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class UserContext {
-    private static final Map<UUID, User> loggedInUsers = new HashMap<>();
+    private static final Map<UUID, UserEntity> loggedInUsers = new HashMap<>();
 
-    public static void loginUser(UUID sessionId, User user) {
-        loggedInUsers.put(sessionId, user);
+    public static void loginUser(UUID sessionId, UserEntity userEntity) {
+        loggedInUsers.put(sessionId, userEntity);
     }
 
     public static void logoutUser(UUID sessionId) {
         loggedInUsers.remove(sessionId);
     }
 
-    public static User getCurrentUser(UUID sessionId) {
+    public static UserEntity getCurrentUser(UUID sessionId) {
         return loggedInUsers.get(sessionId);
     }
 }

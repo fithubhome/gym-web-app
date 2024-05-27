@@ -1,7 +1,7 @@
 package com.gym_app.api.service;
 
 import com.gym_app.api.model.Profile;
-import com.gym_app.api.model.User;
+import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.repository.ProfileRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ public class ProfileService {
     @Autowired
     private ProfileRepository profileRepository;
     @Autowired
-    private User user;
+    private UserEntity userEntity;
 
     public void createProfile(Profile profile) {
         profileRepository.save(profile);
@@ -25,7 +25,7 @@ public class ProfileService {
     public void updateProfile(Profile updatedProfile) {
         Profile existingProfile = profileRepository.findById(updatedProfile.getId()).orElse(null);
         if (existingProfile != null) {
-            logger.info("Updating profile for user: {}", updatedProfile.getFirstName());
+            logger.info("Updating profile for userEntity: {}", updatedProfile.getFirstName());
             existingProfile.setFirstName(updatedProfile.getFirstName());
             existingProfile.setLastName(updatedProfile.getLastName());
             existingProfile.setGender(updatedProfile.getGender());
@@ -37,7 +37,7 @@ public class ProfileService {
             }
             profileRepository.save(existingProfile);
         } else {
-            logger.error("Profile not found for user: {}", updatedProfile.getUserId());
+            logger.error("Profile not found for userEntity: {}", updatedProfile.getUserId());
         }
     }
 

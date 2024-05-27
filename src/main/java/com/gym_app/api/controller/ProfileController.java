@@ -3,7 +3,8 @@ package com.gym_app.api.controller;
 import com.gym_app.api.UserContext;
 import com.gym_app.api.exceptions.RoleNotFoundException;
 import com.gym_app.api.model.Profile;
-import com.gym_app.api.model.User;
+import com.gym_app.api.model.Role;
+import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.service.ProfileService;
 import com.gym_app.api.service.RoleService;
 import jakarta.servlet.http.HttpSession;
@@ -17,10 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/profile")
@@ -29,6 +27,8 @@ public class ProfileController {
     private ProfileService profileService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private UserEntity userEntity;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -40,27 +40,27 @@ public class ProfileController {
     @GetMapping("/{profileId}")
     public Profile getProfileById(HttpSession session) {
         UUID sessionId = (UUID) session.getAttribute("sessionId");
-        User currentUser = UserContext.getCurrentUser(sessionId);
-        if (currentUser == null) {
+        UserEntity currentUserEntity = UserContext.getCurrentUser(sessionId);
+        if (currentUserEntity == null) {
             return new Profile();
         }
-        Profile currentProfile = profileService.findProfileByUserId(currentUser.getId());
+        Profile currentProfile = profileService.findProfileByUserId(currentUserEntity.getId());
         return ResponseEntity.ok(currentProfile).getBody();
     }
 
     @GetMapping("")
     public ModelAndView getProfile(HttpSession session) throws RoleNotFoundException {
         UUID sessionId = (UUID) session.getAttribute("sessionId");
-        User currentUser = UserContext.getCurrentUser(sessionId);
-        if (currentUser == null) {
+        UserEntity currentUserEntity = UserContext.getCurrentUser(sessionId);
+        if (currentUserEntity == null) {
             return new ModelAndView("redirect:/user/login");
         }
-        Profile profile = profileService.findProfileByUserId(currentUser.getId());
-        List<String> currentRole = roleService.getRoleByUserId(currentUser.getId());
+        Profile profile = profileService.findProfileByUserId(currentUserEntity.getId());
+        List<Role> currentRole = userEntity.getRoles();
 ;        if (profile == null) {
             profile = new Profile();
             profile.setId(UUID.randomUUID());
-            profile.setUserId(currentUser.getId());
+            profile.setUserId(currentUserEntity.getId());
             profile.setDob(new Date());
             profileService.createProfile(profile);
         }
@@ -77,15 +77,15 @@ public class ProfileController {
     @GetMapping("/edit")
     public ModelAndView editProfile(HttpSession session) {
         UUID sessionId = (UUID) session.getAttribute("sessionId");
-        User currentUser = UserContext.getCurrentUser(sessionId);
-        if (currentUser == null) {
+        UserEntity currentUserEntity = UserContext.getCurrentUser(sessionId);
+        if (currentUserEntity == null) {
             return new ModelAndView("redirect:/user/login");
         }
-        Profile profile = profileService.findProfileByUserId(currentUser.getId());
+        Profile profile = profileService.findProfileByUserId(currentUserEntity.getId());
         if (profile == null) {
             profile = new Profile();
             profile.setId(UUID.randomUUID());
-            profile.setUserId(currentUser.getId());
+            profile.setUserId(currentUserEntity.getId());
             profileService.createProfile(profile);
         }
         ModelAndView mav = new ModelAndView("profile/update");
@@ -98,11 +98,11 @@ public class ProfileController {
                                       @ModelAttribute Profile updatedProfile,
                                       @RequestParam("fileInput") MultipartFile fileInput) throws IOException {
         UUID sessionId = (UUID) session.getAttribute("sessionId");
-        User currentUser = UserContext.getCurrentUser(sessionId);
-        if (currentUser == null) {
+        UserEntity currentUserEntity = UserContext.getCurrentUser(sessionId);
+        if (currentUserEntity == null) {
             return new ModelAndView("redirect:/user/login");
         }
-        updatedProfile.setUserId(currentUser.getId());
+        updatedProfile.setUserId(currentUserEntity.getId());
         if (!fileInput.isEmpty()) {
             updatedProfile.setImageData(fileInput.getBytes());
         }

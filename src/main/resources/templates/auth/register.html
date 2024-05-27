@@ -11,7 +11,7 @@
 <div class="welcome-page"> <!-- Changed the class to center the content -->
     <div class="container">
         <h2>Register</h2>
-        <form th:action="@{/user/register}" th:object="${user}" method="post">
+        <form th:action="@{/userEntity/register}" th:object="${userEntity}" method="post">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" th:field="*{email}">
             <label for="password">Password:</label>
