@@ -15,7 +15,7 @@
             <a class="back-link" th:href="@{/role}">
                 <span>&#8592;</span> Back to Roles
             </a>
-            <span>Modify Roles for User: <span style="text-transform: capitalize;" th:text="${user != null ? #strings.substringBefore(user.email, '@') : 'Unknown User'}"></span></span>
+            <span>Modify Roles for User: <span style="text-transform: capitalize;" th:text="${userEntity != null ? #strings.substringBefore(userEntity.email, '@') : 'Unknown User'}"></span></span>
         </h2>
         <ul>
             <li th:each="role : ${userRoles}">

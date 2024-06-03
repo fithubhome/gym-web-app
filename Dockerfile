@@ -18,7 +18,7 @@ FROM openjdk:17-slim
 WORKDIR /app
 
 # Copy the packaged jar file from the build stage
-COPY --from=build /app/target/gym_app.api-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/gym_app.api-1.jar app.jar
 
 # Expose the application port
 EXPOSE 8080

@@ -1,7 +1,6 @@
 package com.gym_app.api.service;
 
 import com.gym_app.api.model.Profile;
-import com.gym_app.api.model.User;
 import com.gym_app.api.repository.ProfileRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +14,6 @@ public class ProfileService {
     private static final Logger logger = LoggerFactory.getLogger(ProfileService.class);
     @Autowired
     private ProfileRepository profileRepository;
-    @Autowired
-    private User user;
 
     public void createProfile(Profile profile) {
         profileRepository.save(profile);
@@ -37,11 +34,12 @@ public class ProfileService {
             }
             profileRepository.save(existingProfile);
         } else {
-            logger.error("Profile not found for user: {}", updatedProfile.getUserId());
+            logger.error("Profile not found for user: {}", updatedProfile.getFirstName());
         }
     }
 
     public Profile findProfileByUserId(UUID userId) {
         return profileRepository.findProfileByUserId(userId);
     }
+
 }

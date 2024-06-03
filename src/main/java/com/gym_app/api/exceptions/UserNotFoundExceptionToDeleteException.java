@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class UserNotFoundExceptionToDeleteException extends Exception {
     public UserNotFoundExceptionToDeleteException(UUID userId) {
-        super("User with ID " + userId + " not found to delete.");
+        super("UserEntity with ID " + userId + " not found to delete.");
     }
 }
 
