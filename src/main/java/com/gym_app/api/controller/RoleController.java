@@ -1,10 +1,8 @@
 package com.gym_app.api.controller;
 
-import com.gym_app.api.UserContext;
 import com.gym_app.api.exceptions.RoleNotFoundException;
 import com.gym_app.api.model.Role;
 import com.gym_app.api.model.UserEntity;
-import com.gym_app.api.service.RoleService;
 import com.gym_app.api.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +16,12 @@ import java.util.*;
 @RequestMapping("/role")
 public class RoleController {
     @Autowired
-    private RoleService roleService;
-    @Autowired
     private UserService userService;
     @Autowired
     private UserEntity userEntity;
 
     @GetMapping("")
-    public String getAllRoles(Model model, HttpSession session) {
-        UUID sessionId = (UUID) session.getAttribute("sessionId");
-        UserEntity currentUserEntity = UserContext.getCurrentUser(sessionId);
-        if (currentUserEntity == null) {
-            return "redirect:/user/login";
-        }
+    public String getAllRoles(Model model) {
         List<UserEntity> userEntities = userService.getAllUsers();
         Map<UUID, String> userRolesMap = new HashMap<>();
         for (UserEntity userEntity : userEntities) {
@@ -44,12 +35,7 @@ public class RoleController {
     }
 
     @GetMapping("/{userId}")
-    public String modifyRoles(@PathVariable UUID userId, Model model, HttpSession session) throws RoleNotFoundException {
-        UUID sessionId = (UUID) session.getAttribute("sessionId");
-        UserEntity currentUserEntity = UserContext.getCurrentUser(sessionId);
-        if (currentUserEntity == null) {
-            return "redirect:/user/login";
-        }
+    public String modifyRoles(@PathVariable UUID userId, Model model) {
         UserEntity selectedUserEntity = userService.findUserById(userId);
         List<Role> userRoles = userEntity.getRoles();
         if (selectedUserEntity == null) {

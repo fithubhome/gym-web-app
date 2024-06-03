@@ -1,6 +1,5 @@
 package com.gym_app.api.service;
 
-import com.gym_app.api.exceptions.RoleAlreadyAssignedException;
 import com.gym_app.api.exceptions.RoleNotFoundException;
 import com.gym_app.api.model.Role;
 import com.gym_app.api.model.UserEntity;
@@ -17,43 +16,35 @@ import java.util.UUID;
 public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
-
     @Autowired
     private UserRepository userRepository;
 
     @Transactional
-    public void assignRoleToUser(UUID userID, String roleType) throws RoleAlreadyAssignedException, RoleNotFoundException {
-        UserEntity user = userRepository.findById(userID)
-                .orElseThrow(() -> new RoleNotFoundException("User not found for ID: " + userID));
-
-        Optional<Role> roleOptional = roleRepository.findByName(roleType);
-        Role role;
-        if (roleOptional.isPresent()) {
-            role = roleOptional.get();
-        } else {
-            // Create a new role if it doesn't exist
-            role = Role.builder().id(UUID.randomUUID()).name(roleType).build();
-            roleRepository.save(role);
+    public void assignRoleToUser(UUID userId, String roleName) {
+        Optional<Role> roleOpt = roleRepository.findByName(roleName);
+        if (roleOpt.isEmpty()) {
+            Role newRole = new Role();
+            newRole.setName(roleName);
+            roleRepository.save(newRole);
+            roleOpt = Optional.of(newRole);
         }
 
-        if (user.getRoles().contains(role)) {
-            throw new RoleAlreadyAssignedException("Role '" + roleType + "' is already assigned to user ID: " + userID);
-        }
-
+        Role role = roleOpt.get();
+        UserEntity user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found in RoleService>AssignRoleToUser method."));
         user.getRoles().add(role);
         userRepository.save(user);
     }
 
     @Transactional
-    public void removeRoleFromUser(UUID userID, String roleType) throws RoleNotFoundException {
-        UserEntity user = userRepository.findById(userID)
-                .orElseThrow(() -> new RoleNotFoundException("User not found for ID: " + userID));
+    public void removeRoleFromUser(UUID userId, String roleType) throws RoleNotFoundException {
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new RoleNotFoundException("User not found for ID: " + userId));
 
         Role role = roleRepository.findByName(roleType)
                 .orElseThrow(() -> new RoleNotFoundException("Role '" + roleType + "' not found"));
 
         if (!user.getRoles().contains(role)) {
-            throw new RoleNotFoundException("Role '" + roleType + "' not assigned to user ID: " + userID);
+            throw new RoleNotFoundException("Role '" + roleType + "' not assigned to user ID: " + userId);
         }
 
         user.getRoles().remove(role);
