@@ -6,13 +6,11 @@ import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.security.CustomUserDetails;
 import com.gym_app.api.service.ProfileService;
 import com.gym_app.api.service.UserService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -59,7 +57,7 @@ public class ProfileController {
             profile.setUserId(currentUser.getId());
             profileService.createProfile(profile);
         }
-        ModelAndView mav = new ModelAndView("profile/profile");
+        ModelAndView mav = new ModelAndView("profile/index");
         mav.addObject("profile", profile);
         mav.addObject("role", currentRole);
         if (profile.getImageData() != null) {
