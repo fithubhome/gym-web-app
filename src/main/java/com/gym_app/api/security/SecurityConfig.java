@@ -28,9 +28,8 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/", "/auth/**").permitAll()
-                .requestMatchers("/profile", "/bodystats", "/membership", "/activity").authenticated()
-                .requestMatchers("/dashboard").authenticated()  // Allow authenticated users
-                .requestMatchers("/roles").hasRole("ADMIN")
+                .requestMatchers("/dashboard", "/profile/**", "/bodystats/**", "/membership/**", "/activity/**").authenticated()
+                .requestMatchers("/roles/**").hasRole("ADMIN")
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
                 .and()
                 .formLogin()
