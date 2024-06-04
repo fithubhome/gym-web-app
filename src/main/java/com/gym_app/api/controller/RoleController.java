@@ -4,7 +4,6 @@ import com.gym_app.api.exceptions.RoleNotFoundException;
 import com.gym_app.api.model.Role;
 import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.service.UserService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +30,7 @@ public class RoleController {
         }
         model.addAttribute("userEntities", userEntities);
         model.addAttribute("userRolesMap", userRolesMap);
-        return "role/role";
+        return "role/index";
     }
 
     @GetMapping("/{userId}")
