@@ -1,27 +1,26 @@
 package com.gym_app.api.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "roles")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@Setter
+@Getter
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false)
-    private UUID userId;
+    @Column(nullable = false, unique = true)
+    private String name;
 
-    @Column(nullable = false)
-    private String roleType;
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    private List<UserEntity> users;
 }

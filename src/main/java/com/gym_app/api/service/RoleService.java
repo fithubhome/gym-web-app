@@ -1,50 +1,54 @@
 package com.gym_app.api.service;
 
-import com.gym_app.api.exceptions.RoleAlreadyAssignedException;
 import com.gym_app.api.exceptions.RoleNotFoundException;
 import com.gym_app.api.model.Role;
+import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.repository.RoleRepository;
+import com.gym_app.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    public List<String> getRoleByUserId(UUID userID) throws RoleNotFoundException {
-        List<Role> roles = roleRepository.findByUserId(userID);
-        if (roles.isEmpty()) {
-            return Collections.singletonList("No roles assigned.");
+    @Transactional
+    public void assignRoleToUser(UUID userId, String roleName) {
+        Optional<Role> roleOpt = roleRepository.findByName(roleName);
+        if (roleOpt.isEmpty()) {
+            Role newRole = new Role();
+            newRole.setName(roleName);
+            roleRepository.save(newRole);
+            roleOpt = Optional.of(newRole);
         }
-        return roles.stream().map(Role::getRoleType).collect(Collectors.toList());
-    }
 
-    public List<String> getAllRoles() {
-        return Arrays.asList("Admin", "Trainer", "Member", "Staff");
+        Role role = roleOpt.get();
+        UserEntity user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found in RoleService>AssignRoleToUser method."));
+        user.getRoles().add(role);
+        userRepository.save(user);
     }
 
     @Transactional
-    public void assignRoleToUser(UUID userID, String roleType) throws RoleAlreadyAssignedException {
-        if (roleRepository.existsByUserIdAndRoleType(userID, roleType)) {
-            throw new RoleAlreadyAssignedException("Role '" + roleType + "' is already assigned.");
+    public void removeRoleFromUser(UUID userId, String roleType) throws RoleNotFoundException {
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new RoleNotFoundException("User not found for ID: " + userId));
+
+        Role role = roleRepository.findByName(roleType)
+                .orElseThrow(() -> new RoleNotFoundException("Role '" + roleType + "' not found"));
+
+        if (!user.getRoles().contains(role)) {
+            throw new RoleNotFoundException("Role '" + roleType + "' not assigned to user ID: " + userId);
         }
-        Role role = new Role(UUID.randomUUID(), userID, roleType);
-        roleRepository.save(role);
+
+        user.getRoles().remove(role);
+        userRepository.save(user);
     }
 
-    @Transactional
-    public void removeRoleFromUser(UUID userID, String roleType) throws RoleNotFoundException {
-        if (!roleRepository.existsByUserIdAndRoleType(userID, roleType)) {
-            throw new RoleNotFoundException("Role '" + roleType + "' not found for user ID: " + userID);
-        }
-        roleRepository.deleteByUserIdAndRoleType(userID, roleType);
-    }
 }
