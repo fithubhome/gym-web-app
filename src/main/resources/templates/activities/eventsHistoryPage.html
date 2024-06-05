@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Roles</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<header>
+    <h1>FitHubHome</h1>
+</header>
+<div class="main-content"> <!-- Added a wrapper for the main content -->
+    <div class="container role-container"> <!-- Added a custom class for role-specific styles -->
+        <h2>
+            <a class="back-link" th:href="@{/dashboard}">
+                <span>&#8592;</span> Back to Dashboard
+            </a>
+            <span>Events History</span>
+        </h2>
+
+        <div class="table-responsive">
+            <table id="usersTable" class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th><b>Event Name</b></th>
+                    <th><b>Description</b></th>
+                    <th><b>Date</b></th>
+                    <th><b>Start Time</b></th>
+                    <th><b>End Time</b></th>
+                    <th><b>We shall see</b></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="event : ${events}">
+                    <td th:text="${event.eventName}"></td>
+                    <td th:text="${event.eventDescription}"></td>
+                    <td th:text="${event.date}"></td>
+                    <td th:text="${event.startTime}"></td>
+                    <td th:text="${event.endTime}"></td>
+                    <td th:text="${event.maxParticipants}"></td>
+
+<!--                    <td><a href="#" th:href="@{'/quiz/delete/' + ${quiz.id}}">Delete Quiz</a></td>-->
+<!--                    <td><a href="#" th:href="@{'/quiz/' + ${quiz.id} + '/questions' }">Update Questions in quiz</a></td>-->
+<!--                    <td><a href="#" th:href="@{'/quiz/getById/' + ${quiz.id} }">Update quiz details</a></td>-->
+                </tr>
+                </tbody>
+            </table>
+    </div>
+</div>
+<footer>
+    <p>&copy; 2024 GymApp API</p>
+</footer>
+</body>
+</html>

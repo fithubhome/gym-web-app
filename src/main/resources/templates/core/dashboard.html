@@ -18,14 +18,18 @@
     <div class="container">
         <div class="profile-section top-right-corner">
             <a th:href="@{/profile}">
-                <img th:if="${base64Image != null}" th:src="'data:image/jpeg;base64,' + ${base64Image}" alt="Profile Image" class="profile-image-dashboard" />
-                <img th:src="@{/images/default-profile.png}" alt="Default Profile Image" th:if="${profile.imageData == null}" class="profile-image-dashboard" />
+                <img th:if="${base64Image != null}" th:src="'data:image/jpeg;base64,' + ${base64Image}"
+                     alt="Profile Image" class="profile-image-dashboard"/>
+                <img th:src="@{/images/default-profile.png}" alt="Default Profile Image"
+                     th:if="${profile.imageData == null}" class="profile-image-dashboard"/>
                 <span th:text="${#strings.capitalize(user.email.split('@')[0])}"></span>
             </a>
         </div>
         <h2>Welcome to GymApp</h2>
         <a th:href="@{/profile}" class="profile-link">Profile</a>
         <a th:href="@{/role}" class="role-link">Roles</a>
+        <a th:href="@{/activities/events-history}" class="role-link">Events-History</a>
+        <a th:href="@{/activities}" class="role-link">Show Events</a>
         <a th:href="'http://localhost:8081/bodystats?profileId=' + ${profile.id}" class="role-link">Bodystats</a>
         <a th:href="@{http://localhost:8082/membership}" class="role-link">Membership</a>
     </div>
