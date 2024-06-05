@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Welcome</title>
+    <title>BodyStats</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
@@ -10,19 +10,15 @@
 </header>
 <div class="welcome-page">
     <div class="content">
-        <p>Please select an action:</p>
         <div class="action-buttons">
-            <a th:href="@{/auth/login}">
-                <button>Login</button>
-            </a>
-            <a th:href="@{/auth/register}">
-                <button>Register</button>
+            <a th:href="@{/dashboard}">
+                <button>Back to Dashboard</button>
             </a>
         </div>
     </div>
 </div>
 <footer>
-    <p>&copy; 2024 GymApp API</p>
+    <p>&copy; 2024 BodyStats API</p>
 </footer>
 </body>
 </html>

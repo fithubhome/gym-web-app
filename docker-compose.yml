@@ -6,8 +6,8 @@ services:
     container_name: gym_mysql
     environment:
       MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: gym_app
       MYSQL_USER: admin
+      MYSQL_DATABASE: gym_app
       MYSQL_PASSWORD: admin
     ports:
       - "3307:3306"

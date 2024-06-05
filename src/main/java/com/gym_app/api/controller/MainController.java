@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class MainController {
-
     @GetMapping("")
     public String mainPage(Model model) {
-        model.addAttribute("message", "Welcome to GymApp!");
+        model.addAttribute("message", "Welcome to FitHubHome!");
         return "index";
     }
 }
