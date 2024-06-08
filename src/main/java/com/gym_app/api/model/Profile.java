@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
 
+import java.sql.Types;
 import java.util.Date;
 import java.util.UUID;
 
@@ -18,9 +20,11 @@ import java.util.UUID;
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JdbcTypeCode(Types.VARCHAR)
     private UUID id;
 
     @Column(nullable = false)
+    @JdbcTypeCode(Types.VARCHAR)
     private UUID userId;
 
     private String firstName;
