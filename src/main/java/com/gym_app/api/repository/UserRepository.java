@@ -1,6 +1,5 @@
 package com.gym_app.api.repository;
 
-import com.gym_app.api.dto.UserDTO;
 import com.gym_app.api.model.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
