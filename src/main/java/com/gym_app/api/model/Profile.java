@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
 
+import java.sql.Types;
 import java.util.Date;
 import java.util.UUID;
 
@@ -17,7 +19,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Profile {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @JdbcTypeCode(Types.VARCHAR)
     private UUID id;
 
     @Column(nullable = false)
@@ -37,6 +39,12 @@ public class Profile {
     public Profile(UUID id, UUID userId) {
         this.id = id;
         this.userId = userId;
+    }
+    @PrePersist
+    public void prePersist() {
+        if (id == null) {
+            id = UUID.randomUUID();
+        }
     }
 }
 
