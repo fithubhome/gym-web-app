@@ -19,8 +19,6 @@ public class UserService {
     private ProfileService profileService;
     @Autowired
     private RoleService roleService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
@@ -42,11 +40,10 @@ public class UserService {
 
         Profile profile = new Profile(UUID.randomUUID(), registerUser.getId());
         profileService.createProfile(profile);
-        roleService.assignRoleToUser(registerUser.getId(), "MEMBER");
-    }
-    public boolean validateUserCredentials(String email, String rawPassword) {
-        UserEntity user = findByEmail(email);
-        System.out.println("User from validate credentials: " + user);
-        return passwordEncoder.matches(rawPassword, user.getPassword());
+        if (registerUser.getEmail().contains("admin")){
+            roleService.assignRoleToUser(registerUser.getId(), "ADMIN");
+        }else {
+            roleService.assignRoleToUser(registerUser.getId(), "MEMBER");
+        }
     }
 }

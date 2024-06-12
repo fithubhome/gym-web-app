@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/", "/auth/**").permitAll()
                 .requestMatchers("/dashboard", "/profile/**", "/bodystats/**", "/membership/**", "/activity/**").authenticated()
-                .requestMatchers("/roles/**").hasRole("ADMIN")
+                .requestMatchers("/role/**").hasRole("ADMIN")
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
                 .and()
                 .formLogin()
@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/auth/login?logout")
+                .logoutSuccessUrl("/")
                 .permitAll();
         return http.build();
     }
