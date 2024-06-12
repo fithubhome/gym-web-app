@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -44,9 +45,12 @@ public class DashboardController {
             model.addAttribute("base64Image", null);
         }
 
+        boolean isAdmin = roles.stream().map(Role::getName).toList().contains("ADMIN");
+
         model.addAttribute("profile", profile);
         model.addAttribute("roles", roles);
         model.addAttribute("user", userEntity);
+        model.addAttribute("isAdmin", isAdmin);
 
         return "core/dashboard";
     }

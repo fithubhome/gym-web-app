@@ -50,5 +50,4 @@ public class RoleService {
         user.getRoles().remove(role);
         userRepository.save(user);
     }
-
 }

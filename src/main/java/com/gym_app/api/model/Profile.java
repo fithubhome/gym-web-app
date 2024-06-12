@@ -23,6 +23,7 @@ public class Profile {
     private UUID id;
 
     @Column(nullable = false)
+    @JdbcTypeCode(Types.VARCHAR)
     private UUID userId;
 
     private String firstName;
