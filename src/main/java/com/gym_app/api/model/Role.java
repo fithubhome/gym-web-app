@@ -5,7 +5,6 @@ import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 
 import java.sql.Types;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,9 +21,6 @@ public class Role {
 
     @Column(nullable = false, unique = true)
     private String name;
-
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
-    private List<UserEntity> users;
 
     @PrePersist
     public void prePersist() {

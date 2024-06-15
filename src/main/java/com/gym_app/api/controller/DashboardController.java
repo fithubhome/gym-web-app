@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Base64;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -32,7 +31,6 @@ public class DashboardController {
         if (authentication == null || !authentication.isAuthenticated()) {
             return "redirect:/auth/login";
         }
-
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         UserEntity userEntity = userService.findByEmail(userDetails.getUsername());
         Profile profile = profileService.findProfileByUserId(userEntity.getId());
