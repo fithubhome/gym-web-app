@@ -50,7 +50,8 @@ public class ProfileController {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         UserEntity currentUser = userService.findByEmail(userDetails.getUsername());
         Profile profile = profileService.findProfileByUserId(currentUser.getId());
-        List<Role> currentRole = userEntity.getRoles();
+        List<Role> currentRoles = currentUser.getRoles();
+        String userRolesString = currentRoles.stream().map(Role::getName).reduce((r1, r2) -> r1 + ", " + r2).orElse("No roles assigned.");
         if (profile == null) {
             profile = new Profile();
             profile.setId(UUID.randomUUID());
@@ -59,7 +60,7 @@ public class ProfileController {
         }
         ModelAndView mav = new ModelAndView("profile/index");
         mav.addObject("profile", profile);
-        mav.addObject("role", currentRole);
+        mav.addObject("role", userRolesString);
         if (profile.getImageData() != null) {
             String base64Image = Base64.getEncoder().encodeToString(profile.getImageData());
             mav.addObject("base64Image", base64Image);

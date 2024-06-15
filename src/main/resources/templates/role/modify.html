@@ -9,26 +9,26 @@
 <header>
     <h1>FitHubHome</h1>
 </header>
-<div class="main-content"> <!-- Added a wrapper for the main content -->
-    <div class="container role-container"> <!-- Added a custom class for role-specific styles -->
+<div class="main-content">
+    <div class="container role-container">
         <h2>
             <a class="back-link" th:href="@{/role}">
                 <span>&#8592;</span> Back to Roles
             </a>
-            <span>Modify Roles for User: <span style="text-transform: capitalize;" th:text="${userEntity != null ? #strings.substringBefore(userEntity.email, '@') : 'Unknown User'}"></span></span>
+            <span>Modify Roles for User: <span style="text-transform: capitalize;" th:text="${user != null ? #strings.substringBefore(user.email, '@') : 'Unknown User'}"></span></span>
         </h2>
         <ul>
             <li th:each="role : ${userRoles}">
-                <span th:text="${role}"></span>
+                <span th:text="${role.name}"></span>
                 <form th:action="@{/role/{userId}/remove-role(userId=${userId})}" method="post">
-                    <input type="hidden" name="roleType" th:value="${role}" />
-                    <input type="submit" value="Remove Role" th:if="${role} != 'No roles assigned.'" />
+                    <input type="hidden" name="roleType" th:value="${role.name}" />
+                    <input type="submit" value="Remove Role" th:if="${role.name != 'No roles assigned.'}" />
                 </form>
             </li>
         </ul>
         <form th:action="@{/role/{userId}/add-role(userId=${userId})}" method="post">
             <select name="roleType">
-                <option th:each="role : ${allRoles}" th:value="${role}" th:text="${role}"></option>
+                <option th:each="role : ${availableRoles}" th:value="${role}" th:text="${role}"></option>
             </select>
             <input type="submit" value="Add Role" />
         </form>
