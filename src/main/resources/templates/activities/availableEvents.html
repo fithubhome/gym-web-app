@@ -42,7 +42,8 @@
 
                     <td>
                         <div th:if="${event.value} == true ">
-                            <a href="#" th:href="@{'/activities/withdraw?eventId=' + ${event.key.id}}">Withdraw From event</a>
+                            <a href="#" th:href="@{'/activities/withdraw?eventId=' + ${event.key.id}}">Withdraw From
+                                event</a>
                         </div>
                         <div th:if="${event.value} == false">
                             <a href="#" th:href="@{'/activities/signMeUp?eventId=' + ${event.key.id}}">Sign Me Up!</a>
@@ -53,6 +54,7 @@
             </table>
         </div>
     </div>
+</div>
     <footer>
         <p>&copy; 2024 GymApp API</p>
     </footer>
