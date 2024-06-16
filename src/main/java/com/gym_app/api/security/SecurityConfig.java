@@ -28,7 +28,7 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/", "/auth/**").permitAll()
-                .requestMatchers("/dashboard", "/profile/**", "/bodystats/**", "/membership/**", "/activity/**").authenticated()
+                .requestMatchers("/dashboard", "/profile/**", "/bodystats/**", "/membership/**", "/activities/**").authenticated()
                 .requestMatchers("/roles/**").hasRole("ADMIN")
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
                 .and()

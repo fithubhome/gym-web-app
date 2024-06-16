@@ -33,16 +33,21 @@
                 </thead>
                 <tbody>
                 <tr th:each="event : ${availableEvents}">
-                    <td th:text="${event.eventName}"></td>
-                    <td th:text="${event.eventDescription}"></td>
-                    <td th:text="${event.date}"></td>
-                    <td th:text="${event.startTime}"></td>
-                    <td th:text="${event.endTime}"></td>
-                    <td th:text="${event.maxParticipants}"></td>
+                    <td th:text="${event.key.eventName}"></td>
+                    <td th:text="${event.key.eventDescription}"></td>
+                    <td th:text="${event.key.date}"></td>
+                    <td th:text="${event.key.startTime}"></td>
+                    <td th:text="${event.key.endTime}"></td>
+                    <td th:text="${event.key.maxParticipants}"></td>
 
-                    <td><a href="#" th:href="@{'/activities/signMeUp?eventId=' + ${event.id}}">Sign Me Up</a></td>
-                    <!--                    <td><a href="#" th:href="@{'/quiz/' + ${quiz.id} + '/questions' }">Update Questions in quiz</a></td>-->
-                    <!--                    <td><a href="#" th:href="@{'/quiz/getById/' + ${quiz.id} }">Update quiz details</a></td>-->
+                    <td>
+                        <div th:if="${event.value} == true ">
+                            <a href="#" th:href="@{'/activities/withdraw?eventId=' + ${event.key.id}}">Withdraw From event</a>
+                        </div>
+                        <div th:if="${event.value} == false">
+                            <a href="#" th:href="@{'/activities/signMeUp?eventId=' + ${event.key.id}}">Sign Me Up!</a>
+                        </div>
+                    </td>
                 </tr>
                 </tbody>
             </table>

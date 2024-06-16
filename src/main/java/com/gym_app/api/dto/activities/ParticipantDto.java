@@ -1,4 +1,4 @@
-package com.gym_app.api.model.activities;
+package com.gym_app.api.dto.activities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +10,6 @@ import java.util.UUID;
 public class ParticipantDto {
 
     private Long id;
-    private Long profileId;
+    private UUID profileId;
     private GymEventDto event;
 }

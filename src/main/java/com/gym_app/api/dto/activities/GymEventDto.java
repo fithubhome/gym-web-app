@@ -1,4 +1,4 @@
-package com.gym_app.api.model.activities;
+package com.gym_app.api.dto.activities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,6 +6,7 @@ import lombok.Setter;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,7 +19,7 @@ public class GymEventDto {
     private Date date;
     private Time startTime;
     private Time endTime;
-    private Long organizerId;
+    private UUID organizerId;
     private String eventType;
     private Integer maxParticipants;
 }
