@@ -31,7 +31,6 @@ public class DashboardController {
         if (authentication == null || !authentication.isAuthenticated()) {
             return "redirect:/auth/login";
         }
-
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         UserEntity userEntity = userService.findByEmail(userDetails.getUsername());
         Profile profile = profileService.findProfileByUserId(userEntity.getId());
@@ -44,9 +43,12 @@ public class DashboardController {
             model.addAttribute("base64Image", null);
         }
 
+        boolean isAdmin = roles.stream().map(Role::getName).toList().contains("ADMIN");
+
         model.addAttribute("profile", profile);
         model.addAttribute("roles", roles);
         model.addAttribute("user", userEntity);
+        model.addAttribute("isAdmin", isAdmin);
 
         return "core/dashboard";
     }

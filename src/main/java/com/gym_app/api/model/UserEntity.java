@@ -18,9 +18,11 @@ import java.util.UUID;
 @Getter
 public class UserEntity {
     @Id
+    @JdbcTypeCode(Types.VARCHAR)
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JdbcTypeCode(Types.VARCHAR)
     private UUID id;
+
     private String email;
     private String password;
 
@@ -35,5 +37,12 @@ public class UserEntity {
     public UserEntity(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        if (id == null) {
+            id = UUID.randomUUID();
+        }
     }
 }

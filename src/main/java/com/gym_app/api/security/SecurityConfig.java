@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/auth/login?logout")
+                .logoutSuccessUrl("/")
                 .permitAll();
         return http.build();
     }

@@ -19,6 +19,7 @@
             <input type="submit" value="Login">
         </form>
         <p th:text="${errorMessage}" class="error-message"></p>
+        <p>Perhaps you want to <a th:href="@{/auth/register}">register a new user</a>?</p>
     </div>
 </div>
 <footer>
