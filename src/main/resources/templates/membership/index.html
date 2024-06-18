@@ -3,11 +3,24 @@
 <head>
     <title>Membership</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <style>
+        /* Add your CSS styling here */
+        .dropdown {
+            margin: 20px;
+        }
+    </style>
 </head>
+
 <body>
 <header>
     <h1 style="color: white;">Welcome to FitHubHome</h1>
 </header>
+<div class="dropdown">
+    <select>
+        <option th:each="obj : ${objects}" th:value="${obj.id}" th:text="${obj.name}"></option>
+    </select>
+</div>
+
 <div class="welcome-page">
     <div class="content">
         <div class="action-buttons">
@@ -17,6 +30,8 @@
         </div>
     </div>
 </div>
+
+
 <footer>
     <p>&copy; 2024 Membership API</p>
 </footer>
