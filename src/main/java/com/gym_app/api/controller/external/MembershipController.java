@@ -1,6 +1,8 @@
 package com.gym_app.api.controller.external;
 
 import com.gym_app.api.dto.external.membership.MembershipTypeExternal;
+import com.gym_app.api.dto.external.membership.MembershipDto;
+import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.service.MembershipTypeService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/membership")
@@ -20,6 +22,8 @@ public class MembershipController {
 
     @Autowired
     MembershipTypeService membershipTypeService;
+    @Autowired
+    private UserEntity userEntity;
 
     @GetMapping
     public ModelAndView getProfile() {
@@ -41,5 +45,18 @@ public class MembershipController {
             return ResponseEntity.status(404).body(null);
         }
     }
+
+    @PostMapping("/submitMembership")
+    public ResponseEntity<MembershipDto> submitMembership(@ModelAttribute MembershipDto membershipDto) {
+        membershipDto.setProfileID(UUID.fromString("94395395-d639-4f90-9199-46d498171c40"));
+        membershipDto.setMembershipTypeID(UUID.fromString("94395395-d639-4f90-9199-46d498171c40"));
+        membershipDto.setName("test-din-gym-web-app");
+        membershipDto.setPrice(500.25);
+        membershipDto.setStatus(MembershipDto.PaymentStatusEnum.PENDING);
+
+        System.out.println("membershipDto " + membershipDto.getName());
+        return ResponseEntity.ok(membershipDto);
+    }
+
 
 }

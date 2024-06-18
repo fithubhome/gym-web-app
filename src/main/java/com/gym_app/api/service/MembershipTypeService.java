@@ -39,23 +39,5 @@ public class MembershipTypeService {
 
     }
 
-//    public MembershipTypeService(MembershipTypeServiceClient membershipTypeServiceClient) {
-//        this.membershipTypeServiceClient = membershipTypeServiceClient;
-//
-//        Optional<MembershipTypeExternal[]> optionalMembershipTypes = membershipTypeServiceClient.requestMembershipTypesExternal();
-//
-//        if (optionalMembershipTypes.isPresent()) {
-//            Arrays.stream(optionalMembershipTypes.get()).forEach(
-//                    mbTypeExt -> membershipTypeExternalList.add(
-//                            mbTypeExt
-//                    )
-//            );
-//        } else {
-//            System.out.println("No membership types available.");
-//            throw new EntityNotFoundException(getClass().getName());
-//        }
-//    }
-
-
 }
 
