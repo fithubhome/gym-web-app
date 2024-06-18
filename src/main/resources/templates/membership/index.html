@@ -11,15 +11,17 @@
 
 <div class="welcome-page">
     <div class="content">
-        <p>Please select your desired membership:</p>
-        <div class="dropdown">
-            <select>
-                <option th:each="obj : ${objects}" th:value="${obj.id}" th:text="${obj.name + ' price: ' + obj.price + ' EUR/ Month'}">Default Option</option>
-            </select>
-        </div>
+        <form action="/submitMembership" method="post">
+            <div class="dropdown">
+                <select name="membershipId">
+                    <option th:each="obj : ${objects}" th:value="${obj.id}" th:text="${obj.name + ' price: ' + obj.price + ' EUR/ Month'}">Default Option</option>
+                </select>
+            </div>
+            <button type="submit">Save Membership</button>
+        </form>
         <div class="action-buttons">
             <a th:href="@{/dashboard}">
-                <button>Back to Dashboard</button>
+                <button type="button">Back to Dashboard</button>
             </a>
         </div>
     </div>
