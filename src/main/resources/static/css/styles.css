@@ -277,3 +277,10 @@ header {
 .profile-image-section {
     text-align: center;
 }
+
+.dropdown {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    width: auto;
+}
