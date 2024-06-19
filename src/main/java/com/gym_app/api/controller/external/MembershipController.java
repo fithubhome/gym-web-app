@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -46,16 +47,23 @@ public class MembershipController {
         }
     }
 
-    @PostMapping("/submitMembership")
-    public ResponseEntity<MembershipDto> submitMembership(@ModelAttribute MembershipDto membershipDto) {
-        membershipDto.setProfileID(UUID.fromString("94395395-d639-4f90-9199-46d498171c40"));
-        membershipDto.setMembershipTypeID(UUID.fromString("94395395-d639-4f90-9199-46d498171c40"));
-        membershipDto.setName("test-din-gym-web-app");
-        membershipDto.setPrice(500.25);
-        membershipDto.setStatus(MembershipDto.PaymentStatusEnum.PENDING);
 
-        System.out.println("membershipDto " + membershipDto.getName());
-        return ResponseEntity.ok(membershipDto);
+//    @GetMapping("/submitMembership")
+//    public String greetingForm(Model model) {
+//        model.addAttribute("greeting", new MembershipTypeExternal());
+//        return "membership/index";
+//    }
+
+    @PostMapping("/submitMembership")
+    public String submitMembership(@RequestBody Object req) {
+//        model.addAttribute("membershipTypeExternal", membershipTypeExternal);
+//
+//        System.out.println("membershipTypeExternal " + membershipTypeExternal.getName());
+//        return "/membership/paymentStatus";
+
+        System.out.println(req);
+        return "done";
+
     }
 
 

@@ -13,7 +13,15 @@
     <div class="content">
         <form action="/membership/submitMembership"  method="post">
             <div class="dropdown">
-                <select name="membershipId">
+                <select name="membershipId1">
+                    <option th:each="obj : ${objects}" th:value="${obj.id}" th:text="${obj.name + ' price: ' + obj.price + ' EUR/ Month'}">Default Option</option>
+                </select>
+
+                <select name="membershipId2">
+                    <option th:each="obj : ${objects}" th:value="${obj.id}" th:text="${obj.name + ' price: ' + obj.price + ' EUR/ Month'}">Default Option</option>
+                </select>
+
+                <select name="membershipId3">
                     <option th:each="obj : ${objects}" th:value="${obj.id}" th:text="${obj.name + ' price: ' + obj.price + ' EUR/ Month'}">Default Option</option>
                 </select>
             </div>

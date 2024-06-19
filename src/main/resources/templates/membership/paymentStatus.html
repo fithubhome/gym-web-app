@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Payment Status</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Payment status</h1>
+<p th:text="'id: ' + ${membershipTypeExternal.id}" />
+<p th:text="'content: ' + ${membershipTypeExternal.name}" />
+<a href="/membership">Submit another message</a>
+</body>
+</html>
