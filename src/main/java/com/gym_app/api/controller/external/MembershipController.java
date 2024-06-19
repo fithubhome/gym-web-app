@@ -4,6 +4,7 @@ import com.gym_app.api.dto.external.membership.MembershipTypeExternal;
 import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.service.MembershipTypeService;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -62,7 +63,7 @@ public class MembershipController {
 //    }
 
     @PostMapping("/submitMembership")
-    public String submitMembership(@ModelAttribute Object mem) {
+    public String submitMembership(@ModelAttribute Mem mem) {
 //        model.addAttribute("membershipTypeExternal", membershipTypeExternal);
 //
 //        System.out.println("membershipTypeExternal " + membershipTypeExternal.getName());
@@ -71,6 +72,13 @@ public class MembershipController {
         System.out.println(mem);
         return "done";
 
+    }
+
+    @AllArgsConstructor
+    public static class Mem {
+        private UUID membershipId1;
+        private UUID membershipId2;
+        private UUID membershipId3;
     }
 
 
