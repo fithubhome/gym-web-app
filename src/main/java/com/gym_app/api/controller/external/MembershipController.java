@@ -1,7 +1,6 @@
 package com.gym_app.api.controller.external;
 
 import com.gym_app.api.dto.external.membership.MembershipTypeExternal;
-import com.gym_app.api.dto.external.membership.MembershipDto;
 import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.service.MembershipTypeService;
 import jakarta.persistence.EntityNotFoundException;
@@ -10,10 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,7 +36,12 @@ public class MembershipController {
         }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("membership/index");
-        modelAndView.addObject("objects", membershipTypeService.getAllMembershipsType());
+        modelAndView.addObject("objects",
+                new ArrayList<MembershipTypeExternal>() {{
+                    add(new MembershipTypeExternal(UUID.randomUUID(), "Name 1", 1.0));
+                    add(new MembershipTypeExternal(UUID.randomUUID(), "Name 2", 2.0));
+                    add(new MembershipTypeExternal(UUID.randomUUID(), "Name 3", 3.0));
+                }});
         return modelAndView;
     }
 
@@ -55,13 +62,13 @@ public class MembershipController {
 //    }
 
     @PostMapping("/submitMembership")
-    public String submitMembership(@RequestBody Object req) {
+    public String submitMembership(@ModelAttribute Object mem) {
 //        model.addAttribute("membershipTypeExternal", membershipTypeExternal);
 //
 //        System.out.println("membershipTypeExternal " + membershipTypeExternal.getName());
 //        return "/membership/paymentStatus";
 
-        System.out.println(req);
+        System.out.println(mem);
         return "done";
 
     }
