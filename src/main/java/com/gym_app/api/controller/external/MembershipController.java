@@ -33,6 +33,7 @@ public class MembershipController {
         }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("membership/index");
+        modelAndView.addObject("membershipDto", new MembershipDto());
         modelAndView.addObject("objects", membershipTypeService.getAllMembershipsType());
         return modelAndView;
     }
@@ -47,11 +48,12 @@ public class MembershipController {
     }
 
     @PostMapping("/submitMembership")
-    public ResponseEntity<MembershipTypeExternal> submitMembership(@ModelAttribute MembershipTypeExternal membershipTypeExternal) {
+    public ResponseEntity<MembershipDto> submitMembership(@ModelAttribute MembershipDto membershipDto) {
 
 
-        System.out.println("MemmbershipTypeExternal id:  " + membershipTypeExternal.getId());
-        return ResponseEntity.ok(membershipTypeExternal);
+        System.out.println("MemmbershipTypeExternal id:  " + membershipDto.getId());
+        System.out.println("MemmbershipTypeExternal id:  " + membershipDto.getTest());
+        return ResponseEntity.ok(membershipDto);
     }
 
 

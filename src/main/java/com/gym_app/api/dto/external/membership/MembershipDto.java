@@ -14,10 +14,11 @@ import java.util.UUID;
 public class MembershipDto {
 
     private UUID profileID;
-    private UUID membershipTypeID;
+    private UUID id;
     private String name;
     private Double price;
     private PaymentStatusEnum status;
+    private String test;
 
     public enum PaymentStatusEnum {
         PENDING
