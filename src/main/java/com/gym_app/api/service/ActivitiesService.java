@@ -2,7 +2,6 @@ package com.gym_app.api.service;
 
 import com.gym_app.api.exceptions.activities.EventNotFoundException;
 import com.gym_app.api.model.UserEntity;
-import com.gym_app.api.dto.activities.EventsAndParticipantsDto;
 import com.gym_app.api.dto.activities.GymEventDto;
 import com.gym_app.api.dto.activities.ParticipantDto;
 import com.gym_app.api.repository.ProfileRepository;
@@ -27,7 +26,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -53,13 +54,17 @@ public class ActivitiesService {
                 new ParameterizedTypeReference<>() {
                 });
 
-        return response.getBody();
+        return response.getBody()
+                .stream()
+                .sorted(Comparator.comparing(GymEventDto::getDate).thenComparing(GymEventDto::getStartTime))
+                .toList();
     }
 
-    public EventsAndParticipantsDto showAvailableEvents(String email) {
+    public Map<GymEventDto, Boolean> showAvailableEvents(String email) {
         UUID profileIdOfCurrentUser = getProfileIdOfCurrentUser(email);
         List<GymEventDto> availableEvents = getAvailableEventsByTime();
         List<ParticipantDto> participants = new ArrayList<>();
+        Map<GymEventDto, Boolean> eventAndIsSignedUpForEvent = new LinkedHashMap<>();
 
         try {
             for (GymEventDto event : availableEvents) {
@@ -76,13 +81,19 @@ public class ActivitiesService {
                         .filter(p -> Objects.equals(p.getProfileId(), profileIdOfCurrentUser))
                         .toList());
 
+                eventAndIsSignedUpForEvent.put(event, false);
+                for (ParticipantDto participant : participants) {
+                    if (Objects.equals(event.getId(), participant.getEvent().getId())) {
+                        eventAndIsSignedUpForEvent.put(event, true);
+                    }
+                }
             }
 
         } catch (Exception exception) {
             log.error(exception.getMessage());
         }
 
-        return new EventsAndParticipantsDto(availableEvents, participants);
+        return eventAndIsSignedUpForEvent;
 
     }
 
@@ -166,6 +177,17 @@ public class ActivitiesService {
         }
     }
 
+    public void createEvent(GymEventDto gymEventDto, String email) {
+
+        gymEventDto.setOrganizerId(getProfileIdOfCurrentUser(email));
+
+        try {
+            restTemplate.postForEntity(activitiesUrl + "/event", gymEventDto, GymEventDto.class);
+        } catch (Exception exception) {
+            log.error(exception.getMessage());
+        }
+
+    }
 
     @ExceptionHandler(HttpClientErrorException.class)
     public ResponseEntity<String> handleEventNotFoundException(HttpClientErrorException exception) {
@@ -174,5 +196,4 @@ public class ActivitiesService {
                 .status(404)
                 .body(exception.getMessage());
     }
-
 }

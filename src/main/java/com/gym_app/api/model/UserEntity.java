@@ -19,8 +19,6 @@ import java.util.UUID;
 public class UserEntity {
     @Id
     @JdbcTypeCode(Types.VARCHAR)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @JdbcTypeCode(Types.VARCHAR)
     private UUID id;
 
     private String email;
