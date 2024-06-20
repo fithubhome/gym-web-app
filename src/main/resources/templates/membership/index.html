@@ -11,8 +11,11 @@
 
 <div class="welcome-page">
     <div class="content">
-        <form th:action="@{/membership/submitMembership}"  method="post">
-            <p>Test: <input th:field="${membershipDto.test}"></p>
+        <form th:action="@{/membership/submitMembership}"  method="post" th:object="${membershipDto}">
+            <p>Name: <input th:field="*{name}"></p>
+            <p>CardNr: <input th:field="*{cardNr}"></p>
+            <p>CardNr: <input th:field="*{cvc}"></p>
+            <p>CardNr: <input th:field="*{cardExpirationDate}"></p>
             <div class="dropdown">
                 <select name="id">
                     <option th:each="obj : ${objects}" th:value="${obj.id}" th:text="${obj.name + ' price: ' + obj.price + ' EUR/ Month'}">Default Option</option>
