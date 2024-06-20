@@ -47,15 +47,11 @@ public class MembershipController {
     }
 
     @PostMapping("/submitMembership")
-    public ResponseEntity<MembershipDto> submitMembership(@ModelAttribute MembershipDto membershipDto) {
-        membershipDto.setProfileID(UUID.fromString("94395395-d639-4f90-9199-46d498171c40"));
-        membershipDto.setMembershipTypeID(UUID.fromString("94395395-d639-4f90-9199-46d498171c40"));
-        membershipDto.setName("test-din-gym-web-app");
-        membershipDto.setPrice(500.25);
-        membershipDto.setStatus(MembershipDto.PaymentStatusEnum.PENDING);
+    public ResponseEntity<MembershipTypeExternal> submitMembership(@ModelAttribute MembershipTypeExternal membershipTypeExternal) {
 
-        System.out.println("membershipDto " + membershipDto.getName());
-        return ResponseEntity.ok(membershipDto);
+
+        System.out.println("MemmbershipTypeExternal id:  " + membershipTypeExternal.getId());
+        return ResponseEntity.ok(membershipTypeExternal);
     }
 
 

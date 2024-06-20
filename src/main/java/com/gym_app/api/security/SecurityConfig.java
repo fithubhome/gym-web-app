@@ -25,7 +25,9 @@ public class SecurityConfig {
     @SuppressWarnings("removal")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http.csrf().disable()
+                .cors(cors -> cors.disable())
                 .authorizeHttpRequests()
                 .requestMatchers("/", "/auth/**").permitAll()
                 .requestMatchers("/dashboard", "/profile/**", "/bodystats/**", "/membership/**", "/activity/**").authenticated()
