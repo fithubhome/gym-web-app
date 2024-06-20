@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Roles</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<header>
+    <h1>FitHubHome</h1>
+</header>
+<div class="main-content"> <!-- Added a wrapper for the main content -->
+    <div class="container role-container"> <!-- Added a custom class for role-specific styles -->
+        <h2>
+            <a class="back-link" th:href="@{/dashboard}">
+                <span>&#8592;</span> Back to Dashboard
+            </a>
+        </h2>
+        <h3>
+            <a class="back-link" th:href="@{/activities}">
+                <span>&emsp; &#8592;</span> Back to Activities
+            </a>
+        </h3>
+        <h2> <span>You can signUp to one of the following events</span></h2>
+
+        <div class="table-responsive">
+            <table id="usersTable" class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th><b>Event Name</b></th>
+                    <th><b>Description</b></th>
+                    <th><b>Date</b></th>
+                    <th><b>Start Time</b></th>
+                    <th><b>End Time</b></th>
+                    <th><b>Available places</b></th>
+                    <th><b>SignUp to event</b></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="event : ${availableEvents}">
+                    <td th:text="${event.key.eventName}"></td>
+                    <td th:text="${event.key.eventDescription}"></td>
+                    <td th:text="${event.key.date}"></td>
+                    <td th:text="${event.key.startTime}"></td>
+                    <td th:text="${event.key.endTime}"></td>
+                    <td th:text="${event.key.maxParticipants}"></td>
+
+                    <td>
+                        <div th:if="${event.value} == true ">
+                            <a href="#" th:href="@{'/activities/withdraw?eventId=' + ${event.key.id}}">Withdraw From
+                                event</a>
+                        </div>
+                        <div th:if="${event.value} == false">
+                            <a href="#" th:href="@{'/activities/signMeUp?eventId=' + ${event.key.id}}">Sign Me Up!</a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    <footer>
+        <p>&copy; 2024 GymApp API</p>
+    </footer>
+</body>
+</html>
