@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.YearMonth;
 import java.util.Date;
 import java.util.UUID;
 
@@ -22,7 +23,7 @@ public class MembershipDto {
     private String personName;
     private String cardNr;
     private String cvc;
-//    private Date cardExpirationDate;
+    private YearMonth cardExpirationDate;
 
     public enum PaymentStatusEnum {
         PENDING
