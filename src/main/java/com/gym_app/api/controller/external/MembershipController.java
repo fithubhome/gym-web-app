@@ -3,7 +3,7 @@ package com.gym_app.api.controller.external;
 import com.gym_app.api.dto.external.membership.MembershipTypeExternal;
 import com.gym_app.api.dto.external.membership.MembershipDto;
 import com.gym_app.api.model.UserEntity;
-import com.gym_app.api.service.MembershipTypeService;
+import com.gym_app.api.service.external.MembershipTypeService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/membership")
@@ -48,11 +47,11 @@ public class MembershipController {
     }
 
     @PostMapping("/submitMembership")
-    public ResponseEntity<MembershipDto> submitMembership(@RequestBody MembershipDto membershipDto) {
+    public ResponseEntity<MembershipDto> submitMembership(@ModelAttribute MembershipDto membershipDto) {
 
 
         System.out.println("MemmbershipTypeExternal id:  " + membershipDto.getId());
-        System.out.println("MemmbershipTypeExternal name:  " + membershipDto.getName());
+        System.out.println("MemmbershipTypeExternal name:  " + membershipDto.getPersonName());
         System.out.println("MemmbershipTypeExternal cardNr:  " + membershipDto.getCardNr());
         return ResponseEntity.ok(membershipDto);
     }

@@ -1,14 +1,11 @@
-package com.gym_app.api.service;
+package com.gym_app.api.service.external;
 
 import com.gym_app.api.dto.external.membership.MembershipTypeExternal;
-import com.gym_app.api.service.external.MembershipTypeServiceClient;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,6 +35,7 @@ public class MembershipTypeService {
         throw new EntityNotFoundException(getClass().getName());
 
     }
+
 
 }
 

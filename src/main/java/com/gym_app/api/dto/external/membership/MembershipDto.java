@@ -15,17 +15,23 @@ import java.util.UUID;
 @NoArgsConstructor
 public class MembershipDto {
 
-    private UUID profileID;
     private UUID id;
-    private String name;
-    private Double price;
-    private PaymentStatusEnum status;
+//    private UUID profileID;
+//    private String name;
+//    private Double price;
+//    private PaymentStatusEnum status;
     private String personName;
     private String cardNr;
     private String cvc;
     private YearMonth cardExpirationDate;
 
+
+
     public enum PaymentStatusEnum {
         PENDING
     }
+
+
+
+
 }

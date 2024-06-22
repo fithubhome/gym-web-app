@@ -281,6 +281,25 @@ header {
 .dropdown {
     display: flex;
     justify-content: center;
+    text-align: left
     margin: 20px;
-    width: auto;
+    width: 100%;
 }
+
+.custom-input input[type="text"],
+.custom-input input[type="number"],
+.custom-input input[type="date"],
+.custom-input input[type="month"],
+.custom-input input[type="password"],
+.custom-input input[type="email"],
+.custom-input input[type="tel"],
+.custom-input select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
