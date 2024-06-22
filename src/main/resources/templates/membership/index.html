@@ -3,6 +3,26 @@
 <head>
     <title>Membership</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <script>
+        // Function to initialize the current date in YYYY-MM format
+        function initializeCurrentDate() {
+            var now = new Date();
+            var month = (now.getMonth() + 1).toString().padStart(2, '0'); // Adjust for zero index
+            var year = now.getFullYear();
+            return year + '-' + month;
+        }
+
+        // Function to set the min attribute for cardExpirationDate input
+        function setMinDate() {
+            var currentDate = initializeCurrentDate();
+            document.getElementById('cardExpirationDate').setAttribute('min', currentDate);
+        }
+
+        // Call setMinDate function when the document is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            setMinDate();
+        });
+    </script>
 </head>
 <body>
 <header>
@@ -15,22 +35,14 @@
         <p><i>"A journey to become the best version of yourself"</i></p>
         <br>
 
-        <form th:action="@{/membership/submitMembership}" method="post" class="custom-input">
-            <p>Name<span style="color: red">*</span>:
-                <input name="personName" type="text" pattern="[A-Za-z\s]+" placeholder="Add your full name" required>
-            </p>
-            <p>CardNr<span style="color: red">*</span>:
-                <input name="cardNr" type="text" pattern="\d{16}" placeholder="0000111122223333" required>
-            </p>
-            <p>CVC<span style="color: red">*</span>:
-                <input name="cvc" type="text" pattern="\d{3}" placeholder="123" required>
-            </p>
+        <form th:action="@{/membership/submitMembership}" method="post">
+            <p>Name<span style="color: red">*</span>: <input name="personName" type="text" pattern="[A-Za-z\s]+" placeholder="Add your full name" required></p>
+            <p>CardNr<span style="color: red">*</span>: <input name="cardNr" type="text" pattern="\d{16}" placeholder="0000111122223333" required></p>
+            <p>CVC<span style="color: red">*</span>: <input name="cvc" type="text" pattern="\d{3}" placeholder="123" required></p>
             <p>Card exp date<span style="color: red">*</span>:
-                <input name="cardExpirationDate" type="text" pattern="\d{4}-\d{2}" placeholder="YYYY-MM" required>
+                <input id="cardExpirationDate" name="cardExpirationDate" type="month" placeholder="YYYY-MM" required>
             </p>
-            <br>
 
-            <p>Desired membership <span style="color: red">*</span>: </p>
             <div class="dropdown">
                 <select name="id">
                     <option th:each="obj : ${objects}" th:value="${obj.id}" th:text="${obj.name + ' price: ' + obj.price + ' EUR/ Month'}">Default Option</option>
@@ -38,7 +50,6 @@
             </div>
             <button type="submit">Select Membership</button>
         </form>
-        <br>
 
         <div class="action-buttons">
             <a th:href="@{/dashboard}">
