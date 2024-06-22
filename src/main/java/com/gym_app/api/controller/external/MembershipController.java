@@ -53,6 +53,7 @@ public class MembershipController {
         System.out.println("MemmbershipTypeExternal id:  " + membershipDto.getId());
         System.out.println("MemmbershipTypeExternal name:  " + membershipDto.getPersonName());
         System.out.println("MemmbershipTypeExternal cardNr:  " + membershipDto.getCardNr());
+        System.out.println("MemmbershipTypeExternal Status:  " + membershipDto.getStatus());
         return ResponseEntity.ok(membershipDto);
     }
 
