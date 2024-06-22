@@ -26,7 +26,7 @@
 </head>
 <body>
 <header>
-    <h1 style="color: white;">Welcome to FitHubHome</h1>
+    <h1 style="color: white;">Membership Page</h1>
 </header>
 
 <div class="welcome-page">
@@ -36,9 +36,15 @@
         <br>
 
         <form th:action="@{/membership/submitMembership}" method="post">
-            <p>Name<span style="color: red">*</span>: <input name="personName" type="text" pattern="[A-Za-z\s]+" placeholder="Add your full name" required></p>
-            <p>CardNr<span style="color: red">*</span>: <input name="cardNr" type="text" pattern="\d{16}" placeholder="0000111122223333" required></p>
-            <p>CVC<span style="color: red">*</span>: <input name="cvc" type="text" pattern="\d{3}" placeholder="123" required></p>
+            <p>Name<span style="color: red">*</span>:
+                <input name="personName" type="text" pattern="[A-Za-z\s]+" placeholder="Add your full name" required>
+            </p>
+            <p>CardNr<span style="color: red">*</span>:
+                <input name="cardNr" type="text" pattern="\d{16}" placeholder="0000111122223333" required>
+            </p>
+            <p>CVC<span style="color: red">*</span>:
+                <input name="cvc" type="text" pattern="\d{3}" placeholder="123" required>
+            </p>
             <p>Card exp date<span style="color: red">*</span>:
                 <input id="cardExpirationDate" name="cardExpirationDate" type="month" placeholder="YYYY-MM" required>
             </p>
@@ -54,6 +60,13 @@
         <div class="action-buttons">
             <a th:href="@{/dashboard}">
                 <button type="button">Back to Dashboard</button>
+            </a>
+        </div>
+
+
+        <div class="action-buttons">
+            <a href="/membership/error">
+                <button type="button">ERROR</button>
             </a>
         </div>
     </div>

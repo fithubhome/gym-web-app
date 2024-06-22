@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BodyStats</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<header>
+    <h1 style="color: white;">Membership Page</h1>
+</header>
+<div class="welcome-page">
+    <div class="content">
+        <h1>Incorrect card details. <br>
+        Please try again.</h1>
+        <div class="action-buttons">
+            <a th:href="@{/membership}">
+                <button>Back to Membership Selection</button>
+            </a>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>&copy; 2024 BodyStats API</p>
+</footer>
+</body>
+</html>

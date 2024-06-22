@@ -57,5 +57,11 @@ public class MembershipController {
         return ResponseEntity.ok(membershipDto);
     }
 
+    @GetMapping("/error")
+    public String getErrorPage() {
+
+        return "membership/error";
+    }
+
 
 }
