@@ -10,16 +10,24 @@
 </header>
 
 <div class="welcome-page">
-    <div class="content role-container" >
+    <div class="content role-container">
         <h2>Please add your card details and select the desired membership:</h2>
         <p><i>"A journey to become the best version of yourself"</i></p>
         <br>
 
-        <form th:action="@{/membership/submitMembership}"  method="post" class="custom-input">
-            <p>Name<span style="color: red">*</span>: <input name="personName" type="text" pattern="[A-Za-z\s]+" placeholder="Add your full name" required></p>
-            <p>CardNr<span style="color: red">*</span>: <input name="cardNr" type="text" pattern="\d{16}" placeholder="0000111122223333" required></p>
-            <p>CVC<span style="color: red">*</span>: <input name="cvc" type="text" pattern="\d{3}" placeholder="123" required></p>
-            <p>Card exp date<span style="color: red">*</span>: <input name="cardExpirationDate" pattern="\d{4}-\d{2}" placeholder="YYYY-MM" required ></p>
+        <form th:action="@{/membership/submitMembership}" method="post" class="custom-input">
+            <p>Name<span style="color: red">*</span>:
+                <input name="personName" type="text" pattern="[A-Za-z\s]+" placeholder="Add your full name" required>
+            </p>
+            <p>CardNr<span style="color: red">*</span>:
+                <input name="cardNr" type="text" pattern="\d{16}" placeholder="0000111122223333" required>
+            </p>
+            <p>CVC<span style="color: red">*</span>:
+                <input name="cvc" type="text" pattern="\d{3}" placeholder="123" required>
+            </p>
+            <p>Card exp date<span style="color: red">*</span>:
+                <input name="cardExpirationDate" type="text" pattern="\d{4}-\d{2}" placeholder="YYYY-MM" required>
+            </p>
             <br>
 
             <p>Desired membership <span style="color: red">*</span>: </p>
@@ -30,8 +38,8 @@
             </div>
             <button type="submit">Select Membership</button>
         </form>
-
         <br>
+
         <div class="action-buttons">
             <a th:href="@{/dashboard}">
                 <button type="button">Back to Dashboard</button>
