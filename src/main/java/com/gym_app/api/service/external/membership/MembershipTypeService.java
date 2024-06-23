@@ -1,4 +1,4 @@
-package com.gym_app.api.service.external;
+package com.gym_app.api.service.external.membership;
 
 import com.gym_app.api.dto.external.membership.MembershipTypeExternal;
 import jakarta.persistence.EntityNotFoundException;

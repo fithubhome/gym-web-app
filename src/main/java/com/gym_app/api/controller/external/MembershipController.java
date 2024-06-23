@@ -1,9 +1,11 @@
 package com.gym_app.api.controller.external;
 
 import com.gym_app.api.dto.external.membership.MembershipTypeExternal;
-import com.gym_app.api.dto.external.membership.MembershipDto;
+import com.gym_app.api.dto.external.membership.PaymentDto;
+import com.gym_app.api.exceptions.external.membership.MembershipSelectionException;
 import com.gym_app.api.model.UserEntity;
-import com.gym_app.api.service.external.MembershipTypeService;
+import com.gym_app.api.service.external.membership.MembershipTypeService;
+import com.gym_app.api.service.external.payment.PaymentService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,9 @@ public class MembershipController {
     MembershipTypeService membershipTypeService;
     @Autowired
     private UserEntity userEntity;
+
+    @Autowired
+    PaymentService paymentService;
 
     @GetMapping
     public ModelAndView getProfile() {
@@ -47,14 +52,26 @@ public class MembershipController {
     }
 
     @PostMapping("/submitMembership")
-    public ResponseEntity<MembershipDto> submitMembership(@ModelAttribute MembershipDto membershipDto) {
+    public String submitMembership(@ModelAttribute PaymentDto paymentDto) {
+        try {
+            paymentService.validatePaymentData(paymentDto);
+
+            System.out.println("MemmbershipTypeExternal id:  " + paymentDto.getSelectedMembershipId());
+            System.out.println("MemmbershipTypeExternal name:  " + paymentDto.getPersonName());
+            System.out.println("MemmbershipTypeExternal cardNr:  " + paymentDto.getCardNr());
+            System.out.println("MemmbershipTypeExternal CVC:  " + paymentDto.getCvc());
+            System.out.println("MemmbershipTypeExternal exp date:  " + paymentDto.getCardExpirationDate());
+            System.out.println("MemmbershipTypeExternal Status:  " + paymentDto.getStatus());
 
 
-        System.out.println("MemmbershipTypeExternal id:  " + membershipDto.getId());
-        System.out.println("MemmbershipTypeExternal name:  " + membershipDto.getPersonName());
-        System.out.println("MemmbershipTypeExternal cardNr:  " + membershipDto.getCardNr());
-        System.out.println("MemmbershipTypeExternal Status:  " + membershipDto.getStatus());
-        return ResponseEntity.ok(membershipDto);
+
+            return "/membership/processingPayment.html";
+        } catch ( MembershipSelectionException ex){
+            System.out.println(ex.getMessage());
+            return "/membership/error";
+        }
+
+
     }
 
     @GetMapping("/error")
