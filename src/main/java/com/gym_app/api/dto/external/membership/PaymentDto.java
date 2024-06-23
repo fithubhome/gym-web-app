@@ -22,7 +22,7 @@ public class PaymentDto {
     private YearMonth cardExpirationDate;
     private PaymentStatusEnum status; // Every time this Object will be sent must have the status Pending as the Payment API has not validated the payment yet
 
-    private enum PaymentStatusEnum {
+    public enum PaymentStatusEnum {
         PENDING
     }
 

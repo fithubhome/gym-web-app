@@ -2,7 +2,8 @@ package com.gym_app.api.controller.external;
 
 import com.gym_app.api.dto.external.membership.MembershipTypeExternal;
 import com.gym_app.api.dto.external.membership.PaymentDto;
-import com.gym_app.api.exceptions.external.membership.MembershipSelectionException;
+import com.gym_app.api.exceptions.external.payment.PaymentSelectionException;
+import com.gym_app.api.exceptions.external.payment.ProfileException;
 import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.service.external.membership.MembershipTypeService;
 import com.gym_app.api.service.external.payment.PaymentService;
@@ -55,20 +56,25 @@ public class MembershipController {
     public String submitMembership(@ModelAttribute PaymentDto paymentDto) {
         try {
             paymentService.validatePaymentData(paymentDto);
+            paymentService.setProfileIdAndStatusToPaymentDto(paymentDto);
 
             System.out.println("MemmbershipTypeExternal id:  " + paymentDto.getSelectedMembershipId());
             System.out.println("MemmbershipTypeExternal name:  " + paymentDto.getPersonName());
             System.out.println("MemmbershipTypeExternal cardNr:  " + paymentDto.getCardNr());
             System.out.println("MemmbershipTypeExternal CVC:  " + paymentDto.getCvc());
             System.out.println("MemmbershipTypeExternal exp date:  " + paymentDto.getCardExpirationDate());
+            System.out.println("\n______________________________________");
             System.out.println("MemmbershipTypeExternal Status:  " + paymentDto.getStatus());
-
+            System.out.println("MemmbershipTypeExternal ProfileID:  " + paymentDto.getProfileID());
 
 
             return "/membership/processingPayment.html";
-        } catch ( MembershipSelectionException ex){
+        } catch (PaymentSelectionException ex) {
             System.out.println(ex.getMessage());
             return "/membership/error";
+        } catch (ProfileException ex) {
+            System.out.println(ex.getMessage());
+            return "/error";
         }
 
 
