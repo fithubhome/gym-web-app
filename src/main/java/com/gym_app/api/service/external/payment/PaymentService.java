@@ -28,6 +28,8 @@ public class PaymentService {
     ProfileService profileService;
     @Autowired
     UserService userService;
+    @Autowired
+    PaymentServiceClient paymentServiceClient;
 
 
     public void validatePaymentData(PaymentDto paymentDto) throws PaymentSelectionException, ProfileException {
@@ -81,7 +83,7 @@ public class PaymentService {
         }
     }
 
-    public PaymentDto setProfileIdAndStatusToPaymentDto(PaymentDto paymentDto) {
+    public void setProfileIdAndStatusToPaymentDto(PaymentDto paymentDto) {
         paymentDto.setStatus(PaymentDto.PaymentStatusEnum.PENDING);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -89,7 +91,7 @@ public class PaymentService {
         Profile currentProfile = profileService.findProfileByUserId(userService.findByEmail(userDetails.getUsername()).getId());
         paymentDto.setProfileID(currentProfile.getId());
 
-        return paymentDto;
+        paymentServiceClient.postRequest(paymentDto);
     }
 
 

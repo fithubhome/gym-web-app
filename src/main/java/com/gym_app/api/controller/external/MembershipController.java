@@ -58,16 +58,6 @@ public class MembershipController {
             paymentService.validatePaymentData(paymentDto);
             paymentService.setProfileIdAndStatusToPaymentDto(paymentDto);
 
-            System.out.println("MemmbershipTypeExternal id:  " + paymentDto.getSelectedMembershipId());
-            System.out.println("MemmbershipTypeExternal name:  " + paymentDto.getPersonName());
-            System.out.println("MemmbershipTypeExternal cardNr:  " + paymentDto.getCardNr());
-            System.out.println("MemmbershipTypeExternal CVC:  " + paymentDto.getCvc());
-            System.out.println("MemmbershipTypeExternal exp date:  " + paymentDto.getCardExpirationDate());
-            System.out.println("\n______________________________________");
-            System.out.println("MemmbershipTypeExternal Status:  " + paymentDto.getStatus());
-            System.out.println("MemmbershipTypeExternal ProfileID:  " + paymentDto.getProfileID());
-
-
             return "/membership/processingPayment.html";
         } catch (PaymentSelectionException ex) {
             System.out.println(ex.getMessage());
