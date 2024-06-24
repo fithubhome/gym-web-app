@@ -1,4 +1,4 @@
-package com.gym_app.api.service;
+package com.gym_app.api.service.external;
 
 import com.gym_app.api.exceptions.activities.EventNotFoundException;
 import com.gym_app.api.model.UserEntity;
