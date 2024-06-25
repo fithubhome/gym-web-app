@@ -25,11 +25,18 @@ public class SecurityConfig {
     @SuppressWarnings("removal")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+
+        http
+                .csrf().disable()
+                .cors(cors -> cors.disable())
                 .authorizeHttpRequests()
                 .requestMatchers("/", "/auth/**").permitAll()
-                .requestMatchers("/dashboard", "/profile/**", "/bodystats/**", "/membership/**", "/activities/**").authenticated()
-                .requestMatchers("/roles/**").hasRole("ADMIN")
+
+                .requestMatchers( "POST","/membership/submitMembership").permitAll() // Added permissions for POST from Payment API
+
+                .requestMatchers("/dashboard", "/profile/**", "/bodystats/**", "/membership/**", "/activity/**").authenticated()
+                .requestMatchers("/role/**").hasRole("ADMIN")
+
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
                 .and()
                 .formLogin()
