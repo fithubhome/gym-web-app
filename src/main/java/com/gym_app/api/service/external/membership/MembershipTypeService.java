@@ -1,6 +1,6 @@
 package com.gym_app.api.service.external.membership;
 
-import com.gym_app.api.dto.external.membership.MembershipTypeExternal;
+import com.gym_app.api.dto.external.membershipapi.get.MembershipTypeExternal;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;

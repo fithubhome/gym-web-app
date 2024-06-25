@@ -1,7 +1,8 @@
 package com.gym_app.api.controller.external;
 
-import com.gym_app.api.dto.external.membership.MembershipTypeExternal;
-import com.gym_app.api.dto.external.membership.PaymentDto;
+import com.gym_app.api.dto.external.membershipapi.get.MembershipTypeExternal;
+import com.gym_app.api.dto.external.paymentapi.get.PaymentStatusReceived;
+import com.gym_app.api.dto.external.paymentapi.put.PaymentResponseDto;
 import com.gym_app.api.exceptions.external.payment.PaymentSelectionException;
 import com.gym_app.api.exceptions.external.payment.ProfileException;
 import com.gym_app.api.model.UserEntity;
@@ -53,10 +54,10 @@ public class MembershipController {
     }
 
     @PostMapping("/submitMembership")
-    public String submitMembership(@ModelAttribute PaymentDto paymentDto) {
+    public String submitMembership(@ModelAttribute PaymentResponseDto paymentResponseDto) {
         try {
-            paymentService.validatePaymentData(paymentDto);
-            paymentService.setProfileIdAndStatusToPaymentDto(paymentDto);
+            paymentService.validatePaymentData(paymentResponseDto);
+            paymentService.setProfileIdAndStatusToPaymentDto(paymentResponseDto);
 
             return "/membership/processingPayment.html";
         } catch (PaymentSelectionException ex) {
@@ -66,8 +67,6 @@ public class MembershipController {
             System.out.println(ex.getMessage());
             return "/error";
         }
-
-
     }
 
     @GetMapping("/error")
@@ -76,5 +75,16 @@ public class MembershipController {
         return "membership/error";
     }
 
+
+    @PostMapping("/transactionReceived")
+    public String paymentValidation (@RequestBody PaymentStatusReceived paymentStatusReceived) {
+        if (paymentStatusReceived.getPaymentStatus().equals("PAID")){
+            System.out.println("payment succefull");
+            return "membership/paymentSuccessful";
+        }
+
+        System.out.println("error");
+        return "membership/error";
+    }
 
 }

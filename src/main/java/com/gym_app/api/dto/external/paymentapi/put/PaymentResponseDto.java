@@ -1,4 +1,4 @@
-package com.gym_app.api.dto.external.membership;
+package com.gym_app.api.dto.external.paymentapi.put;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PaymentDto {
+public class PaymentResponseDto {
 
     private UUID profileID;
     private UUID selectedMembershipId;

@@ -1,7 +1,7 @@
 package com.gym_app.api.service.external.payment;
 
-import com.gym_app.api.dto.external.membership.MembershipTypeExternal;
-import com.gym_app.api.dto.external.membership.PaymentDto;
+import com.gym_app.api.dto.external.membershipapi.get.MembershipTypeExternal;
+import com.gym_app.api.dto.external.paymentapi.put.PaymentResponseDto;
 import com.gym_app.api.exceptions.external.payment.PaymentSelectionException;
 import com.gym_app.api.exceptions.external.payment.ProfileException;
 import com.gym_app.api.model.Profile;
@@ -32,44 +32,44 @@ public class PaymentService {
     PaymentServiceClient paymentServiceClient;
 
 
-    public void validatePaymentData(PaymentDto paymentDto) throws PaymentSelectionException, ProfileException {
-        validateSelectedMembership(paymentDto);
-        validatePersonName(paymentDto);
-        validateCardNr(paymentDto);
-        validateCardExpirationDate(paymentDto);
-        validateCvc(paymentDto);
+    public void validatePaymentData(PaymentResponseDto paymentResponseDto) throws PaymentSelectionException, ProfileException {
+        validateSelectedMembership(paymentResponseDto);
+        validatePersonName(paymentResponseDto);
+        validateCardNr(paymentResponseDto);
+        validateCardExpirationDate(paymentResponseDto);
+        validateCvc(paymentResponseDto);
         validateProfileId();
     }
 
 
-    private void validateSelectedMembership(PaymentDto paymentDto) throws PaymentSelectionException {
+    private void validateSelectedMembership(PaymentResponseDto paymentResponseDto) throws PaymentSelectionException {
         List<MembershipTypeExternal> mbTypeList =  membershipTypeService.getAllMembershipsType();
-        if (paymentDto.getSelectedMembershipId() == null || mbTypeList.stream().noneMatch(mbType -> paymentDto.getSelectedMembershipId().equals(mbType.getId()))){
-            throw new PaymentSelectionException(PaymentDto.class.getSimpleName(), paymentDto.getSelectedMembershipId().toString());
+        if (paymentResponseDto.getSelectedMembershipId() == null || mbTypeList.stream().noneMatch(mbType -> paymentResponseDto.getSelectedMembershipId().equals(mbType.getId()))){
+            throw new PaymentSelectionException(PaymentResponseDto.class.getSimpleName(), paymentResponseDto.getSelectedMembershipId().toString());
         }
 
     }
 
-    private void validatePersonName(PaymentDto paymentDto) throws PaymentSelectionException {
-        if (paymentDto.getPersonName() == null || paymentDto.getPersonName().matches(".*\\d.*")){
-            throw new PaymentSelectionException(PaymentDto.class.getSimpleName(), paymentDto.getPersonName());
+    private void validatePersonName(PaymentResponseDto paymentResponseDto) throws PaymentSelectionException {
+        if (paymentResponseDto.getPersonName() == null || paymentResponseDto.getPersonName().matches(".*\\d.*")){
+            throw new PaymentSelectionException(PaymentResponseDto.class.getSimpleName(), paymentResponseDto.getPersonName());
         }
     }
-    private void validateCardNr(PaymentDto paymentDto) throws PaymentSelectionException {
-        if (paymentDto.getCardNr() == null || !paymentDto.getCardNr().matches("^\\d{16}$")){
-            throw new PaymentSelectionException(PaymentDto.class.getSimpleName(), paymentDto.getCardNr());
-        }
-    }
-
-    private void validateCvc(PaymentDto paymentDto) throws PaymentSelectionException {
-        if (paymentDto.getCvc() == null || !paymentDto.getCvc().matches("^\\d{3}$")){
-            throw new PaymentSelectionException(PaymentDto.class.getSimpleName(), paymentDto.getCvc());
+    private void validateCardNr(PaymentResponseDto paymentResponseDto) throws PaymentSelectionException {
+        if (paymentResponseDto.getCardNr() == null || !paymentResponseDto.getCardNr().matches("^\\d{16}$")){
+            throw new PaymentSelectionException(PaymentResponseDto.class.getSimpleName(), paymentResponseDto.getCardNr());
         }
     }
 
-    private void validateCardExpirationDate(PaymentDto paymentDto) throws PaymentSelectionException {
-      if (paymentDto.getCardExpirationDate() == null || paymentDto.getCardExpirationDate().isBefore(YearMonth.now())){
-          throw new PaymentSelectionException(PaymentDto.class.getSimpleName(), paymentDto.getCardExpirationDate().toString());
+    private void validateCvc(PaymentResponseDto paymentResponseDto) throws PaymentSelectionException {
+        if (paymentResponseDto.getCvc() == null || !paymentResponseDto.getCvc().matches("^\\d{3}$")){
+            throw new PaymentSelectionException(PaymentResponseDto.class.getSimpleName(), paymentResponseDto.getCvc());
+        }
+    }
+
+    private void validateCardExpirationDate(PaymentResponseDto paymentResponseDto) throws PaymentSelectionException {
+      if (paymentResponseDto.getCardExpirationDate() == null || paymentResponseDto.getCardExpirationDate().isBefore(YearMonth.now())){
+          throw new PaymentSelectionException(PaymentResponseDto.class.getSimpleName(), paymentResponseDto.getCardExpirationDate().toString());
       }
     }
 
@@ -83,15 +83,15 @@ public class PaymentService {
         }
     }
 
-    public void setProfileIdAndStatusToPaymentDto(PaymentDto paymentDto) {
-        paymentDto.setStatus(PaymentDto.PaymentStatusEnum.PENDING);
+    public void setProfileIdAndStatusToPaymentDto(PaymentResponseDto paymentResponseDto) {
+        paymentResponseDto.setStatus(PaymentResponseDto.PaymentStatusEnum.PENDING);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         Profile currentProfile = profileService.findProfileByUserId(userService.findByEmail(userDetails.getUsername()).getId());
-        paymentDto.setProfileID(currentProfile.getId());
+        paymentResponseDto.setProfileID(currentProfile.getId());
 
-        paymentServiceClient.postRequest(paymentDto);
+        paymentServiceClient.postRequest(paymentResponseDto);
     }
 
 
