@@ -1,6 +1,6 @@
-package com.gym_app.api.config;
+package com.bodystats.api.config;
 
-import com.gym_app.api.model.UserEntity;
+import com.bodystats.api.model.UserEntity;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

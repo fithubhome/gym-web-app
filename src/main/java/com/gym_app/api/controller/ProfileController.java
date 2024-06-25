@@ -1,11 +1,11 @@
-package com.gym_app.api.controller;
+package com.bodystats.api.controller;
 
-import com.gym_app.api.model.Profile;
-import com.gym_app.api.model.Role;
-import com.gym_app.api.model.UserEntity;
-import com.gym_app.api.security.CustomUserDetails;
-import com.gym_app.api.service.ProfileService;
-import com.gym_app.api.service.UserService;
+import com.bodystats.api.model.UserEntity;
+import com.bodystats.api.security.CustomUserDetails;
+import com.bodystats.api.model.Profile;
+import com.bodystats.api.model.Role;
+import com.bodystats.api.service.ProfileService;
+import com.bodystats.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.ResponseEntity;

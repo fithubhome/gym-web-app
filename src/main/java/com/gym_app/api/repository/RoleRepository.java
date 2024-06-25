@@ -1,6 +1,6 @@
-package com.gym_app.api.repository;
+package com.bodystats.api.repository;
 
-import com.gym_app.api.model.Role;
+import com.bodystats.api.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

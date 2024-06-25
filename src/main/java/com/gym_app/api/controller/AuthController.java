@@ -1,11 +1,11 @@
-package com.gym_app.api.controller;
+package com.bodystats.api.controller;
 
-import com.gym_app.api.dto.LoginDTO;
-import com.gym_app.api.dto.RegisterDTO;
-import com.gym_app.api.exceptions.DuplicateUserException;
-import com.gym_app.api.model.UserEntity;
-import com.gym_app.api.repository.UserRepository;
-import com.gym_app.api.service.UserService;
+import com.bodystats.api.dto.LoginDTO;
+import com.bodystats.api.dto.RegisterDTO;
+import com.bodystats.api.exceptions.DuplicateUserException;
+import com.bodystats.api.model.UserEntity;
+import com.bodystats.api.repository.UserRepository;
+import com.bodystats.api.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

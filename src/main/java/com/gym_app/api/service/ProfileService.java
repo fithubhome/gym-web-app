@@ -1,7 +1,7 @@
-package com.gym_app.api.service;
+package com.bodystats.api.service;
 
-import com.gym_app.api.model.Profile;
-import com.gym_app.api.repository.ProfileRepository;
+import com.bodystats.api.repository.ProfileRepository;
+import com.bodystats.api.model.Profile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,10 @@
-package com.gym_app.api.service;
+package com.bodystats.api.service;
 
-import com.gym_app.api.exceptions.RoleNotFoundException;
-import com.gym_app.api.model.Role;
-import com.gym_app.api.model.UserEntity;
-import com.gym_app.api.repository.RoleRepository;
-import com.gym_app.api.repository.UserRepository;
+import com.bodystats.api.model.UserEntity;
+import com.bodystats.api.repository.RoleRepository;
+import com.bodystats.api.repository.UserRepository;
+import com.bodystats.api.exceptions.RoleNotFoundException;
+import com.bodystats.api.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

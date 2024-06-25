@@ -1,4 +1,4 @@
-package com.gym_app.api.dto;
+package com.bodystats.api.dto;
 
 import lombok.*;
 

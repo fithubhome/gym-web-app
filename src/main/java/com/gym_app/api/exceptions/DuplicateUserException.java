@@ -1,4 +1,4 @@
-package com.gym_app.api.exceptions;
+package com.bodystats.api.exceptions;
 
 public class DuplicateUserException extends Exception {
     public DuplicateUserException(String email) {

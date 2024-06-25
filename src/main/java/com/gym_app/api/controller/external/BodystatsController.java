@@ -1,4 +1,4 @@
-package com.gym_app.api.controller.external;
+package com.bodystats.api.controller.external;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

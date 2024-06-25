@@ -1,4 +1,4 @@
-package com.gym_app.api.security;
+package com.bodystats.api.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

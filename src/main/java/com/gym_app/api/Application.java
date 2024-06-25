@@ -1,4 +1,4 @@
-package com.gym_app.api;
+package com.bodystats.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
