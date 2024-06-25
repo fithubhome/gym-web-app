@@ -57,9 +57,14 @@ public class MembershipController {
     public String submitMembership(@ModelAttribute PaymentResponseDto paymentResponseDto) {
         try {
             paymentService.validatePaymentData(paymentResponseDto);
-            paymentService.setProfileIdAndStatusToPaymentDto(paymentResponseDto);
+            String paymentResponse = paymentService.sendPaymentRequest(paymentResponseDto);
 
-            return "/membership/processingPayment.html";
+            if ("PAID".equals(paymentResponse)) {
+                return "membership/paymentSuccessful";
+            } else {
+                return "membership/error";
+            }
+
         } catch (PaymentSelectionException ex) {
             System.out.println(ex.getMessage());
             return "/membership/error";
@@ -71,20 +76,21 @@ public class MembershipController {
 
     @GetMapping("/error")
     public String getErrorPage() {
-
         return "membership/error";
     }
 
+//    @GetMapping("/transactionSuccessful")
+//    public String getTransactionRecieved() {
+//        return "membership/paymentSuccessful";
+//    }
 
-    @PostMapping("/transactionReceived")
-    public String paymentValidation (@RequestBody PaymentStatusReceived paymentStatusReceived) {
-        if (paymentStatusReceived.getPaymentStatus().equals("PAID")){
-            System.out.println("payment succefull");
-            return "membership/paymentSuccessful";
-        }
 
-        System.out.println("error");
-        return "membership/error";
-    }
+//    @PostMapping("/transactionSuccessful") // delete this
+//    public void paymentValidation(@RequestBody PaymentStatusReceived paymentStatusReceived) {
+//        System.out.println("this is in the post controller on /payment succesfull" + " - obj received is " + paymentStatusReceived.getPaymentStatus());
+//        paymentService.checkPaymentStatus(paymentStatusReceived);
+//
+//    }
+
 
 }

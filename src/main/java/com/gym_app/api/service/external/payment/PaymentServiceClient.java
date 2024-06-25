@@ -16,8 +16,8 @@ public class PaymentServiceClient {
     private static final String BASE_URI = "/payment";
     private static final RestTemplate SERVER = new RestTemplate();
 
-    public void postRequest(PaymentResponseDto paymentResponseDto){
-        SERVER.postForObject(String.format("%s%s", BASE_URL, BASE_URI),
+    public String postRequest(PaymentResponseDto paymentResponseDto){
+       return SERVER.postForObject(String.format("%s%s", BASE_URL, BASE_URI),
                 paymentResponseDto,
                 String.class);
     }
