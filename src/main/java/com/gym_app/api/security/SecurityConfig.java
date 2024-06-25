@@ -31,7 +31,9 @@ public class SecurityConfig {
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests()
                 .requestMatchers("/", "/auth/**").permitAll()
-                .requestMatchers("/membership/submitMembership").permitAll() // Added permissions for POST from Payment API
+
+                .requestMatchers( "POST","/membership/submitMembership").permitAll() // Added permissions for POST from Payment API
+
                 .requestMatchers("/dashboard", "/profile/**", "/bodystats/**", "/membership/**", "/activity/**").authenticated()
                 .requestMatchers("/role/**").hasRole("ADMIN")
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
