@@ -32,6 +32,12 @@
 
 <div class="welcome-page">
     <div class="content role-container">
+        <div class="header">
+            <a class="back-link" th:href="@{/dashboard}">
+                <span>&#8592;</span> Back to Dashboard
+            </a>
+            <h2>My Profile</h2>
+        </div>
         <h2>Please add your card details and select the desired membership:</h2>
         <p><i>"A journey to become the best version of yourself"</i></p>
         <br>
@@ -57,12 +63,6 @@
             </div>
             <button type="submit">Select Membership</button>
         </form>
-
-        <div class="action-buttons">
-            <a th:href="@{/dashboard}">
-                <button type="button">Back to Dashboard</button>
-            </a>
-        </div>
 
     </div>
 </div>

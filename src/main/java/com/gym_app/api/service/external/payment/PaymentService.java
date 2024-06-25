@@ -98,9 +98,4 @@ public class PaymentService {
     }
 
 
-    public boolean checkPaymentStatus(PaymentStatusReceived paymentStatusReceived) {
-        return "PAID".equals(paymentStatusReceived.getPaymentStatus());
-    }
-
-
 }

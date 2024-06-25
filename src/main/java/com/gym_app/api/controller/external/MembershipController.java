@@ -39,8 +39,10 @@ public class MembershipController {
         }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("membership/index");
-//        modelAndView.addObject("membershipDto", new MembershipDto());
         modelAndView.addObject("objects", membershipTypeService.getAllMembershipsType());
+
+        // Adaug aici metoday pe care o fac de MembershipHistory
+
         return modelAndView;
     }
 
@@ -57,8 +59,8 @@ public class MembershipController {
     public String submitMembership(@ModelAttribute PaymentResponseDto paymentResponseDto) {
         try {
             paymentService.validatePaymentData(paymentResponseDto);
-            String paymentResponse = paymentService.sendPaymentRequest(paymentResponseDto);
 
+            String paymentResponse = paymentService.sendPaymentRequest(paymentResponseDto);
             if ("PAID".equals(paymentResponse)) {
                 return "membership/paymentSuccessful";
             } else {
@@ -73,24 +75,6 @@ public class MembershipController {
             return "/error";
         }
     }
-
-    @GetMapping("/error")
-    public String getErrorPage() {
-        return "membership/error";
-    }
-
-//    @GetMapping("/transactionSuccessful")
-//    public String getTransactionRecieved() {
-//        return "membership/paymentSuccessful";
-//    }
-
-
-//    @PostMapping("/transactionSuccessful") // delete this
-//    public void paymentValidation(@RequestBody PaymentStatusReceived paymentStatusReceived) {
-//        System.out.println("this is in the post controller on /payment succesfull" + " - obj received is " + paymentStatusReceived.getPaymentStatus());
-//        paymentService.checkPaymentStatus(paymentStatusReceived);
-//
-//    }
 
 
 }
