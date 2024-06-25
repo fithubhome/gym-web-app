@@ -303,3 +303,39 @@ header {
     font-size: 16px;
 }
 
+.membership-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional shadow for Excel-like effect */
+}
+
+.membership-table,
+.membership-table th,
+.membership-table td {
+    border: 1px solid #dee2e6;
+}
+
+.membership-table th,
+.membership-table td {
+    padding: 12px;
+    text-align: left;
+}
+
+.membership-table th {
+    cursor: pointer;
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.membership-table th:hover {
+    background-color: #e9ecef;
+}
+
+.membership-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.membership-table tr:hover {
+    background-color: #e9ecef;
+}

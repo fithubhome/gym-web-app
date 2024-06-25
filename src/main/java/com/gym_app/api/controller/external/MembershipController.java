@@ -42,6 +42,8 @@ public class MembershipController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("membership/index");
         modelAndView.addObject("objects", membershipTypeService.getAllMembershipsType());
+        List<MembershipHistoryExternal> membershipHistory = membershipHistoryService.getMembershipHistory();
+        modelAndView.addObject("membershipHistory", membershipHistory);
 
         // Adaug aici metoday pe care o fac de MembershipHistory
 
