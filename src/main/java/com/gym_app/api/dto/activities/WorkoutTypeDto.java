@@ -1,4 +1,4 @@
-package com.bodystats.api.dto.activities;
+package com.gym_app.api.dto.activities;
 
 import lombok.Getter;
 import lombok.Setter;

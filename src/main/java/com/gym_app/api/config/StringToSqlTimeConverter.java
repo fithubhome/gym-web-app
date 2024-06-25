@@ -1,4 +1,4 @@
-package com.bodystats.api.config;
+package com.gym_app.api.config;
 
 import org.springframework.core.convert.converter.Converter;
 

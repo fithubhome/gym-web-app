@@ -1,6 +1,6 @@
-package com.bodystats.api.repository;
+package com.gym_app.api.repository;
 
-import com.bodystats.api.model.Profile;
+import com.gym_app.api.model.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

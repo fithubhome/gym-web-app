@@ -1,11 +1,11 @@
-package com.bodystats.api.controller;
+package com.gym_app.api.controller;
 
-import com.bodystats.api.exceptions.RoleNotFoundException;
-import com.bodystats.api.model.UserEntity;
-import com.bodystats.api.security.CustomUserDetails;
-import com.bodystats.api.service.RoleService;
-import com.bodystats.api.model.Role;
-import com.bodystats.api.service.UserService;
+import com.gym_app.api.exceptions.RoleNotFoundException;
+import com.gym_app.api.model.Role;
+import com.gym_app.api.model.UserEntity;
+import com.gym_app.api.security.CustomUserDetails;
+import com.gym_app.api.service.RoleService;
+import com.gym_app.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

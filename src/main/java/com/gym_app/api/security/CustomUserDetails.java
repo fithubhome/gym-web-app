@@ -1,4 +1,4 @@
-package com.bodystats.api.security;
+package com.gym_app.api.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

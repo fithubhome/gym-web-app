@@ -1,4 +1,4 @@
-package com.bodystats.api.model;
+package com.gym_app.api.model;
 
 import jakarta.persistence.*;
 import lombok.*;

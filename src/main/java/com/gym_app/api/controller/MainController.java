@@ -1,4 +1,4 @@
-package com.bodystats.api.controller;
+package com.gym_app.api.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

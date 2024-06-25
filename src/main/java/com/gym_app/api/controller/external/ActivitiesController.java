@@ -1,8 +1,8 @@
-package com.bodystats.api.controller.external;
+package com.gym_app.api.controller.external;
 
-import com.bodystats.api.exceptions.activities.EventNotFoundException;
-import com.bodystats.api.dto.activities.GymEventDto;
-import com.bodystats.api.service.external.ActivitiesService;
+import com.gym_app.api.dto.activities.GymEventDto;
+import com.gym_app.api.exceptions.activities.EventNotFoundException;
+import com.gym_app.api.service.external.ActivitiesService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
