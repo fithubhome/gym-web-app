@@ -1,7 +1,6 @@
 package com.gym_app.api.service.external.payment;
 
-import com.gym_app.api.dto.external.membershipapi.get.MembershipTypeExternal;
-import com.gym_app.api.dto.external.paymentapi.get.PaymentStatusReceived;
+import com.gym_app.api.dto.external.membershipapi.type.get.MembershipTypeExternal;
 import com.gym_app.api.dto.external.paymentapi.put.PaymentResponseDto;
 import com.gym_app.api.exceptions.external.payment.PaymentSelectionException;
 import com.gym_app.api.exceptions.external.payment.ProfileException;
@@ -10,7 +9,7 @@ import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.security.CustomUserDetails;
 import com.gym_app.api.service.ProfileService;
 import com.gym_app.api.service.UserService;
-import com.gym_app.api.service.external.membership.MembershipTypeService;
+import com.gym_app.api.service.external.membership.type.MembershipTypeService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

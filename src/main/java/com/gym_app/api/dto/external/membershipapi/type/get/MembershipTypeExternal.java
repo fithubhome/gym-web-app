@@ -1,4 +1,4 @@
-package com.gym_app.api.dto.external.membershipapi.get;
+package com.gym_app.api.dto.external.membershipapi.type.get;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

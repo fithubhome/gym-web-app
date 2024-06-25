@@ -1,7 +1,7 @@
-package com.gym_app.api.service.external.membership;
+package com.gym_app.api.service.external.membership.type;
 
 
-import com.gym_app.api.dto.external.membershipapi.get.MembershipTypeExternal;
+import com.gym_app.api.dto.external.membershipapi.type.get.MembershipTypeExternal;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.ResponseEntity;
