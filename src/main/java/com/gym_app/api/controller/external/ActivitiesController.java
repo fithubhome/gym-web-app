@@ -2,7 +2,7 @@ package com.gym_app.api.controller.external;
 
 import com.gym_app.api.dto.activities.GymEventDto;
 import com.gym_app.api.exceptions.activities.EventNotFoundException;
-import com.gym_app.api.service.external.ActivitiesService;
+import com.gym_app.api.service.external.activities.ActivitiesService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/activities")
+@RequestMapping("/activity")
 @Slf4j
 public class ActivitiesController {
     @Autowired

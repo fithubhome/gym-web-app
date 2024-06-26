@@ -1,6 +1,6 @@
 package com.gym_app.api.service.external.membership.type;
 
-import com.gym_app.api.dto.external.membershipapi.type.get.MembershipTypeExternal;
+import com.gym_app.api.dto.membership.membership.MembershipType;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +14,14 @@ import java.util.Optional;
 @Service
 @Getter
 public class MembershipTypeService {
-
     @Autowired
     private MembershipTypeServiceClient membershipTypeServiceClient;
 
-    public List<MembershipTypeExternal> getAllMembershipsType() throws EntityNotFoundException {
-        List<MembershipTypeExternal> membershipTypeExternalList = new ArrayList<>();
-        Optional<MembershipTypeExternal[]> optionalMembershipTypes = membershipTypeServiceClient.requestMembershipTypesExternal();
+    public List<MembershipType> getAllMembershipsType() throws EntityNotFoundException {
+        Optional<MembershipType[]> optionalMembershipTypes = membershipTypeServiceClient.requestMembershipTypesExternal();
 
         if (optionalMembershipTypes.isPresent()) {
-            Arrays.stream(optionalMembershipTypes.get()).forEach(
-                    mbTypeExt -> membershipTypeExternalList.add(
-                            mbTypeExt
-                    )
-            );
-            return membershipTypeExternalList;
+            return new ArrayList<>(Arrays.asList(optionalMembershipTypes.get()));
         }
 
         throw new EntityNotFoundException(getClass().getName());

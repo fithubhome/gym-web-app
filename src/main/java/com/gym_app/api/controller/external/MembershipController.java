@@ -1,10 +1,10 @@
 package com.gym_app.api.controller.external;
 
-import com.gym_app.api.dto.external.membershipapi.history.get.MembershipHistoryExternal;
-import com.gym_app.api.dto.external.membershipapi.type.get.MembershipTypeExternal;
-import com.gym_app.api.dto.external.paymentapi.put.PaymentResponseDto;
-import com.gym_app.api.exceptions.external.payment.PaymentSelectionException;
-import com.gym_app.api.exceptions.external.payment.ProfileException;
+import com.gym_app.api.dto.membership.membership.MembershipHistory;
+import com.gym_app.api.dto.membership.membership.MembershipType;
+import com.gym_app.api.dto.membership.payment.PaymentDTO;
+import com.gym_app.api.exceptions.payment.PaymentSelectionException;
+import com.gym_app.api.exceptions.payment.ProfileException;
 import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.service.external.membership.history.MembershipHistoryService;
 import com.gym_app.api.service.external.membership.type.MembershipTypeService;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/membership")
@@ -42,7 +41,7 @@ public class MembershipController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("membership/index");
         modelAndView.addObject("objects", membershipTypeService.getAllMembershipsType());
-        List<MembershipHistoryExternal> membershipHistory = membershipHistoryService.getMembershipHistory();
+        List<MembershipHistory> membershipHistory = membershipHistoryService.getMembershipHistory();
         modelAndView.addObject("membershipHistory", membershipHistory);
 
         // Adaug aici metoday pe care o fac de MembershipHistory
@@ -51,7 +50,7 @@ public class MembershipController {
     }
 
     @GetMapping("/membershipTypes")
-    public ResponseEntity<List<MembershipTypeExternal>> getAllMembershipsType() {
+    public ResponseEntity<List<MembershipType>> getAllMembershipsType() {
         try {
             return ResponseEntity.status(200).body(membershipTypeService.getAllMembershipsType());
         } catch (EntityNotFoundException ex) {
@@ -60,11 +59,11 @@ public class MembershipController {
     }
 
     @PostMapping("/submitMembership")
-    public String submitMembership(@ModelAttribute PaymentResponseDto paymentResponseDto) {
+    public String submitMembership(@ModelAttribute PaymentDTO paymentDTO) {
         try {
-            paymentService.validatePaymentData(paymentResponseDto);
+            paymentService.validatePaymentData(paymentDTO);
 
-            String paymentResponse = paymentService.sendPaymentRequest(paymentResponseDto);
+            String paymentResponse = paymentService.sendPaymentRequest(paymentDTO);
             if ("PAID".equals(paymentResponse)) {
                 return "membership/paymentSuccessful";
             } else {
@@ -84,7 +83,7 @@ public class MembershipController {
     @Autowired
     MembershipHistoryService membershipHistoryService;
     @GetMapping("/getHistory")
-    public ResponseEntity<List<MembershipHistoryExternal>> getMembershipHistory() {
+    public ResponseEntity<List<MembershipHistory>> getMembershipHistory() {
         try {
             membershipHistoryService.getMembershipHistory().forEach(System.out::println);
             return ResponseEntity.status(200).body(membershipHistoryService.getMembershipHistory());

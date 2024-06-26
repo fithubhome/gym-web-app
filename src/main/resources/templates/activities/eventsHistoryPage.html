@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>All Roles</title>
+    <title>Events History</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
@@ -12,15 +12,10 @@
 <div class="main-content"> <!-- Added a wrapper for the main content -->
     <div class="container role-container"> <!-- Added a custom class for role-specific styles -->
         <h2>
-            <a class="back-link" th:href="@{/dashboard}">
-                <span>&#8592;</span> Back to Dashboard
-            </a>
-        </h2>
-        <h3>
-            <a class="back-link" th:href="@{/activities}">
+            <a class="back-link" th:href="@{/activity}">
                 <span>&emsp; &#8592;</span> Back to Activities
             </a>
-        </h3>
+        </h2>
         <h2><span>Events History</span></h2>
 
         <div class="table-responsive">

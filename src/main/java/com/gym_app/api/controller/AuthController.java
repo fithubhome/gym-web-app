@@ -1,8 +1,8 @@
 package com.gym_app.api.controller;
 
-import com.gym_app.api.dto.LoginDTO;
-import com.gym_app.api.dto.RegisterDTO;
-import com.gym_app.api.exceptions.DuplicateUserException;
+import com.gym_app.api.dto.auth.LoginDTO;
+import com.gym_app.api.dto.auth.RegisterDTO;
+import com.gym_app.api.exceptions.auth.DuplicateUserException;
 import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.repository.UserRepository;
 import com.gym_app.api.service.UserService;

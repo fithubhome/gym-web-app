@@ -1,4 +1,4 @@
-package com.gym_app.api.service.external;
+package com.gym_app.api.service.external.activities;
 
 import com.gym_app.api.exceptions.activities.EventNotFoundException;
 import com.gym_app.api.model.UserEntity;
@@ -42,22 +42,21 @@ public class ActivitiesService {
     ProfileRepository profileRepository;
     @Autowired
     UserRepository userRepository;
-
     @Value("${activities.url}")
     private String activitiesUrl;
 
     public List<GymEventDto> showEventsHistory() {
         log.info(activitiesUrl);
         ResponseEntity<List<GymEventDto>> response = restTemplate.exchange(activitiesUrl + "/event/all-events",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {
-                });
+            HttpMethod.GET,
+            null,
+            new ParameterizedTypeReference<>() {
+            });
 
-        return response.getBody()
-                .stream()
-                .sorted(Comparator.comparing(GymEventDto::getDate).thenComparing(GymEventDto::getStartTime))
-                .toList();
+        return Objects.requireNonNull(response.getBody())
+            .stream()
+            .sorted(Comparator.comparing(GymEventDto::getDate).thenComparing(GymEventDto::getStartTime))
+            .toList();
     }
 
     public Map<GymEventDto, Boolean> showAvailableEvents(String email) {
@@ -106,25 +105,25 @@ public class ActivitiesService {
         ResponseEntity<List<GymEventDto>> response = null;
         try {
             response = restTemplate.exchange(activitiesUrl + "/event/all-events",
-                    HttpMethod.GET,
-                    null,
-                    new ParameterizedTypeReference<>() {
-                    });
-
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {
+                });
 
         } catch (Exception exception) {
             log.error(exception.getMessage());
         }
 
 
-        return response.getBody()
-                .stream()
-                .filter(e -> e.getDate().after(Date.valueOf(LocalDate.now())) ||
-                        (e.getDate().equals(Date.valueOf(LocalDate.now()))
-                                && e.getStartTime().after(Time.valueOf(LocalTime.now())))
-                )
-                .sorted(Comparator.comparing(GymEventDto::getDate).thenComparing(GymEventDto::getStartTime))
-                .toList();
+        assert response != null;
+        return Objects.requireNonNull(response.getBody())
+            .stream()
+            .filter(e -> e.getDate().after(Date.valueOf(LocalDate.now())) ||
+                    (e.getDate().equals(Date.valueOf(LocalDate.now()))
+                            && e.getStartTime().after(Time.valueOf(LocalTime.now())))
+            )
+            .sorted(Comparator.comparing(GymEventDto::getDate).thenComparing(GymEventDto::getStartTime))
+            .toList();
     }
 
 
@@ -153,6 +152,7 @@ public class ActivitiesService {
             log.info(exception.getMessage());
         }
 
+        assert response != null;
         if (response.getBody() != null) {
             return response.getBody();
         } else {
@@ -186,7 +186,6 @@ public class ActivitiesService {
         } catch (Exception exception) {
             log.error(exception.getMessage());
         }
-
     }
 
     @ExceptionHandler(HttpClientErrorException.class)

@@ -1,7 +1,7 @@
 package com.gym_app.api.service.external.membership.type;
 
 
-import com.gym_app.api.dto.external.membershipapi.type.get.MembershipTypeExternal;
+import com.gym_app.api.dto.membership.membership.MembershipType;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.ResponseEntity;
@@ -14,21 +14,20 @@ import java.util.Optional;
 @Service
 @Getter
 @Setter
-
 public class MembershipTypeServiceClient {
-    private static final String BASE_URL = "http://localhost:8105";
+    private static final String BASE_URL = "http://localhost:8020";
     private static final String BASE_URI = "/membershipType";
     private static final RestTemplate CLIENT = new RestTemplate();
 
-    private MembershipTypeExternal[] membershipTypeExternalList;
-    public Optional<MembershipTypeExternal[]> requestMembershipTypesExternal() {
+    private MembershipType[] membershipTypeList;
+    public Optional<MembershipType[]> requestMembershipTypesExternal() {
         try {
-            ResponseEntity<MembershipTypeExternal[]> response = CLIENT.getForEntity(
+            ResponseEntity<MembershipType[]> response = CLIENT.getForEntity(
                     String.format("%s%s", BASE_URL, BASE_URI),
-                    MembershipTypeExternal[].class
+                    MembershipType[].class
             );
-            membershipTypeExternalList = response.getBody();
-            return Optional.ofNullable(membershipTypeExternalList);
+            membershipTypeList = response.getBody();
+            return Optional.ofNullable(membershipTypeList);
 
         } catch (HttpClientErrorException ex) {
             // Handle HTTP client errors here

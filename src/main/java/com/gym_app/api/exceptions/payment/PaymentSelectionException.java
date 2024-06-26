@@ -1,4 +1,4 @@
-package com.gym_app.api.exceptions.external.payment;
+package com.gym_app.api.exceptions.payment;
 
 public class PaymentSelectionException extends Exception {
     public PaymentSelectionException(String className, String dataInput){

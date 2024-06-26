@@ -1,6 +1,5 @@
-package com.gym_app.api.dto.external.paymentapi.get;
+package com.gym_app.api.dto.membership.payment;
 
-import com.gym_app.api.dto.external.paymentapi.put.PaymentResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,10 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-
-
-public class PaymentStatusReceived {
-
+public class PaymentStatus {
     private String paymentStatus;
-
 }
