@@ -27,7 +27,7 @@ public class ActivitiesController {
 
     @GetMapping()
     public String showActivitiesPage() {
-        return "activities/index";
+        return "activities/activitiesMainPage";
     }
 
     @GetMapping("/events-history")
@@ -125,7 +125,7 @@ public class ActivitiesController {
 
 
         model.addAttribute("events", activitiesService.showEventsHistory());
-        return "redirect:/activities/create-event-form";
+        return "redirect:/activity/create-event-form";
     }
 
     @GetMapping(path = "delete-event", params = "eventId")
