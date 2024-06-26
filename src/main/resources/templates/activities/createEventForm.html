@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>All Roles</title>
+    <title>Create Event</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
@@ -17,7 +17,7 @@
             </a>
         </h2>
         <h3>
-            <a class="back-link" th:href="@{/activities}">
+            <a class="back-link" th:href="@{/activity}">
                 <span>&emsp; &#8592;</span> Back to Activities
             </a>
         </h3>
@@ -48,10 +48,6 @@
                 <label for="endTime">End Time:</label>
                 <input type="time" id="endTime" th:field="*{endTime}" required/>
                 <br/>
-
-                <!--                <label for="eventType">Event Type:</label>-->
-                <!--                <input type="text" id="eventType" th:field="*{eventType}" required/>-->
-                <!--                <br/>-->
 
                 <label for="maxParticipants">Max Participants:</label>
                 <input type="number" id="maxParticipants" th:field="*{maxParticipants}" required min="1" step="1"/>
@@ -87,10 +83,10 @@
                     <td th:text="${event.endTime}"></td>
                     <td th:text="${event.maxParticipants}"></td>
                     <td>
-                        <a href="#" th:href="@{'/activities/update-event-form?eventId=' + ${event.id}}">Update event</a>
+                        <a href="#" th:href="@{'/activity/update-event-form?eventId=' + ${event.id}}">Update event</a>
                     </td>
                     <td>
-                        <a href="#" th:href="@{'/activities/delete-event?eventId=' + ${event.id}}">Delete event</a>
+                        <a href="#" th:href="@{'/activity/delete-event?eventId=' + ${event.id}}">Delete event</a>
                     </td>
 
 

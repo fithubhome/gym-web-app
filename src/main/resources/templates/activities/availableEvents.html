@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>All Roles</title>
+    <title>All Events</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
@@ -17,10 +17,11 @@
             </a>
         </h2>
         <h3>
-            <a class="back-link" th:href="@{/activities}">
+            <a class="back-link" th:href="@{/activity}">
                 <span>&emsp; &#8592;</span> Back to Activities
             </a>
         </h3>
+
         <h2> <span>You can signUp to one of the following events</span></h2>
 
         <div class="table-responsive">
@@ -47,11 +48,11 @@
 
                     <td>
                         <div th:if="${event.value} == true ">
-                            <a href="#" th:href="@{'/activities/withdraw?eventId=' + ${event.key.id}}">Withdraw From
+                            <a href="#" th:href="@{'/activity/withdraw?eventId=' + ${event.key.id}}">Withdraw From
                                 event</a>
                         </div>
                         <div th:if="${event.value} == false">
-                            <a href="#" th:href="@{'/activities/signMeUp?eventId=' + ${event.key.id}}">Sign Me Up!</a>
+                            <a href="#" th:href="@{'/activity/signMeUp?eventId=' + ${event.key.id}}">Sign Me Up!</a>
                         </div>
                     </td>
                 </tr>

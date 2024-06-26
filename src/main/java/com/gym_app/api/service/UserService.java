@@ -1,11 +1,10 @@
 package com.gym_app.api.service;
 
-import com.gym_app.api.exceptions.DuplicateUserException;
+import com.gym_app.api.exceptions.auth.DuplicateUserException;
 import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.model.Profile;
 import com.gym_app.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
