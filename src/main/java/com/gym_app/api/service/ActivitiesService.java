@@ -47,7 +47,6 @@ public class ActivitiesService {
     private String activitiesUrl;
 
     public List<GymEventDto> showEventsHistory() {
-        log.info(activitiesUrl);
         ResponseEntity<List<GymEventDto>> response = restTemplate.exchange(activitiesUrl + "/event/all-events",
                 HttpMethod.GET,
                 null,
@@ -140,7 +139,7 @@ public class ActivitiesService {
         }
     }
 
-    private GymEventDto getEventById(Long eventId) throws EventNotFoundException {
+    public GymEventDto getEventById(Long eventId) throws EventNotFoundException {
         ResponseEntity<GymEventDto> response = null;
         try {
             response = restTemplate.exchange(activitiesUrl + "/event?eventId=" + eventId,
@@ -183,17 +182,34 @@ public class ActivitiesService {
 
         try {
             restTemplate.postForEntity(activitiesUrl + "/event", gymEventDto, GymEventDto.class);
+        } catch (HttpClientErrorException.Conflict exception) {
+            throw exception;
         } catch (Exception exception) {
             log.error(exception.getMessage());
         }
 
     }
 
-    @ExceptionHandler(HttpClientErrorException.class)
-    public ResponseEntity<String> handleEventNotFoundException(HttpClientErrorException exception) {
-        log.error(exception.getMessage());
-        return ResponseEntity
-                .status(404)
-                .body(exception.getMessage());
+    public void updateEvent(GymEventDto gymEventDto, String email) {
+
+        gymEventDto.setOrganizerId(getProfileIdOfCurrentUser(email));
+
+        try {
+            restTemplate.put(activitiesUrl + "/event", gymEventDto, GymEventDto.class);
+        } catch (HttpClientErrorException.Conflict exception) {
+            throw exception;
+        } catch (Exception exception) {
+            log.error(exception.getMessage());
+        }
+    }
+
+    public void deleteEvent(Long eventId) {
+
+        try {
+            restTemplate.delete(activitiesUrl + "/event?eventId=" + eventId);
+        } catch (Exception exception) {
+            log.error(exception.getMessage());
+        }
+
     }
 }

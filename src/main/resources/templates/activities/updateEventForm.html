@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Roles</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<header>
+    <h1>FitHubHome</h1>
+</header>
+<div class="main-content"> <!-- Added a wrapper for the main content -->
+    <div class="container role-container"> <!-- Added a custom class for role-specific styles -->
+        <h2>
+            <a class="back-link" th:href="@{/dashboard}">
+                <span>&#8592;</span> Back to Dashboard
+            </a>
+        </h2>
+        <h3>
+            <a class="back-link" th:href="@{/activities}">
+                <span>&emsp; &#8592;</span> Back to Activities
+            </a>
+        </h3>
+        <h2><span>Update Event</span></h2>
+
+        <form th:action="@{/activities/update-event}" th:object="${gymEventDto}" method="post">
+            <fieldset>
+                <legend>Update Gym Event</legend>
+
+                <input type="hidden" id="eventId" th:field="${eventToUpdate.id}" readonly/>
+                <br/>
+
+                <label for="eventName">Event Name:</label>
+                <input type="text" id="eventName" th:field="${eventToUpdate.eventName}"/>
+                <br/>
+
+                <label for="eventDescription">Event Description:</label>
+                <textarea id="eventDescription" th:field="${eventToUpdate.eventDescription}"
+                          style="width: 100%;"></textarea>
+                <br/>
+
+
+                <label for=" date">Date:</label>
+                <input type="date" id="date" th:field="${eventToUpdate.date}" required/>
+                <br/>
+
+                <label for="startTime">Start Time:</label>
+                <input type="time" id="startTime" th:field="${eventToUpdate.startTime}" required/>
+                <br/>
+
+                <label for="endTime">End Time:</label>
+                <input type="time" id="endTime" th:field="${eventToUpdate.endTime}" required/>
+                <br/>
+
+                <!--                <label for="eventType">Event Type:</label>-->
+                <!--                <input type="text" id="eventType" th:field="*{eventType}" required/>-->
+                <!--                <br/>-->
+
+                <label for="maxParticipants">Max Participants:</label>
+                <input type="number" id="maxParticipants" th:field="${eventToUpdate.maxParticipants}" required min="1"
+                       step="1"/>
+                <br/>
+
+                <input type="hidden" id="organizerId" th:field="${eventToUpdate.organizerId}"/>
+                <br/>
+
+                <button type="submit">Update Event</button>
+
+            </fieldset>
+        </form>
+
+    </div>
+</div>
+<footer>
+    <p>&copy; 2024 GymApp API</p>
+</footer>
+</body>
+</html>

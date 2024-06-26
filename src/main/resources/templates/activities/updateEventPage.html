@@ -21,50 +21,7 @@
                 <span>&emsp; &#8592;</span> Back to Activities
             </a>
         </h3>
-        <h2><span>Create Event</span></h2>
-
-        <form th:action="@{/activities/create-event}" th:object="${gymEventDto}" method="post">
-            <fieldset>
-                <legend>Create New Gym Event</legend>
-
-                <label for="eventName">Event Name:</label>
-                <input type="text" id="eventName" th:field="*{eventName}" placeholder="Event Name" required/>
-                <br/>
-
-                <label for="eventDescription">Event Description:</label>
-                <textarea id="eventDescription" th:field="*{eventDescription}" style="width: 100%;"
-                          placeholder="Add a small description" required></textarea>
-                <br/>
-
-
-                <label for="date">Date:</label>
-                <input type="date" id="date" th:field="*{date}" required/>
-                <br/>
-
-                <label for="startTime">Start Time:</label>
-                <input type="time" id="startTime" th:field="*{startTime}" required/>
-                <br/>
-
-                <label for="endTime">End Time:</label>
-                <input type="time" id="endTime" th:field="*{endTime}" required/>
-                <br/>
-
-                <!--                <label for="eventType">Event Type:</label>-->
-                <!--                <input type="text" id="eventType" th:field="*{eventType}" required/>-->
-                <!--                <br/>-->
-
-                <label for="maxParticipants">Max Participants:</label>
-                <input type="number" id="maxParticipants" th:field="*{maxParticipants}" required min="1" step="1"/>
-                <br/>
-
-                <button type="submit">Create Event</button>
-
-            </fieldset>
-        </form>
-
-        <br>
-        <br>
-
+        <h2><span>Update or Delete Events</span></h2>
 
         <div class="table-responsive">
             <table id="usersTable" class="table table-bordered table-striped">
@@ -98,8 +55,6 @@
                 </tbody>
             </table>
         </div>
-
-
     </div>
 </div>
 <footer>
