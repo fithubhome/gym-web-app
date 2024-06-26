@@ -1,19 +1,15 @@
-package com.gym_app.api.dto.external.membershipapi.type.get;
+package com.gym_app.api.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
+
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
-
-public class MembershipTypeExternal {
+public class RoleDTO {
     private UUID id;
     private String name;
-    private Double price;
 }
-

@@ -1,6 +1,5 @@
-package com.gym_app.api.dto.external.membershipapi.history.get;
+package com.gym_app.api.dto.membership.membership;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,11 +11,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public class MembershipHistoryExternal {
+public class MembershipHistory {
     private String membershipName;
     private Double price;
     private LocalDate startDate;
     private LocalDate endDate;
-
 
 }

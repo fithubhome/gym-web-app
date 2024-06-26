@@ -1,6 +1,6 @@
 package com.gym_app.api.controller;
 
-import com.gym_app.api.exceptions.RoleNotFoundException;
+import com.gym_app.api.exceptions.auth.RoleNotFoundException;
 import com.gym_app.api.model.Role;
 import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.security.CustomUserDetails;

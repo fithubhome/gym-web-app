@@ -1,7 +1,7 @@
 package com.gym_app.api.security;
 
-import com.gym_app.api.dto.RoleDTO;
-import com.gym_app.api.dto.UserDTO;
+import com.gym_app.api.dto.auth.RoleDTO;
+import com.gym_app.api.dto.auth.UserDTO;
 import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

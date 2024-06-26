@@ -1,6 +1,6 @@
 package com.gym_app.api.service.external.membership.history;
 
-import com.gym_app.api.dto.external.membershipapi.history.get.MembershipHistoryExternal;
+import com.gym_app.api.dto.membership.membership.MembershipHistory;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.ResponseEntity;
@@ -18,17 +18,17 @@ public class MembershipHistoryServiceClient {
     private static final String BASE_URL = "http://localhost:8105";
     private static final String BASE_URI = "/addpayment";
     private static final RestTemplate CLIENT = new RestTemplate();
-    private MembershipHistoryExternal[] membershipHistoryExternalList;
+    private MembershipHistory[] membershipHistoryList;
 
-    public Optional<MembershipHistoryExternal[]> requestMembershipHistory(UUID currentProfile) {
+    public Optional<MembershipHistory[]> requestMembershipHistory(UUID currentProfile) {
 
         try {
-            ResponseEntity<MembershipHistoryExternal[]> response = CLIENT.getForEntity(
+            ResponseEntity<MembershipHistory[]> response = CLIENT.getForEntity(
                     String.format("%s%s/%s", BASE_URL, BASE_URI, currentProfile.toString()),
-                    MembershipHistoryExternal[].class
+                    MembershipHistory[].class
             );
-            membershipHistoryExternalList = response.getBody();
-            return Optional.ofNullable(membershipHistoryExternalList);
+            membershipHistoryList = response.getBody();
+            return Optional.ofNullable(membershipHistoryList);
 
         } catch (HttpClientErrorException ex) {
             // Handle HTTP client errors here
