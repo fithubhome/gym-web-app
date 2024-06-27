@@ -7,38 +7,35 @@
 </head>
 <body>
 <header>
-    <h1 style="color: white;"> Manage Memberships Type Page</h1>
+    <h2 style="color: white;">Manage Memberships Type Page</h2>
 </header>
 
 <div class="welcome-page">
-
-    <div class="header">
-        <a class="back-link" th:href="@{/dashboard}">
-            <span>&#8592;</span> Back to Dashboard
-        </a>
-        <h2>Manage memberships</h2>
-    </div>
-
-    <h1>Create new membership</h1>
-    <!-- Flash Message Section -->
-    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
     <div class="container">
+        <div class="header">
+            <a class="back-link" th:href="@{/dashboard}">
+                <span>&#8592;</span> Back to Dashboard
+            </a>
+
+        </div>
+
+        <h3>Create new membership</h3>
+        <!-- Flash Message Section -->
+        <div th:if="${message}" class="alert alert-success flash-message" th:text="${message}"></div>
+
         <form th:action="@{/membership/createMembershipType}" method="post">
             <p>New membership name:
                 <input name="name" type="text" required>
             </p>
 
             <p>New membership price:
-                <input name="price" type="text" required>
+                <input name="price" type="text" pattern="[0-9]+(\.[0-9]+)?" title="Enter a valid number" required placeholder="Ammount in EUR">
             </p>
 
             <button type="submit">Select Membership</button>
         </form>
 
-
-        <h1>Current Membership Types</h1>
-        <!-- Flash Message Section -->
-        <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+        <h3>Current Membership Types</h3>
 
         <table class="membership-table">
             <thead>
@@ -63,12 +60,10 @@
             </tbody>
         </table>
     </div>
-
-    <footer>
-        <p>&copy; 2024 GymApp API</p>
-    </footer>
-
 </div>
 
+<footer>
+    <p>&copy; 2024 GymApp API</p>
+</footer>
 </body>
 </html>
