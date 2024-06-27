@@ -6,7 +6,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class PaymentServiceClient {
-    private static final String BASE_URL = "http://localhost:8025";
+    private static final String BASE_URL = "http://localhost:8100";
     private static final String BASE_URI = "/payment";
     private static final RestTemplate SERVER = new RestTemplate();
 

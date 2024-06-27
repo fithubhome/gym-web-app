@@ -15,7 +15,7 @@ import java.util.Optional;
 @Getter
 @Setter
 public class MembershipTypeServiceClient {
-    private static final String BASE_URL = "http://localhost:8020";
+    private static final String BASE_URL = "http://localhost:8105";
     private static final String BASE_URI = "/membershipType";
     private static final RestTemplate CLIENT = new RestTemplate();
 
