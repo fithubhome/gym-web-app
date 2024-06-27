@@ -83,6 +83,19 @@ public class MembershipController {
         }
     }
 
+    @GetMapping("managemembershiptypes")
+    public ModelAndView getManageMembershipTypePage(){
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("membership/managemembershiptypes");
+        List<MembershipType> membershipTypesList = membershipTypeService.getAllMembershipsType();
+        modelAndView.addObject("membershipTypesList", membershipTypesList);
+
+        return modelAndView;
+    }
+
+
+
     //This method is for testing iwth POSTMAN; it can be deleted afterwards
     @Autowired
     MembershipHistoryService membershipHistoryService;

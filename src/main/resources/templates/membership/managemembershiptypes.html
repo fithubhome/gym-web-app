@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Membership Types</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Current Membership Types</h1>
+    <table class="membership-table">
+        <thead>
+        <tr>
+            <th>Membership Name</th>
+            <th>Membership Price</th>
+            <th>Remove Membership</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="membership : ${membershipTypesList}">
+            <td th:text="${membership.name}"></td>
+            <td th:text="${membership.price}"></td>
+            <td>
+                <form th:action="@{http://localhost:8105/membershipType/{id}(id=${membership.id})}" method="post">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit">Remove</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <p>&copy; 2024 GymApp API</p>
+</footer>
+</body>
+</html>
