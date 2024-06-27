@@ -6,38 +6,52 @@
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
+<header>
+    <h1 style="color: white;"> Manage Memberships Type Page</h1>
+</header>
 
-<div class="container">
-    <h1>Current Membership Types</h1>
-    <!-- Flash Message Section -->
-    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+<div class="welcome-page">
 
-    <table class="membership-table">
-        <thead>
-        <tr>
-            <th>Membership Name</th>
-            <th>Membership Price</th>
-            <th>Remove Membership</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="membership : ${membershipTypesList}">
-            <td th:text="${membership.name}"></td>
-            <td th:text="${membership.price}"></td>
-            <td>
-                <form th:action="@{/membership/deleteMembershipType}" method="post">
-                    <input type="hidden" name="_method" value="delete"/>
-                    <input type="hidden" name="id" th:value="${membership.id}"/>
-                    <button type="submit">Remove</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="header">
+        <a class="back-link" th:href="@{/dashboard}">
+            <span>&#8592;</span> Back to Dashboard
+        </a>
+        <h2>Manage memberships</h2>
+    </div>
+    <div class="container">
+        <h1>Current Membership Types</h1>
+        <!-- Flash Message Section -->
+        <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+
+        <table class="membership-table">
+            <thead>
+            <tr>
+                <th>Membership Name</th>
+                <th>Membership Price</th>
+                <th>Remove Membership</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="membership : ${membershipTypesList}">
+                <td th:text="${membership.name}"></td>
+                <td th:text="${membership.price}"></td>
+                <td>
+                    <form th:action="@{/membership/deleteMembershipType}" method="post">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <input type="hidden" name="id" th:value="${membership.id}"/>
+                        <button type="submit">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 GymApp API</p>
+    </footer>
+
 </div>
 
-<footer>
-    <p>&copy; 2024 GymApp API</p>
-</footer>
 </body>
 </html>
