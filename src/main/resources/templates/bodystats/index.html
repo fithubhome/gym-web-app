@@ -1,24 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>BodyStats</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Body Stats</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<header>
-    <h1 style="color: white;">Welcome to FitHubHome</h1>
-</header>
-<div class="welcome-page">
-    <div class="content">
-        <div class="action-buttons">
-            <a th:href="@{/dashboard}">
-                <button>Back to Dashboard</button>
-            </a>
+<div class="container mt-5 text-center">
+    <h2 class="mb-4">Welcome to Body Stats Management</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6 mb-3">
+            <a href="/bodystats/history" class="btn btn-primary btn-lg btn-block">View Body Stats History</a>
+        </div>
+        <div class="col-md-6 mb-3">
+            <a href="/bodystats/record" class="btn btn-secondary btn-lg btn-block">Record New Body Stats</a>
         </div>
     </div>
 </div>
-<footer>
-    <p>&copy; 2024 BodyStats API</p>
-</footer>
 </body>
 </html>

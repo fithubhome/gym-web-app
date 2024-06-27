@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body Stats History</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">Body Stats History</h2>
+    <table class="table table-bordered mt-3">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Starting Weight</th>
+            <th>Register Day</th>
+            <th>BMI</th>
+            <th>Muscle Mass</th>
+            <th>Fat Percentage</th>
+            <th>Waist</th>
+            <th>Buttocks</th>
+            <th>Chest</th>
+            <th>Left Arm</th>
+            <th>Right Arm</th>
+            <th>Left Thigh</th>
+            <th>Right Thigh</th>
+            <th>Left Calf</th>
+            <th>Right Calf</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="body : ${body}">
+            <td th:text="${body.id}"></td>
+            <td th:text="${body.startingWeight}"></td>
+            <td th:text="${body.registerDay}"></td>
+            <td th:text="${body.bmi}"></td>
+            <td th:text="${body.muscleMass}"></td>
+            <td th:text="${body.fatPercentage}"></td>
+            <td th:text="${body.waist}"></td>
+            <td th:text="${body.buttocks}"></td>
+            <td th:text="${body.chest}"></td>
+            <td th:text="${body.leftArm}"></td>
+            <td th:text="${body.rightArm}"></td>
+            <td th:text="${body.leftThigh}"></td>
+            <td th:text="${body.rightThigh}"></td>
+            <td th:text="${body.leftCalf}"></td>
+            <td th:text="${body.rightCalf}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
