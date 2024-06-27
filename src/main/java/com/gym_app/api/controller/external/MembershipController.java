@@ -98,11 +98,10 @@ public class MembershipController {
     }
 
     @DeleteMapping("/deleteMembershipType")
-    public String deleteMembershipType(@ModelAttribute MembershipType membershipType, RedirectAttributes redirectAttributes) {
-        String BASE_URL = "http://localhost:8105";
-        String BASE_URI = "/membershipType";
-        RestTemplate CLIENT = new RestTemplate();
-        CLIENT.delete(String.format("%s%s/%s", BASE_URL, BASE_URI, membershipType.getId()));
+    public String deleteMembershipType(@RequestParam UUID id, RedirectAttributes redirectAttributes) {
+
+        membershipTypeService.deleteMembershipType(id);
+
         redirectAttributes.addFlashAttribute("message", "Membership type removed successfully");
         return "redirect:/membership/managemembershiptypes";
     }
