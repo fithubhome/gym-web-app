@@ -38,11 +38,19 @@
             </a>
             <h2>My Profile</h2>
         </div>
-        <h2>Please add your card details and select the desired membership:</h2>
-        <p><i>"A journey to become the best version of yourself"</i></p>
-        <br>
 
-        <form th:action="@{/membership/submitMembership}" method="post">
+        <!-- Display this section if the membership is active -->
+        <div th:if="${isMembershipActive}">
+            <p>Membership status: <span style="color: green"><b>active</b></span>.
+                <br>
+                If you would like to change your subscription, email us at fithub@gym.com or talk to one of our employees.</p>
+        </div>
+
+        <!-- Display this form only if the membership is not active -->
+        <form th:if="${!isMembershipActive}" th:action="@{/membership/submitMembership}" method="post">
+            <p>Membership status: <span style="color: orange"><b>inactive</b></span>.
+                <br>
+               Please add your card details below and select the desired subscription</p>
             <p>Name<span style="color: red">*</span>:
                 <input name="personName" type="text" pattern="[A-Za-z\s]+" placeholder="Add your full name" required>
             </p>

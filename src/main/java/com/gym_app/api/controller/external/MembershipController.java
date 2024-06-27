@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -44,7 +45,10 @@ public class MembershipController {
         List<MembershipHistory> membershipHistory = membershipHistoryService.getMembershipHistory();
         modelAndView.addObject("membershipHistory", membershipHistory);
 
-        // Adaug aici metoday pe care o fac de MembershipHistory
+        // This is the logic for Membership Active or not which impacts the use display:
+        boolean isMembershipActive = membershipHistory.stream()
+                .anyMatch(mbHist -> mbHist.getEndDate().isAfter(LocalDate.now()));
+        modelAndView.addObject("isMembershipActive", isMembershipActive);
 
         return modelAndView;
     }
