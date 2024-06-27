@@ -8,7 +8,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class ParticipantDto {
-
     private Long id;
     private UUID profileId;
     private GymEventDto event;

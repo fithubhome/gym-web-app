@@ -80,6 +80,7 @@ public class ActivitiesController {
 
     @PostMapping("/create-event")
     public String createEvent(@ModelAttribute GymEventDto gymEventDto, HttpServletRequest httpServletRequest, Model model) throws IOException {
+        activitiesService.createEvent(gymEventDto, httpServletRequest.getUserPrincipal().getName());
         try {
             activitiesService.createEvent(gymEventDto, httpServletRequest.getUserPrincipal().getName());
         } catch (HttpClientErrorException.Conflict exception) {

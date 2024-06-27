@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Body Stats</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap">
+</head>
+<body>
+<header>
+    <h1>FitHubHome</h1>
+</header>
+<div class="main-content">
+    <div class="container">
+        <a class="back-link" th:href="@{/bodystats}">
+            <span>&#8592;</span> Back to Main
+        </a>
+        <h2>Register New Bodystats</h2>
+        <form th:action="@{/bodystats/new}" th:object="${bodyStats}" method="post">
+            <input type="hidden" name="profileId" th:value="${profileId}" />
+            <div class="form-group">
+                <label for="registerDay">Register Day:</label>
+                <input type="date" id="registerDay" name="registerDay" th:field="*{registerDay}" required>
+            </div>
+            <div class="form-group">
+                <label for="bmi">BMI (kg/m²):</label>
+                <input type="number" step="0.01" id="bmi" name="bmi" th:field="*{bmi}" required>
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight (kg):</label>
+                <input type="number" step="0.01" id="weight" name="weight" th:field="*{weight}" required>
+            </div>
+            <div class="form-group">
+                <label for="muscleMass">Muscle Mass (kg):</label>
+                <input type="number" step="0.01" id="muscleMass" name="muscleMass" th:field="*{muscleMass}" required>
+            </div>
+            <div class="form-group">
+                <label for="fatPercentage">Fat Percentage (%):</label>
+                <input type="number" step="0.01" id="fatPercentage" name="fatPercentage" th:field="*{fatPercentage}" required>
+            </div>
+            <div class="form-group">
+                <label for="waist">Waist (cm):</label>
+                <input type="number" step="0.01" id="waist" name="waist" th:field="*{waist}" required>
+            </div>
+            <div class="form-group">
+                <label for="chest">Chest (cm):</label>
+                <input type="number" step="0.01" id="chest" name="chest" th:field="*{chest}" required>
+            </div>
+            <div class="form-group">
+                <label for="leftArm">Left Arm (cm):</label>
+                <input type="number" step="0.01" id="leftArm" name="leftArm" th:field="*{leftArm}" required>
+            </div>
+            <div class="form-group">
+                <label for="rightArm">Right Arm (cm):</label>
+                <input type="number" step="0.01" id="rightArm" name="rightArm" th:field="*{rightArm}" required>
+            </div>
+            <div class="form-group">
+                <label for="leftThigh">Left Thigh (cm):</label>
+                <input type="number" step="0.01" id="leftThigh" name="leftThigh" th:field="*{leftThigh}" required>
+            </div>
+            <div class="form-group">
+                <label for="rightThigh">Right Thigh (cm):</label>
+                <input type="number" step="0.01" id="rightThigh" name="rightThigh" th:field="*{rightThigh}" required>
+            </div>
+            <div class="form-group">
+                <label for="leftCalf">Left Calf (cm):</label>
+                <input type="number" step="0.01" id="leftCalf" name="leftCalf" th:field="*{leftCalf}" required>
+            </div>
+            <div class="form-group">
+                <label for="rightCalf">Right Calf (cm):</label>
+                <input type="number" step="0.01" id="rightCalf" name="rightCalf" th:field="*{rightCalf}" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+<footer>
+    <p>&copy; Bodystats - API</footer>
+</body>
+</html>

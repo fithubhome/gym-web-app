@@ -11,7 +11,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class GymEventDto {
-
     private Long id;
     private String eventName;
     private String eventDescription;

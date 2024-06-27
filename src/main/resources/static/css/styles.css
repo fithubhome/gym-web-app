@@ -339,3 +339,168 @@ header {
 .membership-table tr:hover {
     background-color: #e9ecef;
 }
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    color: #343a40;
+}
+
+header, footer {
+    background-color: #343a40;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    color: white;
+}
+
+.footer {
+    margin-top: auto; /* Ensure footer is pushed to the bottom */
+}
+
+.main-content {
+    flex: 1; /* Take up the remaining space between header and footer */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: center;
+    color: #343a40;
+    position: relative; /* Add this line */
+}
+
+h1, h2 {
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #495057;
+}
+
+input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="number"], select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+button, input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.nav-links {
+    margin-top: 20px;
+}
+
+.nav-links a {
+    margin-right: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    background-color: #f1f1f1;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+ul li span {
+    display: inline-block;
+    min-width: 100px;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+.back-link {
+    color: #007bff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.stats-table, .membership-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.stats-table th, .stats-table td, .membership-table th, .membership-table td {
+    border: 1px solid #dee2e6;
+    padding: 12px;
+    text-align: left;
+}
+
+.stats-table th, .membership-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.stats-table th:hover, .membership-table th:hover {
+    background-color: #e9ecef;
+}
+
+.stats-table tr:nth-child(even), .membership-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.stats-table tr:hover, .membership-table tr:hover {
+    background-color: #e9ecef;
+}

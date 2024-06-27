@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
+import org.springframework.stereotype.Component;
 
 import java.sql.Types;
 import java.util.Date;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Component
 public class Profile {
     @Id
     @JdbcTypeCode(Types.VARCHAR)

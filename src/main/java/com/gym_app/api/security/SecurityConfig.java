@@ -27,27 +27,25 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .cors(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests()
-                .requestMatchers("/", "/auth/**").permitAll()
-                .requestMatchers("POST", "/membership/**").permitAll()
-                .requestMatchers("/activity", "/activity/available-events", "/activity/signMeUp", "/activity/withdraw").hasAnyRole("MEMBER","ADMIN")
-                .requestMatchers("/activity**").hasRole("ADMIN")
-                .requestMatchers("/dashboard", "/profile/**", "/bodystats/**", "/membership/**", "/activity/**").authenticated()
-                .requestMatchers("/role/**").hasRole("ADMIN")
-                .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/auth/login")
-                .loginProcessingUrl("/auth/login")
-                .defaultSuccessUrl("/dashboard", true)
-                .permitAll()
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/")
-                .permitAll();
+            .csrf().disable()
+            .cors(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests()
+            .requestMatchers("/", "/auth/**").permitAll()
+            .requestMatchers("/dashboard", "/profile/**", "/bodystats/**", "/membership/**", "/activity/**").authenticated()
+            .requestMatchers( "POST", "/membership/**", "/activity/**", "/bodystats/**").permitAll()
+            .requestMatchers("/role/**").hasRole("ADMIN")
+            .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
+            .and()
+            .formLogin()
+            .loginPage("/auth/login")
+            .loginProcessingUrl("/auth/login")
+            .defaultSuccessUrl("/dashboard", true)
+            .permitAll()
+            .and()
+            .logout()
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .logoutSuccessUrl("/")
+            .permitAll();
         return http.build();
     }
 
