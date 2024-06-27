@@ -2,30 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>All Roles</title>
+    <title>All Events</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
 </head>
 <body>
 <header>
     <h1>FitHubHome</h1>
 </header>
 <div class="main-content"> <!-- Added a wrapper for the main content -->
-    <div class="container role-container"> <!-- Added a custom class for role-specific styles -->
+    <div class=""> <!-- Added a custom class for role-specific styles -->
         <h2>
-            <a class="back-link" th:href="@{/dashboard}">
-                <span>&#8592;</span> Back to Dashboard
+            <a class="btn btn-primary" th:href="@{/dashboard}">
+                <span class="bi bi-arrow-left"></span> Back to Dashboard
             </a>
         </h2>
         <h3>
-            <a class="back-link" th:href="@{/activities}">
-                <span>&emsp; &#8592;</span> Back to Activities
+            <a class="btn btn-primary ml-5" th:href="@{/activity}">
+                <span class="bi bi-arrow-left"></span> Back to Activities
             </a>
         </h3>
-        <h2> <span>You can signUp to one of the following events</span></h2>
+
+        <h2><span>You can signUp to one of the following events</span></h2>
 
         <div class="table-responsive">
-            <table id="usersTable" class="table table-bordered table-striped">
-                <thead class="thead-dark">
+            <table class="table table-bordered table-striped">
+                <thead>
                 <tr>
                     <th><b>Event Name</b></th>
                     <th><b>Description</b></th>
@@ -47,11 +54,11 @@
 
                     <td>
                         <div th:if="${event.value} == true ">
-                            <a href="#" th:href="@{'/activities/withdraw?eventId=' + ${event.key.id}}">Withdraw From
+                            <a href="#" th:href="@{'/activity/withdraw?eventId=' + ${event.key.id}}">Withdraw From
                                 event</a>
                         </div>
                         <div th:if="${event.value} == false">
-                            <a href="#" th:href="@{'/activities/signMeUp?eventId=' + ${event.key.id}}">Sign Me Up!</a>
+                            <a href="#" th:href="@{'/activity/signMeUp?eventId=' + ${event.key.id}}">Sign Me Up!</a>
                         </div>
                     </td>
                 </tr>
@@ -60,8 +67,8 @@
         </div>
     </div>
 </div>
-    <footer>
-        <p>&copy; 2024 GymApp API</p>
-    </footer>
+<footer>
+    <p>&copy; 2024 GymApp API</p>
+</footer>
 </body>
 </html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Roles</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+</head>
+<body>
+<header>
+    <h1>FitHubHome</h1>
+</header>
+<div class="main-content"> <!-- Added a wrapper for the main content -->
+    <div class=""> <!-- Added a custom class for role-specific styles -->
+        <h2>
+            <a class="btn btn-primary" th:href="@{/dashboard}">
+                <span class="bi bi-arrow-left"></span> Back to Dashboard
+            </a>
+        </h2>
+        <h3>
+            <a class="btn btn-primary ml-5" th:href="@{/activity}">
+                <span class="bi bi-arrow-left"></span> Back to Activities
+            </a>
+        </h3>
+        <h2><span>Update or Delete Events</span></h2>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th><b>Event Name</b></th>
+                    <th><b>Description</b></th>
+                    <th><b>Date</b></th>
+                    <th><b>Start Time</b></th>
+                    <th><b>End Time</b></th>
+                    <th><b>Max Participants</b></th>
+                    <th><b>Update</b></th>
+                    <th><b>Delete</b></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="event : ${events}">
+                    <td th:text="${event.eventName}"></td>
+                    <td th:text="${event.eventDescription}"></td>
+                    <td th:text="${event.date}"></td>
+                    <td th:text="${event.startTime}"></td>
+                    <td th:text="${event.endTime}"></td>
+                    <td th:text="${event.maxParticipants}"></td>
+                    <td>
+                        <a href="#" th:href="@{'/activity/update-event-form?eventId=' + ${event.id}}">Update event</a>
+                    </td>
+                    <td>
+                        <a href="#" th:href="@{'/activity/delete-event?eventId=' + ${event.id}}">Delete event</a>
+                    </td>
+
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>&copy; 2024 GymApp API</p>
+</footer>
+</body>
+</html>

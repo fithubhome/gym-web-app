@@ -1,13 +1,13 @@
-package com.gym_app.api.dto;
+package com.gym_app.api.dto.auth;
 
 import lombok.*;
 
+@Getter
+@Setter
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
-public class RegisterDTO {
+public class LoginDTO {
     private String email;
     private String password;
 }

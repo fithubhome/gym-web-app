@@ -1,9 +1,9 @@
-package com.gym_app.api.service.external;
+package com.gym_app.api.service.external.activities;
 
-import com.gym_app.api.exceptions.activities.EventNotFoundException;
-import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.dto.activities.GymEventDto;
 import com.gym_app.api.dto.activities.ParticipantDto;
+import com.gym_app.api.exceptions.activities.EventNotFoundException;
+import com.gym_app.api.model.UserEntity;
 import com.gym_app.api.repository.ProfileRepository;
 import com.gym_app.api.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -47,7 +46,6 @@ public class ActivitiesService {
     private String activitiesUrl;
 
     public List<GymEventDto> showEventsHistory() {
-        log.info(activitiesUrl);
         ResponseEntity<List<GymEventDto>> response = restTemplate.exchange(activitiesUrl + "/event/all-events",
                 HttpMethod.GET,
                 null,
@@ -134,21 +132,19 @@ public class ActivitiesService {
         participant.setEvent(event);
         participant.setProfileId(getProfileIdOfCurrentUser(email));
         try {
-            restTemplate.postForEntity(activitiesUrl + "/participant", participant, ParticipantDto.class);
+            restTemplate.postForObject(activitiesUrl + "/participant", participant, ParticipantDto.class);
         } catch (Exception exception) {
             log.info(exception.getMessage());
         }
     }
 
-    private GymEventDto getEventById(Long eventId) throws EventNotFoundException {
+    public GymEventDto getEventById(Long eventId) throws EventNotFoundException {
         ResponseEntity<GymEventDto> response = null;
         try {
             response = restTemplate.exchange(activitiesUrl + "/event?eventId=" + eventId,
-                    HttpMethod.GET,
-                    null,
-                    GymEventDto.class);
-
-
+                HttpMethod.GET,
+                null,
+                GymEventDto.class);
         } catch (Exception exception) {
             log.info(exception.getMessage());
         }
@@ -183,17 +179,34 @@ public class ActivitiesService {
 
         try {
             restTemplate.postForEntity(activitiesUrl + "/event", gymEventDto, GymEventDto.class);
+        } catch (HttpClientErrorException.Conflict exception) {
+            throw exception;
         } catch (Exception exception) {
             log.error(exception.getMessage());
         }
 
     }
 
-    @ExceptionHandler(HttpClientErrorException.class)
-    public ResponseEntity<String> handleEventNotFoundException(HttpClientErrorException exception) {
-        log.error(exception.getMessage());
-        return ResponseEntity
-                .status(404)
-                .body(exception.getMessage());
+    public void updateEvent(GymEventDto gymEventDto, String email) {
+
+        gymEventDto.setOrganizerId(getProfileIdOfCurrentUser(email));
+
+        try {
+            restTemplate.put(activitiesUrl + "/event", gymEventDto, GymEventDto.class);
+        } catch (HttpClientErrorException.Conflict exception) {
+            throw exception;
+        } catch (Exception exception) {
+            log.error(exception.getMessage());
+        }
+    }
+
+    public void deleteEvent(Long eventId) {
+
+        try {
+            restTemplate.delete(activitiesUrl + "/event?eventId=" + eventId);
+        } catch (Exception exception) {
+            log.error(exception.getMessage());
+        }
+
     }
 }

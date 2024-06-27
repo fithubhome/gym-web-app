@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Error</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
-<div class="error-container">
-    <h2>Oops! Something went wrong...</h2>
-    <p>Don't worry, let's get you back on track.</p>
-    <a th:href="@{/}" class="go-back-link">Go back to home</a>
-</div>
+<div th:if="${errorMessage}" th:text="${errorMessage}" id="error-message" style="display: none;"></div>
+<script>
+    $(document).ready(function() {
+        var errorMessage = $("#error-message").text();
+        if (errorMessage) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: errorMessage,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/activity';
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>

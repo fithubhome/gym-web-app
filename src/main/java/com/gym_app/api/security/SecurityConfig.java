@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,23 +26,26 @@ public class SecurityConfig {
     @SuppressWarnings("removal")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/", "/auth/**").permitAll()
-                .requestMatchers("/dashboard", "/profile/**", "/bodystats/**", "/membership/**", "/activities/**").authenticated()
-                .requestMatchers("/roles/**").hasRole("ADMIN")
-                .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/auth/login")
-                .loginProcessingUrl("/auth/login")
-                .defaultSuccessUrl("/dashboard", true)
-                .permitAll()
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/")
-                .permitAll();
+        http
+            .csrf().disable()
+            .cors(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests()
+            .requestMatchers("/", "/auth/**").permitAll()
+            .requestMatchers("/dashboard", "/profile/**", "/bodystats/**", "/membership/**", "/activity/**").authenticated()
+            .requestMatchers( "POST", "/membership/**", "/activity/**", "/bodystats/**").permitAll()
+            .requestMatchers("/role/**").hasRole("ADMIN")
+            .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
+            .and()
+            .formLogin()
+            .loginPage("/auth/login")
+            .loginProcessingUrl("/auth/login")
+            .defaultSuccessUrl("/dashboard", true)
+            .permitAll()
+            .and()
+            .logout()
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .logoutSuccessUrl("/")
+            .permitAll();
         return http.build();
     }
 

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Body Stats History</title>
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap">
+  <script>
+    function goToDetails(element) {
+      const id = element.getAttribute('data-id');
+      const profileId = element.getAttribute('data-profile-id');
+      window.location.href = `/bodystats/${id}`;
+    }
+  </script>
+</head>
+<body>
+<header>
+  <h1>FitHubHome</h1>
+</header>
+<div class="main-content">
+  <div class="container">
+    <a class="back-link" th:href="@{/bodystats}">
+      <span>&#8592;</span> Back to Main
+    </a>
+    <h2>Body Stats History</h2>
+    <table class="stats-table">
+      <thead>
+      <tr>
+        <th>Register Day</th>
+        <th>BMI (kg/m²)</th>
+        <th>Weight (kg)</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr style="cursor: pointer;" th:each="bodyStats : ${bodyStatsList}" th:attr="data-id=${bodyStats.id},data-profile-id=${profileId}" onclick="goToDetails(this)">
+        <td th:text="${#dates.format(bodyStats.registerDay, 'dd-MM-yyyy')}"></td>
+        <td th:text="${bodyStats.bmi}"></td>
+        <td th:text="${bodyStats.weight}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<footer>
+  <p>&copy; Bodystats - API</p>
+</footer>
+</body>
+</html>
