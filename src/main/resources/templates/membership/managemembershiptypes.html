@@ -9,6 +9,9 @@
 
 <div class="container">
     <h1>Current Membership Types</h1>
+    <!-- Flash Message Section -->
+    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+
     <table class="membership-table">
         <thead>
         <tr>
@@ -22,8 +25,9 @@
             <td th:text="${membership.name}"></td>
             <td th:text="${membership.price}"></td>
             <td>
-                <form th:action="@{http://localhost:8105/membershipType/{id}(id=${membership.id})}" method="post">
+                <form th:action="@{/membership/deleteMembershipType}" method="post">
                     <input type="hidden" name="_method" value="delete"/>
+                    <input type="hidden" name="id" th:value="${membership.id}"/>
                     <button type="submit">Remove</button>
                 </form>
             </td>
