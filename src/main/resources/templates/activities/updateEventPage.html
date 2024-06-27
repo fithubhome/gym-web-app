@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Events History</title>
+    <title>All Roles</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -27,7 +27,7 @@
                 <span class="bi bi-arrow-left"></span> Back to Activities
             </a>
         </h3>
-        <h2><span>Events History</span></h2>
+        <h2><span>Update or Delete Events</span></h2>
 
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
@@ -39,6 +39,8 @@
                     <th><b>Start Time</b></th>
                     <th><b>End Time</b></th>
                     <th><b>Max Participants</b></th>
+                    <th><b>Update</b></th>
+                    <th><b>Delete</b></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,6 +51,13 @@
                     <td th:text="${event.startTime}"></td>
                     <td th:text="${event.endTime}"></td>
                     <td th:text="${event.maxParticipants}"></td>
+                    <td>
+                        <a href="#" th:href="@{'/activity/update-event-form?eventId=' + ${event.id}}">Update event</a>
+                    </td>
+                    <td>
+                        <a href="#" th:href="@{'/activity/delete-event?eventId=' + ${event.id}}">Delete event</a>
+                    </td>
+
 
                 </tr>
                 </tbody>
