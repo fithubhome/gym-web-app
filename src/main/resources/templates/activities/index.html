@@ -9,18 +9,16 @@
 <header>
     <h1>FitHubHome</h1>
 </header>
-<div class="main-content"> <!-- Added a wrapper for the main content -->
-    <div class="container role-container"> <!-- Added a custom class for role-specific styles -->
+<div class="main-content">
+    <div class="container role-container">
         <h2>
             <a class="back-link" th:href="@{/dashboard}">
                 <span>&#8592;</span> Back to Dashboard
             </a>
         </h2>
-
         <a th:href="@{/activity/events-history}" class="role-link">Events-History</a>
         <a th:href="@{/activity/available-events}" class="role-link">Show Available Events</a>
         <a th:href="@{/activity/create-event-form}" class="role-link">Create new event</a>
-
     </div>
 </div>
 <footer>

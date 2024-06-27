@@ -75,7 +75,6 @@ public class ActivitiesController {
 
     @PostMapping("/create-event")
     public String createEvent(@ModelAttribute GymEventDto gymEventDto, HttpServletRequest httpServletRequest, Model model) throws IOException {
-
         activitiesService.createEvent(gymEventDto, httpServletRequest.getUserPrincipal().getName());
         model.addAttribute("events", activitiesService.showEventsHistory());
         return "activities/createEventForm";

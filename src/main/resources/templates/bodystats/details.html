@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Body Stats Detail</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<header>
+    <h1>FitHubHome</h1>
+</header>
+<div class="main-content">
+    <div class="container">
+        <a class="back-link" th:href="@{/bodystats}">
+            <span>&#8592;</span> Back to Main
+        </a>
+        <h2>Body Stats Detail</h2>
+        <div th:if="${bodyStats != null}">
+            <p><strong>Register Day:</strong> <span th:text="${#dates.format(bodyStats.registerDay, 'dd-MM-yyyy')}"></span></p>
+            <p><strong>BMI (kg/m²):</strong> <span th:text="${bodyStats.bmi}"></span></p>
+            <p><strong>Weight (kg):</strong> <span th:text="${bodyStats.weight}"></span></p>
+            <p><strong>Muscle Mass (kg):</strong> <span th:text="${bodyStats.muscleMass}"></span></p>
+            <p><strong>Fat Percentage (%):</strong> <span th:text="${bodyStats.fatPercentage}"></span></p>
+            <p><strong>Waist (cm):</strong> <span th:text="${bodyStats.waist}"></span></p>
+            <p><strong>Chest (cm):</strong> <span th:text="${bodyStats.chest}"></span></p>
+            <p><strong>Left Arm (cm):</strong> <span th:text="${bodyStats.leftArm}"></span></p>
+            <p><strong>Right Arm (cm):</strong> <span th:text="${bodyStats.rightArm}"></span></p>
+            <p><strong>Left Thigh (cm):</strong> <span th:text="${bodyStats.leftThigh}"></span></p>
+            <p><strong>Right Thigh (cm):</strong> <span th:text="${bodyStats.rightThigh}"></span></p>
+            <p><strong>Left Calf (cm):</strong> <span th:text="${bodyStats.leftCalf}"></span></p>
+            <p><strong>Right Calf (cm):</strong> <span th:text="${bodyStats.rightCalf}"></span></p>
+        </div>
+        <p th:if="${bodyStats == null}">No body stats found.</p>
+    </div>
+</div>
+<footer>
+    <p>&copy; Bodystats - API</p>
+</footer>
+</body>
+</html>

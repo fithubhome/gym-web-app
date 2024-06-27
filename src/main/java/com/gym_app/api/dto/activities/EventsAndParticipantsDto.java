@@ -10,7 +10,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class EventsAndParticipantsDto {
-
     private List<GymEventDto> events;
     private List<ParticipantDto> participants;
 }

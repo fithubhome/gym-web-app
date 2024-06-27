@@ -46,7 +46,6 @@ public class ActivitiesService {
     private String activitiesUrl;
 
     public List<GymEventDto> showEventsHistory() {
-        log.info(activitiesUrl);
         ResponseEntity<List<GymEventDto>> response = restTemplate.exchange(activitiesUrl + "/event/all-events",
             HttpMethod.GET,
             null,
@@ -133,7 +132,7 @@ public class ActivitiesService {
         participant.setEvent(event);
         participant.setProfileId(getProfileIdOfCurrentUser(email));
         try {
-            restTemplate.postForEntity(activitiesUrl + "/participant", participant, ParticipantDto.class);
+            restTemplate.postForObject(activitiesUrl + "/participant", participant, ParticipantDto.class);
         } catch (Exception exception) {
             log.info(exception.getMessage());
         }
@@ -143,11 +142,9 @@ public class ActivitiesService {
         ResponseEntity<GymEventDto> response = null;
         try {
             response = restTemplate.exchange(activitiesUrl + "/event?eventId=" + eventId,
-                    HttpMethod.GET,
-                    null,
-                    GymEventDto.class);
-
-
+                HttpMethod.GET,
+                null,
+                GymEventDto.class);
         } catch (Exception exception) {
             log.info(exception.getMessage());
         }
