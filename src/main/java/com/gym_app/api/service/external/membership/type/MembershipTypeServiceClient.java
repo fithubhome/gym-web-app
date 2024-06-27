@@ -48,4 +48,11 @@ public class MembershipTypeServiceClient {
         RestTemplate CLIENT = new RestTemplate();
         CLIENT.delete(String.format("%s%s/%s", BASE_URL, BASE_URI,uuid));
     }
+
+    public void createMembershipType(MembershipType membershipType) {
+        String BASE_URL = "http://localhost:8105";
+        String BASE_URI = "/membershipType";
+        RestTemplate CLIENT = new RestTemplate();
+        CLIENT.postForObject(String.format("%s%s", BASE_URL, BASE_URI), membershipType, String.class);
+    }
 }

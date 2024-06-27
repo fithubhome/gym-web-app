@@ -106,6 +106,16 @@ public class MembershipController {
         return "redirect:/membership/managemembershiptypes";
     }
 
+
+    @PostMapping("/createMembershipType")
+    public String createMembershipType(@ModelAttribute MembershipType membershipType, RedirectAttributes redirectAttributes) {
+        membershipTypeService.createMembershipType(membershipType);
+
+        redirectAttributes.addFlashAttribute("message", "Membership type created successfully");
+        return "redirect:/membership/managemembershiptypes";
+    }
+
+
     //This method is for testing iwth POSTMAN; it can be deleted afterwards
     @Autowired
     MembershipHistoryService membershipHistoryService;

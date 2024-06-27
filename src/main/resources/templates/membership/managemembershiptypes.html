@@ -18,7 +18,24 @@
         </a>
         <h2>Manage memberships</h2>
     </div>
+
+    <h1>Create new membership</h1>
+    <!-- Flash Message Section -->
+    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
     <div class="container">
+        <form th:action="@{/membership/createMembershipType}" method="post">
+            <p>New membership name:
+                <input name="name" type="text" required>
+            </p>
+
+            <p>New membership price:
+                <input name="price" type="text" required>
+            </p>
+
+            <button type="submit">Select Membership</button>
+        </form>
+
+
         <h1>Current Membership Types</h1>
         <!-- Flash Message Section -->
         <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>

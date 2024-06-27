@@ -29,5 +29,8 @@ public class MembershipTypeService {
         membershipTypeServiceClient.deleteMembershipType(uuid);
     }
 
+    public void createMembershipType(MembershipType membershipType) {
+        membershipTypeServiceClient.createMembershipType(membershipType);
+    }
 }
 
