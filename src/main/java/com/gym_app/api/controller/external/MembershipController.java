@@ -16,10 +16,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/membership")
@@ -83,9 +86,40 @@ public class MembershipController {
         }
     }
 
+    @GetMapping("managemembershiptypes")
+    public ModelAndView getManageMembershipTypePage() {
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("membership/managemembershiptypes");
+        List<MembershipType> membershipTypesList = membershipTypeService.getAllMembershipsType();
+        modelAndView.addObject("membershipTypesList", membershipTypesList);
+
+        return modelAndView;
+    }
+
+    @DeleteMapping("/deleteMembershipType")
+    public String deleteMembershipType(@RequestParam UUID id, RedirectAttributes redirectAttributes) {
+
+        membershipTypeService.deleteMembershipType(id);
+
+        redirectAttributes.addFlashAttribute("message", "Membership type removed successfully");
+        return "redirect:/membership/managemembershiptypes";
+    }
+
+
+    @PostMapping("/createMembershipType")
+    public String createMembershipType(@ModelAttribute MembershipType membershipType, RedirectAttributes redirectAttributes) {
+        membershipTypeService.createMembershipType(membershipType);
+
+        redirectAttributes.addFlashAttribute("message", "Membership type created successfully");
+        return "redirect:/membership/managemembershiptypes";
+    }
+
+
     //This method is for testing iwth POSTMAN; it can be deleted afterwards
     @Autowired
     MembershipHistoryService membershipHistoryService;
+
     @GetMapping("/getHistory")
     public ResponseEntity<List<MembershipHistory>> getMembershipHistory() {
         try {
