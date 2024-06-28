@@ -24,6 +24,11 @@ public class MembershipHistoryService {
 
     @Autowired
     private MembershipHistoryServiceClient membershipHistoryServiceClient;
+    @Autowired
+    ProfileService profileService;
+    @Autowired
+    UserService userService;
+
 
     public List<MembershipHistory> getMembershipHistory() throws EntityNotFoundException {
         UUID currentProfile = getCurrentProfile();
@@ -42,12 +47,6 @@ public class MembershipHistoryService {
         throw new EntityNotFoundException(getClass().getName());
 
     }
-
-
-    @Autowired
-    ProfileService profileService;
-    @Autowired
-    UserService userService;
 
     public UUID getCurrentProfile() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

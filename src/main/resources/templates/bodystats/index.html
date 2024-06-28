@@ -1,56 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Body Stats</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Body Stats</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<header>
-    <h1>FitHubHome</h1>
-</header>
-<div class="main-content">
-    <div class="container">
-        <div class="header">
-            <a class="back-link" th:href="@{/dashboard}">
-                <span>&#8592;</span> Back to Dashboard
-            </a>
-            <h2>My Profile</h2>
+<div class="container mt-5 text-center">
+    <h2 class="mb-4">Welcome to Body Stats Management</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6 mb-3">
+            <a href="/bodystats/history" class="btn btn-primary btn-lg btn-block">View Body Stats History</a>
         </div>
-        <h2>Latest Body Stats Registered</h2>
-        <div th:if="${bodyStats != null}">
-            <table class="stats-table">
-                <tr>
-                    <th>Register Day</th>
-                    <td><span th:text="${#dates.format(bodyStats.registerDay, 'dd-MM-yyyy')}"></span></td>
-                </tr>
-                <tr>
-                    <th>BMI</th>
-                    <td><span th:text="${bodyStats.bmi}"> kg/m²</span></td>
-                </tr>
-                <tr>
-                    <th>Weight</th>
-                    <td><span th:text="${bodyStats.weight}"></span> kg</td>
-                </tr>
-                <tr>
-                    <th>Muscle Mass</th>
-                    <td><span th:text="${bodyStats.muscleMass}"></span> kg</td>
-                </tr>
-                <tr>
-                    <th>Fat Percentage</th>
-                    <td><span th:text="${bodyStats.fatPercentage}"></span> %</td>
-                </tr>
-            </table>
-        </div>
-        <p th:if="${bodyStats == null}">No body stats available.</p>
-        <div class="nav-links">
-            <a th:href="@{/bodystats/history}" class="role-link">View Body Stats History</a>
-            <a th:href="@{/bodystats/new}" class="role-link">Add New Body Stats</a>
+        <div class="col-md-6 mb-3">
+            <a href="/bodystats/record" class="btn btn-secondary btn-lg btn-block">Record New Body Stats</a>
         </div>
     </div>
 </div>
-<footer>
-    <p>&copy; 2024 Bodystats - API</p>
-</footer>
 </body>
 </html>

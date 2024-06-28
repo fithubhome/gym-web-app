@@ -1,6 +1,6 @@
 package com.gym_app.api.config;
 
-import com.gym_app.api.controller.external.BodystatsController;
+import com.gym_app.api.controller.external.BodyStatsController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Configuration
 public class RestTemplateConfig {
-    private static final Logger logger = LoggerFactory.getLogger(BodystatsController.class);
+    private static final Logger logger = LoggerFactory.getLogger(BodyStatsController.class);
 
     @Bean
     public RestTemplate restTemplate() {

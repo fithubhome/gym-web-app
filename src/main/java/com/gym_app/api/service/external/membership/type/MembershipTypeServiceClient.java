@@ -10,6 +10,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Getter
@@ -41,4 +42,17 @@ public class MembershipTypeServiceClient {
         }
     }
 
+    public void deleteMembershipType(UUID uuid) {
+        String BASE_URL = "http://localhost:8105";
+        String BASE_URI = "/membershipType";
+        RestTemplate CLIENT = new RestTemplate();
+        CLIENT.delete(String.format("%s%s/%s", BASE_URL, BASE_URI,uuid));
+    }
+
+    public void createMembershipType(MembershipType membershipType) {
+        String BASE_URL = "http://localhost:8105";
+        String BASE_URI = "/membershipType";
+        RestTemplate CLIENT = new RestTemplate();
+        CLIENT.postForObject(String.format("%s%s", BASE_URL, BASE_URI), membershipType, String.class);
+    }
 }
