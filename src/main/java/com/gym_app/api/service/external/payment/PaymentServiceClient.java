@@ -1,7 +1,6 @@
 package com.gym_app.api.service.external.payment;
 
 import com.gym_app.api.dto.membership.payment.PaymentDTO;
-import com.gym_app.api.service.external.bodystats.BodystatsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,7 @@ public class PaymentServiceClient {
     private static final String BASE_URI = "/payment";
     private static final RestTemplate SERVER = new RestTemplate();
 
-    private static final Logger logger = LoggerFactory.getLogger(BodystatsService.class);
+    private static final Logger logger = LoggerFactory.getLogger(PaymentServiceClient.class);
 
     public String postRequest(PaymentDTO paymentDTO){
         logger.info("PaymentDto from gymapp: {}", paymentDTO.toString());
