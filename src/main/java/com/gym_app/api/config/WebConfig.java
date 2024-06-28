@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateTimeFormatAnnotationFormatterFactory;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import jakarta.servlet.Filter;
@@ -20,6 +21,12 @@ public class WebConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new StringToSqlTimeConverter());
         registry.addFormatterForFieldAnnotation(new DateTimeFormatAnnotationFormatterFactory());
+    }
+
+    @Bean
+    public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
+        HiddenHttpMethodFilter filter = new HiddenHttpMethodFilter();
+        return filter;
     }
 
 }
