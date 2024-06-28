@@ -3,20 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Body Stats</title>
+    <title>Body Stats Page</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container mt-5 text-center">
-    <h2 class="mb-4">Welcome to Body Stats Management</h2>
+<header>
+<h1>FitHubHome</h1>
+</header>
+<h2>
+    <h2 class="row justify-content-center" >Welcome to Body Stats Management</h2>
+    <a class="back-link" th:href="@{/dashboard}">
+        <span>&#8592;</span> Back to Dashboard
+    </a>
+</h2>
+<div class="main-content">
+    <div class="container role-container">
+
     <div class="row justify-content-center">
         <div class="col-md-6 mb-3">
             <a href="/bodystats/history" class="btn btn-primary btn-lg btn-block">View Body Stats History</a>
         </div>
         <div class="col-md-6 mb-3">
-            <a href="/bodystats/record" class="btn btn-secondary btn-lg btn-block">Record New Body Stats</a>
+            <a href="/bodystats/record" class="btn btn-primary btn-lg btn-block">Record New Body Stats</a>
         </div>
     </div>
 </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 GymApp API</p>
+</footer>
 </body>
 </html>
