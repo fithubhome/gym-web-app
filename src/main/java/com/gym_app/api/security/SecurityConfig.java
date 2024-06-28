@@ -32,7 +32,7 @@ public class SecurityConfig {
             .authorizeHttpRequests()
             .requestMatchers("/", "/auth/**").permitAll()
             .requestMatchers("/dashboard", "/profile/**", "/bodystats/**", "/membership/**", "/activity/**").authenticated()
-            .requestMatchers( "POST", "/membership/**", "/activity/**", "/bodystats/**").permitAll()
+            .requestMatchers( "POST", "/activity/**","/bodystats/**", "/membership/**", "/payment/**").permitAll()
             .requestMatchers("/role/**").hasRole("ADMIN")
             .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
             .and()
