@@ -1,38 +1,95 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Body Stats Page</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Membership</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script>
+        // Function to initialize the current date in YYYY-MM format
+        function initializeCurrentDate() {
+            var now = new Date();
+            var month = (now.getMonth() + 1).toString().padStart(2, '0'); // Adjust for zero index
+            var year = now.getFullYear();
+            return year + '-' + month;
+        }
+
+        // Function to set the min attribute for cardExpirationDate input
+        function setMinDate() {
+            var currentDate = initializeCurrentDate();
+            document.getElementById('cardExpirationDate').setAttribute('min', currentDate);
+        }
+
+        // Call setMinDate function when the document is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            setMinDate();
+        });
+
+    </script>
 </head>
 <body>
 <header>
-<h1>FitHubHome</h1>
+    <h1 style="color: white;">Membership Page</h1>
 </header>
-<h2>
-    <h2 class="row justify-content-center" >Welcome to Body Stats Management</h2>
-    <a class="back-link" th:href="@{/dashboard}">
-        <span>&#8592;</span> Back to Dashboard
-    </a>
-</h2>
-<div class="main-content">
-    <div class="container role-container">
 
-    <div class="row justify-content-center">
-        <div class="col-md-6 mb-3">
-            <a href="/bodystats/history" class="btn btn-primary btn-lg btn-block">View Body Stats History</a>
+<div class="welcome-page">
+    <div class="content role-container">
+        <div class="header">
+            <a class="back-link" th:href="@{/dashboard}">
+                <span>&#8592;</span> Back to Dashboard
+            </a>
+            <h2>My Profile</h2>
         </div>
-        <div class="col-md-6 mb-3">
-            <a href="/bodystats/record" class="btn btn-primary btn-lg btn-block">Record New Body Stats</a>
-        </div>
+        <h2>Please add your card details and select the desired membership:</h2>
+        <p><i>"A journey to become the best version of yourself"</i></p>
+        <br>
+
+        <form th:action="@{/membership/submitMembership}" method="post">
+            <p>Name<span style="color: red">*</span>:
+                <input name="personName" type="text" pattern="[A-Za-z\s]+" placeholder="Add your full name" required>
+            </p>
+            <p>CardNr<span style="color: red">*</span>:
+                <input name="cardNr" type="text" pattern="\d{16}" placeholder="0000111122223333" required>
+            </p>
+            <p>CVC<span style="color: red">*</span>:
+                <input name="cvc" type="text" pattern="\d{3}" placeholder="123" required>
+            </p>
+            <p>Card exp date<span style="color: red">*</span>:
+                <input id="cardExpirationDate" name="cardExpirationDate" type="month" placeholder="YYYY-MM" required>
+            </p>
+
+            <div class="dropdown">
+                <select name="selectedMembershipId">
+                    <option th:each="obj : ${objects}" th:value="${obj.id}" th:text="${obj.name + ' price: ' + obj.price + ' EUR/ Month'}">Default Option</option>
+                </select>
+            </div>
+            <br>
+            <h3>All membership types are active for 30 days since payment</h3>
+            <button type="submit">Select Membership</button>
+        </form>
     </div>
 </div>
+
+<div class="container">
+    <h1>Membership History</h1>
+    <table id="membershipTable" class="membership-table">
+        <thead>
+        <tr>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Membership Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="membership : ${membershipHistory}">
+            <td th:text="${membership.startDate}"></td>
+            <td th:text="${membership.endDate}"></td>
+            <td th:text="${membership.membershipName}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <footer>
-    <p>&copy; 2024 GymApp API</p>
+    <p>&copy; 2024 Membership API</p>
 </footer>
 </body>
 </html>
