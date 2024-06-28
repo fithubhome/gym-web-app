@@ -34,7 +34,6 @@ public class BodystatsController {
         if (authentication == null || !authentication.isAuthenticated()) {
             return "redirect:/auth/login";
         }
-
         return "bodystats/index";
     }
 
@@ -54,10 +53,7 @@ public class BodystatsController {
         model.addAttribute("body", bodystatsService.getBodystatsByProfileId(profileId));
         return "/bodystats/bodystats-history";
     }
-/*    @GetMapping("/record")
-    public String createBodyStatsRecords(Model model) {
-        return "/bodystats/bodystats-records";
-    }*/
+
     @GetMapping("/record")
     public String showNewBodyStatsForm(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
