@@ -4,12 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Record Body Stats</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<header>
+    <h1>FitHubHome</h1>
+</header>
+<h2>
+    <h2 class="row justify-content-center" >Welcome to Body Stats Record Page</h2>
+    <a class="back-link" th:href="@{/dashboard}">
+        <span>&#8592;</span> Back to Dashboard
+    </a>
+</h2>
 <div class="container mt-5">
     <h2 class="text-center">Record Body Stats</h2>
-    <form method="post" th:action="@{/bodystats/record}" th:object="${body}">
+    <form method="post" th:action="@{/bodystats}" th:object="${body}">
         <div class="form-group">
             <label for="startingWeight">Starting Weight</label>
             <input type="number" class="form-control" id="startingWeight" th:field="*{startingWeight}" required>
@@ -66,8 +76,12 @@
             <label for="rightCalf">Right Calf</label>
             <input type="number" class="form-control" id="rightCalf" th:field="*{rightCalf}" required>
         </div>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-success btn-lg">Save</button>
+        <button type="reset" class="btn btn-danger btn-lg">Cancel</button>
     </form>
 </div>
+<footer>
+    <p>&copy; 2024 GymApp API</p>
+</footer>
 </body>
 </html>
