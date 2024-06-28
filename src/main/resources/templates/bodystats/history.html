@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Body Stats History</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<header>
+    <h1>FitHubHome</h1>
+</header>
+<h2>
+    <h2 class="row justify-content-center" >Welcome to Body Stats History Page</h2>
+    <a class="back-link" th:href="@{/dashboard}">
+        <span>&#8592;</span> Back to Dashboard
+    </a>
+</h2>
 <div class="container mt-5">
     <h2 class="text-center">Body Stats History</h2>
     <table class="table table-bordered mt-3">
@@ -51,4 +61,7 @@
     </table>
 </div>
 </body>
+<footer>
+    <p>&copy; 2024 GymApp API</p>
+</footer>
 </html>
