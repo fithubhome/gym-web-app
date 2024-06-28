@@ -20,7 +20,7 @@
         <div class="content-info">
             <div class="profile-image-section">
                 <img th:if="${base64Image != null}" th:src="'data:image/jpeg;base64,' + ${base64Image}" alt="Profile Image" class="profile-image" />
-                <img th:src="@{/images/default-profile.png}" alt="Default Profile Image" th:if="${profile.imageData == null}" class="profile-image" />
+                <img th:src="@{/images/default_profile.jpg}" alt="Default Profile Image" th:if="${profile.imageData == null}" class="profile-image" />
                 <span class="profile-role"><em th:text="${role}"></em></span>
             </div>
             <div class="profile-details">
