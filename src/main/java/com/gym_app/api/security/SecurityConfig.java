@@ -31,7 +31,7 @@ public class SecurityConfig {
             .cors(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests()
             .requestMatchers("/", "/auth/**").permitAll()
-            .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+            .requestMatchers("/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
             .requestMatchers("/dashboard", "/profile/**", "/bodystats/**", "/membership/**", "/activity/**").authenticated()
             .requestMatchers( "POST", "/activity/**","/bodystats/**", "/membership/**", "/payment/**").permitAll()
             .requestMatchers("/role/**").hasRole("ADMIN")
