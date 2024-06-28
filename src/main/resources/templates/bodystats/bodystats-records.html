@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record Body Stats</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">Record Body Stats</h2>
+    <form method="post" th:action="@{/bodystats}" th:object="${body}">
+        <div class="form-group">
+            <label for="startingWeight">Starting Weight</label>
+            <input type="number" class="form-control" id="startingWeight" th:field="*{startingWeight}" required>
+        </div>
+        <div class="form-group">
+            <label for="registerDay">Register Day</label>
+            <input type="number" class="form-control" id="registerDay" th:field="*{registerDay}" required>
+        </div>
+        <div class="form-group">
+            <label for="bmi">BMI</label>
+            <input type="number" class="form-control" id="bmi" th:field="*{bmi}" required>
+        </div>
+        <div class="form-group">
+            <label for="muscleMass">Muscle Mass</label>
+            <input type="number" class="form-control" id="muscleMass" th:field="*{muscleMass}" required>
+        </div>
+        <div class="form-group">
+            <label for="fatPercentage">Fat Percentage</label>
+            <input type="number" class="form-control" id="fatPercentage" th:field="*{fatPercentage}" required>
+        </div>
+        <div class="form-group">
+            <label for="waist">Waist</label>
+            <input type="number" class="form-control" id="waist" th:field="*{waist}" required>
+        </div>
+        <div class="form-group">
+            <label for="buttocks">Buttocks</label>
+            <input type="number" class="form-control" id="buttocks" th:field="*{buttocks}" required>
+        </div>
+        <div class="form-group">
+            <label for="chest">Chest</label>
+            <input type="number" class="form-control" id="chest" th:field="*{chest}" required>
+        </div>
+        <div class="form-group">
+            <label for="leftArm">Left Arm</label>
+            <input type="number" class="form-control" id="leftArm" th:field="*{leftArm}" required>
+        </div>
+        <div class="form-group">
+            <label for="rightArm">Right Arm</label>
+            <input type="number" class="form-control" id="rightArm" th:field="*{rightArm}" required>
+        </div>
+        <div class="form-group">
+            <label for="leftThigh">Left Thigh</label>
+            <input type="number" class="form-control" id="leftThigh" th:field="*{leftThigh}" required>
+        </div>
+        <div class="form-group">
+            <label for="rightThigh">Right Thigh</label>
+            <input type="number" class="form-control" id="rightThigh" th:field="*{rightThigh}" required>
+        </div>
+        <div class="form-group">
+            <label for="leftCalf">Left Calf</label>
+            <input type="number" class="form-control" id="leftCalf" th:field="*{leftCalf}" required>
+        </div>
+        <div class="form-group">
+            <label for="rightCalf">Right Calf</label>
+            <input type="number" class="form-control" id="rightCalf" th:field="*{rightCalf}" required>
+        </div>
+        <!-- <div class="form-group">
+             <label for="startDate">Start Date</label>
+             <input type="date" class="form-control" id="startDate" th:field="*{startDate}" required>
+         </div>
+         <div class="form-group">
+             <label for="endDate">End Date</label>
+             <input type="date" class="form-control" id="endDate" th:field="*{endDate}" required>
+         </div>-->
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+</body>
+</html>
