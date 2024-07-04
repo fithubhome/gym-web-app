@@ -1,47 +1,67 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Body Stats History</title>
-  <link rel="stylesheet" type="text/css" href="/css/styles.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap">
-  <script>
-    function goToDetails(element) {
-      const id = element.getAttribute('data-id');
-      const profileId = element.getAttribute('data-profile-id');
-      window.location.href = `/bodystats/${id}`;
-    }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body Stats History</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <header>
-  <h1>FitHubHome</h1>
+    <h1>FitHubHome</h1>
 </header>
-<div class="main-content">
-  <div class="container">
-    <a class="back-link" th:href="@{/bodystats}">
-      <span>&#8592;</span> Back to Main
+<h2>
+    <h2 class="row justify-content-center" >Welcome to Body Stats History Page</h2>
+    <a class="back-link" th:href="@{/dashboard}">
+        <span>&#8592;</span> Back to Dashboard
     </a>
-    <h2>Body Stats History</h2>
-    <table class="stats-table">
-      <thead>
-      <tr>
-        <th>Register Day</th>
-        <th>BMI (kg/m²)</th>
-        <th>Weight (kg)</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr style="cursor: pointer;" th:each="bodyStats : ${bodyStatsList}" th:attr="data-id=${bodyStats.id},data-profile-id=${profileId}" onclick="goToDetails(this)">
-        <td th:text="${#dates.format(bodyStats.registerDay, 'dd-MM-yyyy')}"></td>
-        <td th:text="${bodyStats.bmi}"></td>
-        <td th:text="${bodyStats.weight}"></td>
-      </tr>
-      </tbody>
+</h2>
+<div class="container mt-5">
+    <h2 class="text-center">Body Stats History</h2>
+    <table class="table table-bordered mt-3">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Starting Weight</th>
+            <th>Register Day</th>
+            <th>BMI</th>
+            <th>Muscle Mass</th>
+            <th>Fat Percentage</th>
+            <th>Waist</th>
+            <th>Buttocks</th>
+            <th>Chest</th>
+            <th>Left Arm</th>
+            <th>Right Arm</th>
+            <th>Left Thigh</th>
+            <th>Right Thigh</th>
+            <th>Left Calf</th>
+            <th>Right Calf</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="body : ${body}">
+            <td th:text="${body.id}"></td>
+            <td th:text="${body.startingWeight}"></td>
+            <td th:text="${body.registerDay}"></td>
+            <td th:text="${body.bmi}"></td>
+            <td th:text="${body.muscleMass}"></td>
+            <td th:text="${body.fatPercentage}"></td>
+            <td th:text="${body.waist}"></td>
+            <td th:text="${body.buttocks}"></td>
+            <td th:text="${body.chest}"></td>
+            <td th:text="${body.leftArm}"></td>
+            <td th:text="${body.rightArm}"></td>
+            <td th:text="${body.leftThigh}"></td>
+            <td th:text="${body.rightThigh}"></td>
+            <td th:text="${body.leftCalf}"></td>
+            <td th:text="${body.rightCalf}"></td>
+        </tr>
+        </tbody>
     </table>
-  </div>
 </div>
-<footer>
-  <p>&copy; Bodystats - API</p>
-</footer>
 </body>
+<footer>
+    <p>&copy; 2024 GymApp API</p>
+</footer>
 </html>

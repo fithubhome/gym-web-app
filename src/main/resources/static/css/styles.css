@@ -504,3 +504,20 @@ ul li span {
 .stats-table tr:hover, .membership-table tr:hover {
     background-color: #e9ecef;
 }
+
+/* Flash Message CSS */
+.flash-message {
+    animation: fadeOut 2s forwards;
+    opacity: 1;
+}
+
+/* Keyframes for fade out animation */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
