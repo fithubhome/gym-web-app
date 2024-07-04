@@ -18,10 +18,12 @@
     <div class="container">
         <div class="profile-section top-right-corner">
             <a th:href="@{/profile}">
+
                 <img th:if="${base64Image != null}" th:src="'data:image/jpeg;base64,' + ${base64Image}"
                      alt="Profile Image" class="profile-image-dashboard"/>
                 <img th:if="${base64Image == null}" th:src="@{/images/default-profile.png}" alt="Default Profile Image"
                      class="profile-image-dashboard"/>
+
                 <span th:text="${#strings.capitalize(user.email.split('@')[0])}"></span>
             </a>
         </div>

@@ -18,6 +18,20 @@ public class PaymentDTO {
     private String personName;
     private String cardNr;
     private String cvc;
+
+    @Override
+    public String toString() {
+        return "PaymentDTO{" +
+                "profileID=" + profileID +
+                ", selectedMembershipId=" + selectedMembershipId +
+                ", personName='" + personName + '\'' +
+                ", cardNr='" + cardNr + '\'' +
+                ", cvc='" + cvc + '\'' +
+                ", cardExpirationDate=" + cardExpirationDate +
+                ", status=" + status +
+                '}';
+    }
+
     private YearMonth cardExpirationDate;
     private PaymentStatusEnum status;
 
