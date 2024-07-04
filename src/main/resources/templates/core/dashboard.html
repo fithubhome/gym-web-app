@@ -18,8 +18,10 @@
     <div class="container">
         <div class="profile-section top-right-corner">
             <a th:href="@{/profile}">
-                <img th:if="${base64Image != null}" th:src="'data:image/jpeg;base64,' + ${base64Image}" alt="Profile Image" class="profile-image-dashboard" />
-                <img th:if="${base64Image == null}" th:src="@{/images/default-profile.png}" alt="Default Profile Image" class="profile-image-dashboard" />
+                <img th:if="${base64Image != null}" th:src="'data:image/jpeg;base64,' + ${base64Image}"
+                     alt="Profile Image" class="profile-image-dashboard"/>
+                <img th:if="${base64Image == null}" th:src="@{/images/default-profile.png}" alt="Default Profile Image"
+                     class="profile-image-dashboard"/>
                 <span th:text="${#strings.capitalize(user.email.split('@')[0])}"></span>
             </a>
         </div>
@@ -30,7 +32,9 @@
             <a th:href="@{/membership/managemembershiptypes}" class="role-link">Manage Membership Types</a>
         </div>
         <a th:href="@{/bodystats}" class="role-link">Bodystats</a>
-        <a th:href="@{/membership}" class="role-link">Membership</a>
+        <div th:if="${!isAdmin}" style="display: inline-block;">
+            <a th:href="@{/membership}" class="role-link">Membership</a>
+        </div>
         <a th:href="@{/activity}" class="role-link">Activity</a>
 
     </div>
